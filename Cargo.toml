@@ -3,7 +3,7 @@ members = ["xtask"]
 
 [package]
 name = "chromata"
-version = "0.0.1"
+version = "0.1.0"
 edition = "2024"
 description = "1000+ editor color themes as compile-time Rust constants"
 license = "GPL-3.0"

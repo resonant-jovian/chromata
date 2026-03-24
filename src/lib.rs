@@ -35,15 +35,17 @@
 //! ```
 
 #![no_std]
+#![forbid(unsafe_code)]
+#![deny(clippy::unwrap_used)]
 extern crate alloc;
 
-mod types;
-mod traits;
 mod iter;
+mod traits;
+mod types;
 
-pub use types::*;
-pub use traits::*;
 pub use iter::*;
+pub use traits::*;
+pub use types::*;
 
 #[cfg(feature = "base16")]
 pub mod base16;

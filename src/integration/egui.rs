@@ -1,5 +1,11 @@
+//! Egui framework integration.
+//!
+//! Provides [`From<Color>`](crate::Color) for [`egui::Color32`] and a
+//! convenience method on [`Theme`](crate::Theme).
+
 use crate::{Color, Theme};
 
+/// Convert a chromata Color to an egui Color32.
 impl From<Color> for ::egui::Color32 {
     fn from(c: Color) -> Self {
         ::egui::Color32::from_rgb(c.r, c.g, c.b)

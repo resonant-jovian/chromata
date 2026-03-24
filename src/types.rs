@@ -6,8 +6,11 @@ use alloc::{format, vec};
 /// All values are compile-time constants with zero runtime cost.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Color {
+    /// Red component (0–255).
     pub r: u8,
+    /// Green component (0–255).
     pub g: u8,
+    /// Blue component (0–255).
     pub b: u8,
 }
 
@@ -73,15 +76,20 @@ fn srgb_to_linear(c: f64) -> f64 {
 /// Dark or light theme variant.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Variant {
+    /// A dark theme (light text on dark background).
     Dark,
+    /// A light theme (dark text on light background).
     Light,
 }
 
 /// Contrast level classification based on WCAG contrast ratio.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Contrast {
+    /// High contrast (WCAG ratio >= 10.0).
     High,
+    /// Normal contrast (WCAG ratio 4.5–10.0).
     Normal,
+    /// Low contrast (WCAG ratio < 4.5).
     Low,
 }
 
@@ -121,30 +129,51 @@ pub struct Theme {
     pub statusbar_fg: Option<Color>,
 
     // -- Syntax colors --
+    /// Comment text color.
     pub comment: Option<Color>,
+    /// Language keyword color (if, else, fn, struct, ...).
     pub keyword: Option<Color>,
+    /// String literal color.
     pub string: Option<Color>,
+    /// Function/method name color.
     pub function: Option<Color>,
+    /// Variable/parameter name color.
     pub variable: Option<Color>,
+    /// Type name color (structs, enums, traits, ...).
     pub r#type: Option<Color>,
+    /// Constant/literal value color.
     pub constant: Option<Color>,
+    /// Operator color (+, -, =, ...).
     pub operator: Option<Color>,
+    /// Tag color (HTML/XML tags).
     pub tag: Option<Color>,
 
     // -- Diagnostic colors --
+    /// Error diagnostic color.
     pub error: Option<Color>,
+    /// Warning diagnostic color.
     pub warning: Option<Color>,
+    /// Info diagnostic color.
     pub info: Option<Color>,
+    /// Success/hint diagnostic color.
     pub success: Option<Color>,
 
     // -- Named accent palette --
+    /// Red accent.
     pub red: Option<Color>,
+    /// Orange accent.
     pub orange: Option<Color>,
+    /// Yellow accent.
     pub yellow: Option<Color>,
+    /// Green accent.
     pub green: Option<Color>,
+    /// Cyan accent.
     pub cyan: Option<Color>,
+    /// Blue accent.
     pub blue: Option<Color>,
+    /// Purple accent.
     pub purple: Option<Color>,
+    /// Magenta/pink accent.
     pub magenta: Option<Color>,
 }
 
@@ -221,34 +250,59 @@ impl Theme {
 /// The 16 base16 palette slots.
 #[derive(Debug, Clone, Copy)]
 pub struct Base16Palette {
+    /// Default background.
     pub base00: Color,
+    /// Lighter background (status bars, line highlights).
     pub base01: Color,
+    /// Selection background.
     pub base02: Color,
+    /// Comments, invisibles, line highlighting.
     pub base03: Color,
+    /// Dark foreground (status bars).
     pub base04: Color,
+    /// Default foreground, caret, delimiters.
     pub base05: Color,
+    /// Light foreground.
     pub base06: Color,
+    /// Lightest foreground.
     pub base07: Color,
+    /// Variables, XML tags, markup link text, diff deleted.
     pub base08: Color,
+    /// Integers, boolean, constants, XML attributes.
     pub base09: Color,
+    /// Classes, markup bold, search text background.
     pub base0a: Color,
+    /// Strings, inherited class, diff inserted.
     pub base0b: Color,
+    /// Support, regex, escape characters.
     pub base0c: Color,
+    /// Functions, methods, headings.
     pub base0d: Color,
+    /// Keywords, storage, selector.
     pub base0e: Color,
+    /// Deprecated, opening/closing embedded language tags.
     pub base0f: Color,
 }
 
 /// Extended base24 theme with additional accent slots.
 #[derive(Debug, Clone, Copy)]
 pub struct Base24Palette {
+    /// Base16 palette (slots 00–0F).
     pub base: Base16Palette,
+    /// Darker background.
     pub base10: Color,
+    /// Darkest background.
     pub base11: Color,
+    /// Bright red.
     pub base12: Color,
+    /// Bright yellow.
     pub base13: Color,
+    /// Bright green.
     pub base14: Color,
+    /// Bright cyan.
     pub base15: Color,
+    /// Bright blue.
     pub base16: Color,
+    /// Bright magenta.
     pub base17: Color,
 }

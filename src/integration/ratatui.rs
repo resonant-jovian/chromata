@@ -1,6 +1,12 @@
+//! Ratatui framework integration.
+//!
+//! Provides [`From<Color>`](crate::Color) for [`ratatui::style::Color`] and a
+//! convenience method on [`Theme`](crate::Theme).
+
 use crate::{Color, Theme};
 use ::ratatui::style::Color as RatColor;
 
+/// Convert a chromata Color to a ratatui RGB color.
 impl From<Color> for RatColor {
     fn from(c: Color) -> Self {
         RatColor::Rgb(c.r, c.g, c.b)

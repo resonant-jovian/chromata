@@ -1,3 +1,8 @@
+//! Framework integration modules.
+//!
+//! Each sub-module provides [`From<Color>`](crate::Color) conversions for a
+//! specific UI framework, gated behind an optional feature flag.
+
 #[cfg(feature = "ratatui-integration")]
 mod ratatui;
 

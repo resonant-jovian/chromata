@@ -11,7 +11,7 @@
 [![Clippy](https://github.com/resonant-jovian/chromata/actions/workflows/clippy.yml/badge.svg)](https://github.com/resonant-jovian/chromata/actions/workflows/clippy.yml)
 
 > [!IMPORTANT]
-> Pre-0.1.0 — the API is unstable, features may be incomplete or change without notice, and it is not yet intended for general use.
+> Pre-1.0 — the API may change between minor versions. Pin your dependency version.
 
 ---
 
@@ -47,14 +47,14 @@ Each theme is a struct with named fields for semantic color roles — background
 
 ```toml
 [dependencies]
-chromata = "0.0.1"
+chromata = "0.1.0"
 ```
 
 Or with framework integration:
 
 ```toml
 [dependencies]
-chromata = { version = "0.0.1", features = ["ratatui-integration"] }
+chromata = { version = "0.1.0", features = ["ratatui-integration"] }
 ```
 
 ### Quick start
@@ -133,10 +133,11 @@ src/
 ├── lib.rs            # Re-exports, feature gates, #![no_std]
 ├── types.rs          # Color, Theme, Variant, Contrast, Base16Palette, Base24Palette
 ├── traits.rs         # Framework integration traits
-├── iter.rs           # all_themes(), collect_all_themes()
-├── popular/          # Feature: "popular" (default) — curated ~50 best themes
+├── iter.rs           # collect_all_themes()
+├── popular/          # Feature: "popular" (default) — curated 49 best themes
 │   ├── mod.rs
-│   └── gruvbox.rs
+│   ├── gruvbox.rs, solarized.rs, nord.rs, dracula.rs, ...
+│   └── (24 family files, 49 themes total)
 ├── base16/           # Feature: "base16" — ~305 tinted-theming schemes
 │   └── mod.rs
 ├── base24/           # Feature: "base24" — ~184 extended base16 schemes
@@ -239,7 +240,7 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 
 | Feature | Description | Default |
 |---------|-------------|---------|
-| `popular` | Curated ~50 most popular themes | Yes |
+| `popular` | Curated 49 most popular themes | Yes |
 | `base16` | ~305 base16 themes from tinted-theming/schemes | No |
 | `base24` | ~184 base24 themes (extended base16) | No |
 | `vim` | ~600 vim colorschemes | No |
@@ -259,6 +260,7 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 cargo build                           # build with default features (popular)
 cargo build --all-features            # build everything
 cargo test                            # run tests
+cargo xtask fetch                     # fetch upstream base16 YAML schemes
 cargo xtask generate                  # generate themes from data/ YAML files
 cargo clippy --all-features           # lint
 cargo doc --no-deps --open            # browse API docs

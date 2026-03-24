@@ -5,17 +5,17 @@
 
 use crate::{Color, Contrast, Theme, Variant};
 
-/// Gruvbox Dark Hard — high-contrast dark variant.
+/// Gruvbox Dark Hard — dark variant with darker background.
 ///
 /// Author: Dawid Kurek (dawikur@gmail.com)
 /// Variant: Dark
-/// Contrast: High
+/// Contrast: Normal
 /// Source: base16 (tinted-theming/schemes)
 pub const DARK_HARD: Theme = Theme {
     name: "Gruvbox Dark Hard",
     author: "Dawid Kurek (dawikur@gmail.com)",
     variant: Variant::Dark,
-    contrast: Contrast::High,
+    contrast: Contrast::Normal,
     bg: Color::from_hex(0x1d2021),
     fg: Color::from_hex(0xd5c4a1),
     cursor: Some(Color::from_hex(0xd5c4a1)),
