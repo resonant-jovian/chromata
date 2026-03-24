@@ -5,7 +5,7 @@
 //! Chromata provides every popular editor and terminal color theme as
 //! compile-time `const` data. No file parsing, no runtime allocation,
 //! no dependencies. Add `chromata` to your `Cargo.toml`, write
-//! `chromata::popular::gruvbox::DARK_HARD.bg()`, and get a hex color
+//! `chromata::popular::gruvbox::DARK_HARD.bg`, and get a hex color
 //! at zero cost.
 //!
 //! ## Feature Flags

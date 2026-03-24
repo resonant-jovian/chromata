@@ -5,11 +5,15 @@ members = ["xtask"]
 name = "chromata"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.85"
 description = "1000+ editor color themes as compile-time Rust constants"
-license = "GPL-3.0"
+license = "GPL-3.0-only"
 repository = "https://github.com/resonant-jovian/chromata"
+documentation = "https://docs.rs/chromata"
+readme = "README.md"
 keywords = ["color", "theme", "colorscheme", "syntax", "palette"]
 categories = ["no-std", "value-formatting", "visualization"]
+exclude = ["data/", "xtask/"]
 
 [features]
 default = ["popular"]

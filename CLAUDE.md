@@ -44,7 +44,7 @@ Each integration module in `src/integration/` provides `From<Color>` for the fra
 
 ### Data pipeline
 
-`data/` is gitignored. Upstream YAML schemes are fetched on demand by `cargo xtask fetch`, then `cargo xtask generate` produces sorted, deterministic `.rs` files with WCAG contrast classification. The generated `src/base16/` files ARE committed (Strategy B — no build-time parsing for consumers).
+`data/` is gitignored. Upstream YAML schemes are fetched on demand by `cargo xtask fetch`, then `cargo xtask generate` produces sorted, deterministic `.rs` files with WCAG contrast classification. The generated `src/base16/` files ARE committed (Strategy B — no build-time parsing for consumers). There is no `build.rs` — all code generation happens via xtask, not at build time.
 
 ## Conventions
 
