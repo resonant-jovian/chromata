@@ -5,7 +5,7 @@
 //! Chromata provides every popular editor and terminal color theme as
 //! compile-time `const` data. No file parsing, no runtime allocation,
 //! no dependencies. Add `chromata` to your `Cargo.toml`, write
-//! `chromata::popular::gruvbox::DARK_HARD.bg()`, and get a hex color
+//! `chromata::popular::gruvbox::DARK_HARD.bg`, and get a hex color
 //! at zero cost.
 //!
 //! ## Feature Flags
@@ -35,15 +35,17 @@
 //! ```
 
 #![no_std]
+#![forbid(unsafe_code)]
+#![deny(clippy::unwrap_used)]
 extern crate alloc;
 
-mod types;
-mod traits;
 mod iter;
+mod traits;
+mod types;
 
-pub use types::*;
-pub use traits::*;
 pub use iter::*;
+pub use traits::*;
+pub use types::*;
 
 #[cfg(feature = "base16")]
 pub mod base16;

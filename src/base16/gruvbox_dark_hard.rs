@@ -6,13 +6,13 @@ use crate::{Color, Contrast, Theme, Variant};
 
 /// Gruvbox dark, hard
 ///
-/// Author: Dawid Kurek (dawikur@gmail.com)
+/// Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 /// Variant: Dark
 /// Contrast: Normal
 /// Source: base16 (tinted-theming/schemes)
 pub const THEME: Theme = Theme {
     name: "Gruvbox dark, hard",
-    author: "Dawid Kurek (dawikur@gmail.com)",
+    author: "Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)",
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x1d2021),

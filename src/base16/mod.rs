@@ -1,4 +1,4 @@
-//! Base16 color themes (~305 schemes).
+//! Base16 color themes.
 //!
 //! Themes sourced from [tinted-theming/schemes](https://github.com/tinted-theming/schemes).
 //! Each theme provides the standard 16 base16 palette slots mapped to
@@ -10,9 +10,617 @@
 
 use crate::Theme;
 
+pub mod _0x96f;
+pub mod _3024;
+pub mod apathy;
+pub mod apprentice;
+pub mod ascendancy;
+pub mod ashes;
+pub mod atelier_cave;
+pub mod atelier_cave_light;
+pub mod atelier_dune;
+pub mod atelier_dune_light;
+pub mod atelier_estuary;
+pub mod atelier_estuary_light;
+pub mod atelier_forest;
+pub mod atelier_forest_light;
+pub mod atelier_heath;
+pub mod atelier_heath_light;
+pub mod atelier_lakeside;
+pub mod atelier_lakeside_light;
+pub mod atelier_plateau;
+pub mod atelier_plateau_light;
+pub mod atelier_savanna;
+pub mod atelier_savanna_light;
+pub mod atelier_seaside;
+pub mod atelier_seaside_light;
+pub mod atelier_sulphurpool;
+pub mod atelier_sulphurpool_light;
+pub mod atlas;
+pub mod ayu_dark;
+pub mod ayu_light;
+pub mod ayu_mirage;
+pub mod aztec;
+pub mod bespin;
+pub mod black_metal;
+pub mod black_metal_bathory;
+pub mod black_metal_burzum;
+pub mod black_metal_dark_funeral;
+pub mod black_metal_gorgoroth;
+pub mod black_metal_immortal;
+pub mod black_metal_khold;
+pub mod black_metal_marduk;
+pub mod black_metal_mayhem;
+pub mod black_metal_nile;
+pub mod black_metal_venom;
+pub mod blueforest;
+pub mod blueish;
+pub mod booshnickle_dark;
+pub mod brewer;
+pub mod bright;
+pub mod brogrammer;
+pub mod brushtrees;
+pub mod brushtrees_dark;
+pub mod caroline;
+pub mod catppuccin_frappe;
+pub mod catppuccin_latte;
+pub mod catppuccin_macchiato;
+pub mod catppuccin_mocha;
+pub mod chalk;
+pub mod charcoal_dark;
+pub mod charcoal_light;
+pub mod chicago_day;
+pub mod chicago_night;
+pub mod chinoiserie;
+pub mod chinoiserie_midnight;
+pub mod chinoiserie_morandi;
+pub mod chinoiserie_night;
+pub mod circus;
+pub mod classic_dark;
+pub mod classic_light;
+pub mod codeschool;
+pub mod colors;
+pub mod cupcake;
+pub mod cupertino;
+pub mod cyberpunk;
+pub mod da_one_black;
+pub mod da_one_gray;
+pub mod da_one_ocean;
+pub mod da_one_paper;
+pub mod da_one_sea;
+pub mod da_one_white;
+pub mod danqing;
+pub mod danqing_light;
+pub mod darcula;
+pub mod darkmoss;
+pub mod darktooth;
+pub mod darkviolet;
+pub mod decaf;
+pub mod deep_oceanic_next;
+pub mod default_dark;
+pub mod default_light;
+pub mod digital_rain;
+pub mod dirtysea;
+pub mod dracula;
+pub mod edge_dark;
+pub mod edge_light;
+pub mod eighties;
+pub mod eldritch;
+pub mod embers;
+pub mod embers_light;
+pub mod emil;
+pub mod equilibrium_dark;
+pub mod equilibrium_gray_dark;
+pub mod equilibrium_gray_light;
+pub mod equilibrium_light;
+pub mod eris;
+pub mod espresso;
+pub mod eva;
+pub mod eva_dim;
+pub mod evenok_dark;
+pub mod everforest;
+pub mod everforest_dark_hard;
+pub mod everforest_dark_medium;
+pub mod everforest_dark_soft;
+pub mod flat;
+pub mod flexoki_dark;
+pub mod flexoki_light;
+pub mod framer;
+pub mod fruit_soda;
+pub mod gigavolt;
+pub mod github;
+pub mod github_dark;
+pub mod google_dark;
+pub mod google_light;
+pub mod gotham;
+pub mod grayscale_dark;
+pub mod grayscale_light;
+pub mod greenscreen;
+pub mod gruber;
+pub mod gruvbox_dark;
 pub mod gruvbox_dark_hard;
+pub mod gruvbox_dark_medium;
+pub mod gruvbox_dark_pale;
+pub mod gruvbox_dark_soft;
+pub mod gruvbox_light;
+pub mod gruvbox_light_hard;
+pub mod gruvbox_light_medium;
+pub mod gruvbox_light_soft;
+pub mod gruvbox_material_dark_hard;
+pub mod gruvbox_material_dark_medium;
+pub mod gruvbox_material_dark_soft;
+pub mod gruvbox_material_light_hard;
+pub mod gruvbox_material_light_medium;
+pub mod gruvbox_material_light_soft;
+pub mod hardcore;
+pub mod hardhacker;
+pub mod harmonic16_dark;
+pub mod harmonic16_light;
+pub mod heetch;
+pub mod heetch_light;
+pub mod helios;
+pub mod hopscotch;
+pub mod horizon_dark;
+pub mod horizon_light;
+pub mod horizon_terminal_dark;
+pub mod horizon_terminal_light;
+pub mod humanoid_dark;
+pub mod humanoid_light;
+pub mod ia_dark;
+pub mod ia_light;
+pub mod icy;
+pub mod irblack;
+pub mod isotope;
+pub mod jabuti;
+pub mod kanagawa;
+pub mod kanagawa_dragon;
+pub mod katy;
+pub mod kimber;
+pub mod lime;
+pub mod linux_vt;
+pub mod macintosh;
+pub mod marrakesh;
+pub mod materia;
+pub mod material;
+pub mod material_darker;
+pub mod material_lighter;
+pub mod material_palenight;
+pub mod material_vivid;
+pub mod measured_dark;
+pub mod measured_light;
+pub mod mellow_purple;
+pub mod mexico_light;
+pub mod mocha;
+pub mod monokai;
+pub mod moonlight;
+pub mod mountain;
+pub mod nebula;
+pub mod nord;
+pub mod nord_light;
+pub mod nova;
+pub mod ocean;
+pub mod oceanicnext;
+pub mod one_light;
+pub mod onedark;
+pub mod onedark_dark;
+pub mod outrun_dark;
+pub mod oxocarbon_dark;
+pub mod oxocarbon_light;
+pub mod pandora;
+pub mod papercolor_dark;
+pub mod papercolor_light;
+pub mod paraiso;
+pub mod pasque;
+pub mod penumbra_dark;
+pub mod penumbra_dark_contrast_plus;
+pub mod penumbra_dark_contrast_plus_plus;
+pub mod penumbra_light;
+pub mod penumbra_light_contrast_plus;
+pub mod penumbra_light_contrast_plus_plus;
+pub mod phd;
+pub mod pico;
+pub mod pinky;
+pub mod pop;
+pub mod porple;
+pub mod precious_dark_eleven;
+pub mod precious_dark_fifteen;
+pub mod precious_light_warm;
+pub mod precious_light_white;
+pub mod primer_dark;
+pub mod primer_dark_dimmed;
+pub mod primer_light;
+pub mod purpledream;
+pub mod qualia;
+pub mod railscasts;
+pub mod rebecca;
+pub mod rose_pine;
+pub mod rose_pine_dawn;
+pub mod rose_pine_moon;
+pub mod saga;
+pub mod sagelight;
+pub mod sakura;
+pub mod sandcastle;
+pub mod selenized_black;
+pub mod selenized_dark;
+pub mod selenized_light;
+pub mod selenized_white;
+pub mod seti;
+pub mod shades_of_purple;
+pub mod shadesmear_dark;
+pub mod shadesmear_light;
+pub mod shapeshifter;
+pub mod silk_dark;
+pub mod silk_light;
+pub mod snazzy;
+pub mod soft_server;
+pub mod solarflare;
+pub mod solarflare_light;
+pub mod solarized_dark;
+pub mod solarized_light;
+pub mod spaceduck;
+pub mod spacemacs;
+pub mod sparky;
+pub mod standardized_dark;
+pub mod standardized_light;
+pub mod stella;
+pub mod still_alive;
+pub mod summercamp;
+pub mod summerfruit_dark;
+pub mod summerfruit_light;
+pub mod synth_midnight_dark;
+pub mod synth_midnight_light;
+pub mod tango;
+pub mod tarot;
+pub mod tender;
+pub mod terracotta;
+pub mod terracotta_dark;
+pub mod tokyo_city_dark;
+pub mod tokyo_city_light;
+pub mod tokyo_city_terminal_dark;
+pub mod tokyo_city_terminal_light;
+pub mod tokyo_night_dark;
+pub mod tokyo_night_light;
+pub mod tokyo_night_moon;
+pub mod tokyo_night_storm;
+pub mod tokyo_night_terminal_dark;
+pub mod tokyo_night_terminal_light;
+pub mod tokyo_night_terminal_storm;
+pub mod tokyodark;
+pub mod tokyodark_terminal;
+pub mod tomorrow;
+pub mod tomorrow_night;
+pub mod tomorrow_night_eighties;
+pub mod tube;
+pub mod twilight;
+pub mod unikitty_dark;
+pub mod unikitty_light;
+pub mod unikitty_reversible;
+pub mod uwunicorn;
+pub mod valua;
+pub mod vesper;
+pub mod vice;
+pub mod vulcan;
+pub mod windows_10;
+pub mod windows_10_light;
+pub mod windows_95;
+pub mod windows_95_light;
+pub mod windows_highcontrast;
+pub mod windows_highcontrast_light;
+pub mod windows_nt;
+pub mod windows_nt_light;
+pub mod woodland;
+pub mod xcode_dusk;
+pub mod yesterday;
+pub mod yesterday_bright;
+pub mod yesterday_night;
+pub mod zenbones;
+pub mod zenburn;
 
 /// All themes in the `base16` collection.
 pub static THEMES: &[&Theme] = &[
+    &_0x96f::THEME,
+    &_3024::THEME,
+    &apathy::THEME,
+    &apprentice::THEME,
+    &ascendancy::THEME,
+    &ashes::THEME,
+    &atelier_cave::THEME,
+    &atelier_cave_light::THEME,
+    &atelier_dune::THEME,
+    &atelier_dune_light::THEME,
+    &atelier_estuary::THEME,
+    &atelier_estuary_light::THEME,
+    &atelier_forest::THEME,
+    &atelier_forest_light::THEME,
+    &atelier_heath::THEME,
+    &atelier_heath_light::THEME,
+    &atelier_lakeside::THEME,
+    &atelier_lakeside_light::THEME,
+    &atelier_plateau::THEME,
+    &atelier_plateau_light::THEME,
+    &atelier_savanna::THEME,
+    &atelier_savanna_light::THEME,
+    &atelier_seaside::THEME,
+    &atelier_seaside_light::THEME,
+    &atelier_sulphurpool::THEME,
+    &atelier_sulphurpool_light::THEME,
+    &atlas::THEME,
+    &ayu_dark::THEME,
+    &ayu_light::THEME,
+    &ayu_mirage::THEME,
+    &aztec::THEME,
+    &bespin::THEME,
+    &black_metal::THEME,
+    &black_metal_bathory::THEME,
+    &black_metal_burzum::THEME,
+    &black_metal_dark_funeral::THEME,
+    &black_metal_gorgoroth::THEME,
+    &black_metal_immortal::THEME,
+    &black_metal_khold::THEME,
+    &black_metal_marduk::THEME,
+    &black_metal_mayhem::THEME,
+    &black_metal_nile::THEME,
+    &black_metal_venom::THEME,
+    &blueforest::THEME,
+    &blueish::THEME,
+    &booshnickle_dark::THEME,
+    &brewer::THEME,
+    &bright::THEME,
+    &brogrammer::THEME,
+    &brushtrees::THEME,
+    &brushtrees_dark::THEME,
+    &caroline::THEME,
+    &catppuccin_frappe::THEME,
+    &catppuccin_latte::THEME,
+    &catppuccin_macchiato::THEME,
+    &catppuccin_mocha::THEME,
+    &chalk::THEME,
+    &charcoal_dark::THEME,
+    &charcoal_light::THEME,
+    &chicago_day::THEME,
+    &chicago_night::THEME,
+    &chinoiserie::THEME,
+    &chinoiserie_midnight::THEME,
+    &chinoiserie_morandi::THEME,
+    &chinoiserie_night::THEME,
+    &circus::THEME,
+    &classic_dark::THEME,
+    &classic_light::THEME,
+    &codeschool::THEME,
+    &colors::THEME,
+    &cupcake::THEME,
+    &cupertino::THEME,
+    &cyberpunk::THEME,
+    &da_one_black::THEME,
+    &da_one_gray::THEME,
+    &da_one_ocean::THEME,
+    &da_one_paper::THEME,
+    &da_one_sea::THEME,
+    &da_one_white::THEME,
+    &danqing::THEME,
+    &danqing_light::THEME,
+    &darcula::THEME,
+    &darkmoss::THEME,
+    &darktooth::THEME,
+    &darkviolet::THEME,
+    &decaf::THEME,
+    &deep_oceanic_next::THEME,
+    &default_dark::THEME,
+    &default_light::THEME,
+    &digital_rain::THEME,
+    &dirtysea::THEME,
+    &dracula::THEME,
+    &edge_dark::THEME,
+    &edge_light::THEME,
+    &eighties::THEME,
+    &eldritch::THEME,
+    &embers::THEME,
+    &embers_light::THEME,
+    &emil::THEME,
+    &equilibrium_dark::THEME,
+    &equilibrium_gray_dark::THEME,
+    &equilibrium_gray_light::THEME,
+    &equilibrium_light::THEME,
+    &eris::THEME,
+    &espresso::THEME,
+    &eva::THEME,
+    &eva_dim::THEME,
+    &evenok_dark::THEME,
+    &everforest::THEME,
+    &everforest_dark_hard::THEME,
+    &everforest_dark_medium::THEME,
+    &everforest_dark_soft::THEME,
+    &flat::THEME,
+    &flexoki_dark::THEME,
+    &flexoki_light::THEME,
+    &framer::THEME,
+    &fruit_soda::THEME,
+    &gigavolt::THEME,
+    &github::THEME,
+    &github_dark::THEME,
+    &google_dark::THEME,
+    &google_light::THEME,
+    &gotham::THEME,
+    &grayscale_dark::THEME,
+    &grayscale_light::THEME,
+    &greenscreen::THEME,
+    &gruber::THEME,
+    &gruvbox_dark::THEME,
     &gruvbox_dark_hard::THEME,
+    &gruvbox_dark_medium::THEME,
+    &gruvbox_dark_pale::THEME,
+    &gruvbox_dark_soft::THEME,
+    &gruvbox_light::THEME,
+    &gruvbox_light_hard::THEME,
+    &gruvbox_light_medium::THEME,
+    &gruvbox_light_soft::THEME,
+    &gruvbox_material_dark_hard::THEME,
+    &gruvbox_material_dark_medium::THEME,
+    &gruvbox_material_dark_soft::THEME,
+    &gruvbox_material_light_hard::THEME,
+    &gruvbox_material_light_medium::THEME,
+    &gruvbox_material_light_soft::THEME,
+    &hardcore::THEME,
+    &hardhacker::THEME,
+    &harmonic16_dark::THEME,
+    &harmonic16_light::THEME,
+    &heetch::THEME,
+    &heetch_light::THEME,
+    &helios::THEME,
+    &hopscotch::THEME,
+    &horizon_dark::THEME,
+    &horizon_light::THEME,
+    &horizon_terminal_dark::THEME,
+    &horizon_terminal_light::THEME,
+    &humanoid_dark::THEME,
+    &humanoid_light::THEME,
+    &ia_dark::THEME,
+    &ia_light::THEME,
+    &icy::THEME,
+    &irblack::THEME,
+    &isotope::THEME,
+    &jabuti::THEME,
+    &kanagawa::THEME,
+    &kanagawa_dragon::THEME,
+    &katy::THEME,
+    &kimber::THEME,
+    &lime::THEME,
+    &linux_vt::THEME,
+    &macintosh::THEME,
+    &marrakesh::THEME,
+    &materia::THEME,
+    &material::THEME,
+    &material_darker::THEME,
+    &material_lighter::THEME,
+    &material_palenight::THEME,
+    &material_vivid::THEME,
+    &measured_dark::THEME,
+    &measured_light::THEME,
+    &mellow_purple::THEME,
+    &mexico_light::THEME,
+    &mocha::THEME,
+    &monokai::THEME,
+    &moonlight::THEME,
+    &mountain::THEME,
+    &nebula::THEME,
+    &nord::THEME,
+    &nord_light::THEME,
+    &nova::THEME,
+    &ocean::THEME,
+    &oceanicnext::THEME,
+    &one_light::THEME,
+    &onedark::THEME,
+    &onedark_dark::THEME,
+    &outrun_dark::THEME,
+    &oxocarbon_dark::THEME,
+    &oxocarbon_light::THEME,
+    &pandora::THEME,
+    &papercolor_dark::THEME,
+    &papercolor_light::THEME,
+    &paraiso::THEME,
+    &pasque::THEME,
+    &penumbra_dark::THEME,
+    &penumbra_dark_contrast_plus::THEME,
+    &penumbra_dark_contrast_plus_plus::THEME,
+    &penumbra_light::THEME,
+    &penumbra_light_contrast_plus::THEME,
+    &penumbra_light_contrast_plus_plus::THEME,
+    &phd::THEME,
+    &pico::THEME,
+    &pinky::THEME,
+    &pop::THEME,
+    &porple::THEME,
+    &precious_dark_eleven::THEME,
+    &precious_dark_fifteen::THEME,
+    &precious_light_warm::THEME,
+    &precious_light_white::THEME,
+    &primer_dark::THEME,
+    &primer_dark_dimmed::THEME,
+    &primer_light::THEME,
+    &purpledream::THEME,
+    &qualia::THEME,
+    &railscasts::THEME,
+    &rebecca::THEME,
+    &rose_pine::THEME,
+    &rose_pine_dawn::THEME,
+    &rose_pine_moon::THEME,
+    &saga::THEME,
+    &sagelight::THEME,
+    &sakura::THEME,
+    &sandcastle::THEME,
+    &selenized_black::THEME,
+    &selenized_dark::THEME,
+    &selenized_light::THEME,
+    &selenized_white::THEME,
+    &seti::THEME,
+    &shades_of_purple::THEME,
+    &shadesmear_dark::THEME,
+    &shadesmear_light::THEME,
+    &shapeshifter::THEME,
+    &silk_dark::THEME,
+    &silk_light::THEME,
+    &snazzy::THEME,
+    &soft_server::THEME,
+    &solarflare::THEME,
+    &solarflare_light::THEME,
+    &solarized_dark::THEME,
+    &solarized_light::THEME,
+    &spaceduck::THEME,
+    &spacemacs::THEME,
+    &sparky::THEME,
+    &standardized_dark::THEME,
+    &standardized_light::THEME,
+    &stella::THEME,
+    &still_alive::THEME,
+    &summercamp::THEME,
+    &summerfruit_dark::THEME,
+    &summerfruit_light::THEME,
+    &synth_midnight_dark::THEME,
+    &synth_midnight_light::THEME,
+    &tango::THEME,
+    &tarot::THEME,
+    &tender::THEME,
+    &terracotta::THEME,
+    &terracotta_dark::THEME,
+    &tokyo_city_dark::THEME,
+    &tokyo_city_light::THEME,
+    &tokyo_city_terminal_dark::THEME,
+    &tokyo_city_terminal_light::THEME,
+    &tokyo_night_dark::THEME,
+    &tokyo_night_light::THEME,
+    &tokyo_night_moon::THEME,
+    &tokyo_night_storm::THEME,
+    &tokyo_night_terminal_dark::THEME,
+    &tokyo_night_terminal_light::THEME,
+    &tokyo_night_terminal_storm::THEME,
+    &tokyodark::THEME,
+    &tokyodark_terminal::THEME,
+    &tomorrow::THEME,
+    &tomorrow_night::THEME,
+    &tomorrow_night_eighties::THEME,
+    &tube::THEME,
+    &twilight::THEME,
+    &unikitty_dark::THEME,
+    &unikitty_light::THEME,
+    &unikitty_reversible::THEME,
+    &uwunicorn::THEME,
+    &valua::THEME,
+    &vesper::THEME,
+    &vice::THEME,
+    &vulcan::THEME,
+    &windows_10::THEME,
+    &windows_10_light::THEME,
+    &windows_95::THEME,
+    &windows_95_light::THEME,
+    &windows_highcontrast::THEME,
+    &windows_highcontrast_light::THEME,
+    &windows_nt::THEME,
+    &windows_nt_light::THEME,
+    &woodland::THEME,
+    &xcode_dusk::THEME,
+    &yesterday::THEME,
+    &yesterday_bright::THEME,
+    &yesterday_night::THEME,
+    &zenbones::THEME,
+    &zenburn::THEME,
 ];
