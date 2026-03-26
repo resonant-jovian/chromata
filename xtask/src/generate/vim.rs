@@ -104,7 +104,8 @@ fn parse_vim_colorscheme(content: &str) -> Option<VimThemeData> {
 
     // Pass 2: extract highlight groups
     let hi_re = Regex::new(r"(?i)hi(?:ghlight)?!?\s+(\w+)\s+(.+)").unwrap();
-    let link_re = Regex::new(r"(?i)hi(?:ghlight)?!?\s+(?:def(?:ault)?\s+)?link\s+(\w+)\s+(\w+)").unwrap();
+    let link_re =
+        Regex::new(r"(?i)hi(?:ghlight)?!?\s+(?:def(?:ault)?\s+)?link\s+(\w+)\s+(\w+)").unwrap();
     let prop_re = Regex::new(r"(guifg|guibg|ctermfg|ctermbg)\s*=\s*(\S+)").unwrap();
 
     let mut groups: HashMap<String, HighlightGroup> = HashMap::new();
@@ -187,15 +188,11 @@ fn parse_vim_colorscheme(content: &str) -> Option<VimThemeData> {
 
     // Extract theme name
     let name_re = Regex::new(r#"let\s+(?:g:)?colors_name\s*=\s*['"](.*?)['"]"#).unwrap();
-    let theme_name = name_re
-        .captures(content)
-        .map(|c| c[1].to_string());
+    let theme_name = name_re.captures(content).map(|c| c[1].to_string());
 
     // Extract variant
     let bg_re = Regex::new(r"set\s+background\s*=\s*(\w+)").unwrap();
-    let variant_str = bg_re
-        .captures(content)
-        .map(|c| c[1].to_string());
+    let variant_str = bg_re.captures(content).map(|c| c[1].to_string());
 
     // Map to theme
     let normal = groups.get("Normal")?;
@@ -237,10 +234,12 @@ fn parse_vim_colorscheme(content: &str) -> Option<VimThemeData> {
     let constant = get_fg(&["Constant"]);
 
     // Quality gate: bg + fg + 4 syntax colors
-    let syntax_count = [comment, keyword, string, function, variable, type_color, constant]
-        .iter()
-        .filter(|c| c.is_some())
-        .count();
+    let syntax_count = [
+        comment, keyword, string, function, variable, type_color, constant,
+    ]
+    .iter()
+    .filter(|c| c.is_some())
+    .count();
     if syntax_count < 4 {
         return None;
     }
@@ -384,9 +383,7 @@ pub fn generate() -> Result<()> {
     let output_dir = project_root.join("src").join("vim");
 
     if !data_dir.exists() {
-        anyhow::bail!(
-            "No data/vim/ directory found.\nRun `cargo xtask fetch vim` first."
-        );
+        anyhow::bail!("No data/vim/ directory found.\nRun `cargo xtask fetch vim` first.");
     }
 
     fs::create_dir_all(&output_dir).context("creating src/vim/")?;

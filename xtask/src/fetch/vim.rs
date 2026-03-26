@@ -11,9 +11,13 @@ pub fn fetch(force: bool) -> Result<()> {
 
     // Check if we already have data and skip unless --force
     let existing_count = fs::read_dir(&data_dir)
-        .map(|rd| rd.filter(|e| e.as_ref().is_ok_and(|e| {
-            e.path().extension().and_then(|x| x.to_str()) == Some("vim")
-        })).count())
+        .map(|rd| {
+            rd.filter(|e| {
+                e.as_ref()
+                    .is_ok_and(|e| e.path().extension().and_then(|x| x.to_str()) == Some("vim"))
+            })
+            .count()
+        })
         .unwrap_or(0);
 
     if existing_count > 0 && !force {
@@ -57,9 +61,13 @@ pub fn fetch(force: bool) -> Result<()> {
     }
 
     let total = fs::read_dir(&data_dir)
-        .map(|rd| rd.filter(|e| e.as_ref().is_ok_and(|e| {
-            e.path().extension().and_then(|x| x.to_str()) == Some("vim")
-        })).count())
+        .map(|rd| {
+            rd.filter(|e| {
+                e.as_ref()
+                    .is_ok_and(|e| e.path().extension().and_then(|x| x.to_str()) == Some("vim"))
+            })
+            .count()
+        })
         .unwrap_or(0);
 
     println!("Fetched {total} vim colorschemes to data/vim/");
@@ -97,8 +105,7 @@ fn copy_vim_files(src_dir: &std::path::Path, dest_dir: &std::path::Path) -> Resu
         }
         let file_name = path.file_name().expect("entry has filename");
         let dest = dest_dir.join(file_name);
-        fs::copy(&path, &dest)
-            .with_context(|| format!("copying {}", path.display()))?;
+        fs::copy(&path, &dest).with_context(|| format!("copying {}", path.display()))?;
         count += 1;
     }
     Ok(count)

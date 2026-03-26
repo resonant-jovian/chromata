@@ -30,9 +30,7 @@ pub fn clean(cache: bool, generated: bool) -> Result<()> {
                 continue;
             }
             let mut removed = 0;
-            for entry in fs::read_dir(&dir)
-                .with_context(|| format!("reading src/{collection}/"))?
-            {
+            for entry in fs::read_dir(&dir).with_context(|| format!("reading src/{collection}/"))? {
                 let entry = entry?;
                 let path = entry.path();
                 // Keep mod.rs, remove everything else

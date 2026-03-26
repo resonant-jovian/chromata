@@ -10,19 +10,19 @@
 //!
 //! ## Feature Flags
 //!
-//! | Feature | Description |
-//! |---------|-------------|
-//! | `popular` (default) | Curated ~50 best themes |
-//! | `base16` | ~305 base16 themes |
-//! | `base24` | ~184 base24 themes |
-//! | `vim` | ~600 vim themes |
-//! | `emacs` | ~200 emacs themes |
-//! | `all` | Everything |
-//! | `ratatui-integration` | `From<Color>` for ratatui types |
-//! | `egui-integration` | `From<Color>` for egui types |
-//! | `crossterm-integration` | `From<Color>` for crossterm types |
-//! | `iced-integration` | `From<Color>` for iced types |
-//! | `serde-support` | Serialize/deserialize themes |
+//! | Feature | Themes | Description |
+//! |---------|--------|-------------|
+//! | `popular` (default) | 48 | Curated best themes (gruvbox, catppuccin, nord...) |
+//! | `base16` | 305 | Base16 themes from tinted-theming/schemes |
+//! | `base24` | 184 | Base24 themes from tinted-theming/schemes |
+//! | `vim` | 464 | Vim colorschemes from vim-colorschemes repos |
+//! | `emacs` | 102 | Emacs themes from emacs-themes-site |
+//! | `all` | 1103 | All collections combined |
+//! | `ratatui-integration` | — | `From<Color>` for ratatui types |
+//! | `egui-integration` | — | `From<Color>` for egui types |
+//! | `crossterm-integration` | — | `From<Color>` for crossterm types |
+//! | `iced-integration` | — | `From<Color>` for iced types |
+//! | `serde-support` | — | Serialize/deserialize themes |
 //!
 //! ## Quick Start
 //!
@@ -33,15 +33,29 @@
 //! println!("Background: {}", theme.bg.to_css_hex());
 //! println!("Is dark? {}", theme.is_dark());
 //! ```
+//!
+//! ## Query APIs
+//!
+//! ```rust
+//! use chromata::{find_by_name, filter_by_variant, Variant};
+//!
+//! if let Some(theme) = find_by_name("Gruvbox Dark Hard") {
+//!     println!("{}: {}", theme.name, theme.bg);
+//! }
+//! let dark_themes = filter_by_variant(Variant::Dark);
+//! ```
 
 #![no_std]
 #![forbid(unsafe_code)]
 #![deny(clippy::unwrap_used)]
+#![allow(rustdoc::bare_urls)]
 extern crate alloc;
 
 mod iter;
 mod traits;
 mod types;
+
+pub mod prelude;
 
 pub use iter::*;
 pub use traits::*;

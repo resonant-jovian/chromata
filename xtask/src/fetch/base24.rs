@@ -1,8 +1,8 @@
 use anyhow::{Context, Result, bail};
 use std::fs;
 
-use crate::codegen::project_root;
 use super::clone_tinted_theming;
+use crate::codegen::project_root;
 
 pub fn fetch(force: bool) -> Result<()> {
     let project_root = project_root();
@@ -28,8 +28,7 @@ pub fn fetch(force: bool) -> Result<()> {
 
         let file_name = path.file_name().expect("entry has filename");
         let dest = data_dir.join(file_name);
-        fs::copy(&path, &dest)
-            .with_context(|| format!("copying {}", path.display()))?;
+        fs::copy(&path, &dest).with_context(|| format!("copying {}", path.display()))?;
         count += 1;
     }
 

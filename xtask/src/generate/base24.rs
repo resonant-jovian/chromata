@@ -38,9 +38,9 @@ struct LegacyBase24 {
 }
 
 const BASE24_KEYS: &[&str] = &[
-    "base00", "base01", "base02", "base03", "base04", "base05", "base06", "base07",
-    "base08", "base09", "base0A", "base0B", "base0C", "base0D", "base0E", "base0F",
-    "base10", "base11", "base12", "base13", "base14", "base15", "base16", "base17",
+    "base00", "base01", "base02", "base03", "base04", "base05", "base06", "base07", "base08",
+    "base09", "base0A", "base0B", "base0C", "base0D", "base0E", "base0F", "base10", "base11",
+    "base12", "base13", "base14", "base15", "base16", "base17",
 ];
 
 fn normalize(content: &str, file_stem: &str) -> Result<Option<NormalizedBase24>> {
@@ -75,7 +75,11 @@ fn normalize(content: &str, file_stem: &str) -> Result<Option<NormalizedBase24>>
     Ok(None)
 }
 
-fn get_hex_literal(palette: &BTreeMap<String, String>, key: &str, scheme_name: &str) -> Result<String> {
+fn get_hex_literal(
+    palette: &BTreeMap<String, String>,
+    key: &str,
+    scheme_name: &str,
+) -> Result<String> {
     let hex = palette
         .get(key)
         .or_else(|| palette.get(&key.to_uppercase()))
@@ -102,9 +106,7 @@ pub fn generate() -> Result<()> {
     let output_dir = project_root.join("src").join("base24");
 
     if !data_dir.exists() {
-        anyhow::bail!(
-            "No data/base24/ directory found.\nRun `cargo xtask fetch base24` first."
-        );
+        anyhow::bail!("No data/base24/ directory found.\nRun `cargo xtask fetch base24` first.");
     }
 
     fs::create_dir_all(&output_dir).context("creating src/base24/")?;
@@ -120,8 +122,8 @@ pub fn generate() -> Result<()> {
             continue;
         }
 
-        let content = fs::read_to_string(&path)
-            .with_context(|| format!("reading {}", path.display()))?;
+        let content =
+            fs::read_to_string(&path).with_context(|| format!("reading {}", path.display()))?;
 
         let file_stem = path.file_stem().unwrap().to_str().unwrap();
 

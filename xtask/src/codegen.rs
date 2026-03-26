@@ -124,9 +124,5 @@ pub fn classify_contrast(bg_hex: u32, fg_hex: u32) -> &'static str {
 /// Detect variant from background luminance.
 pub fn detect_variant(bg_hex: u32) -> &'static str {
     let lum = luminance(bg_hex);
-    if lum > 0.5 {
-        "Light"
-    } else {
-        "Dark"
-    }
+    if lum > 0.5 { "Light" } else { "Dark" }
 }

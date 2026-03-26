@@ -6,7 +6,7 @@ use crate::{Color, Contrast, Theme, Variant};
 
 /// Seti UI
 ///
-/// Author: 
+/// Author:
 /// Variant: Dark
 /// Contrast: High
 /// Source: base16 (tinted-theming/schemes)

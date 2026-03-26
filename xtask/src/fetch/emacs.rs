@@ -11,9 +11,13 @@ pub fn fetch(force: bool) -> Result<()> {
 
     // Check if we already have data and skip unless --force
     let existing_count = fs::read_dir(&data_dir)
-        .map(|rd| rd.filter(|e| e.as_ref().is_ok_and(|e| {
-            e.path().extension().and_then(|x| x.to_str()) == Some("el")
-        })).count())
+        .map(|rd| {
+            rd.filter(|e| {
+                e.as_ref()
+                    .is_ok_and(|e| e.path().extension().and_then(|x| x.to_str()) == Some("el"))
+            })
+            .count()
+        })
         .unwrap_or(0);
 
     if existing_count > 0 && !force {
@@ -90,8 +94,7 @@ fn copy_el_files(
             .unwrap_or(file_name);
 
         let dest = data_dir.join(format!("{clean_name}.el"));
-        fs::copy(&path, &dest)
-            .with_context(|| format!("copying {}", path.display()))?;
+        fs::copy(&path, &dest).with_context(|| format!("copying {}", path.display()))?;
         count += 1;
     }
 

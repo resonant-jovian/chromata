@@ -70,8 +70,8 @@ pub fn generate() -> Result<()> {
             continue;
         }
 
-        let content = fs::read_to_string(&path)
-            .with_context(|| format!("reading {}", path.display()))?;
+        let content =
+            fs::read_to_string(&path).with_context(|| format!("reading {}", path.display()))?;
         let scheme: Base16Scheme = match serde_yaml::from_str(&content) {
             Ok(s) => s,
             Err(e) => {
