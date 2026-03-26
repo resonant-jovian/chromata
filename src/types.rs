@@ -5,6 +5,10 @@ use alloc::{format, vec};
 /// A color represented as RGB components.
 /// All values are compile-time constants with zero runtime cost.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[cfg_attr(
+    feature = "serde-support",
+    derive(serde::Serialize, serde::Deserialize)
+)]
 pub struct Color {
     /// Red component (0–255).
     pub r: u8,
@@ -75,6 +79,10 @@ fn srgb_to_linear(c: f64) -> f64 {
 
 /// Dark or light theme variant.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[cfg_attr(
+    feature = "serde-support",
+    derive(serde::Serialize, serde::Deserialize)
+)]
 pub enum Variant {
     /// A dark theme (light text on dark background).
     Dark,
@@ -93,6 +101,10 @@ impl core::fmt::Display for Variant {
 
 /// Contrast level classification based on WCAG contrast ratio.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[cfg_attr(
+    feature = "serde-support",
+    derive(serde::Serialize, serde::Deserialize)
+)]
 pub enum Contrast {
     /// High contrast (WCAG ratio >= 10.0).
     High,

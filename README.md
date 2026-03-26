@@ -47,7 +47,7 @@ Each theme is a struct with named fields for semantic color roles — background
 
 ```toml
 [dependencies]
-chromata = "0.1.0"
+chromata = "0.2.0"
 ```
 
 Or with framework integration:
@@ -238,19 +238,19 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 
 ## Feature Flags
 
-| Feature | Description | Default |
-|---------|-------------|---------|
-| `popular` | Curated 49 most popular themes | Yes |
-| `base16` | ~305 base16 themes from tinted-theming/schemes | No |
-| `base24` | ~184 base24 themes (extended base16) | No |
-| `vim` | ~600 vim colorschemes | No |
-| `emacs` | ~200 emacs themes | No |
-| `all` | Enable all theme families | No |
-| `ratatui-integration` | `From<Color>` for ratatui types | No |
-| `egui-integration` | `From<Color>` for egui types | No |
-| `crossterm-integration` | `From<Color>` for crossterm types | No |
-| `iced-integration` | `From<Color>` for iced types | No |
-| `serde-support` | Serialize/deserialize themes and colors | No |
+| Feature | Themes | Description | Default |
+|---------|--------|-------------|---------|
+| `popular` | 48 | Curated best themes (gruvbox, catppuccin, nord, ...) | Yes |
+| `base16` | 305 | Base16 themes from tinted-theming/schemes | No |
+| `base24` | 184 | Base24 themes (extended base16 with 8 extra slots) | No |
+| `vim` | 464 | Vim colorschemes from vim-colorschemes repos | No |
+| `emacs` | 102 | Emacs themes from emacs-themes-site | No |
+| `all` | 1103 | Enable all theme families | No |
+| `ratatui-integration` | — | `From<Color>` for ratatui types | No |
+| `egui-integration` | — | `From<Color>` for egui types | No |
+| `crossterm-integration` | — | `From<Color>` for crossterm types | No |
+| `iced-integration` | — | `From<Color>` for iced types | No |
+| `serde-support` | — | Serialize/deserialize themes and colors | No |
 
 ---
 
