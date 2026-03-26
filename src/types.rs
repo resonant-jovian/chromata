@@ -82,6 +82,15 @@ pub enum Variant {
     Light,
 }
 
+impl core::fmt::Display for Variant {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        match self {
+            Variant::Dark => f.write_str("Dark"),
+            Variant::Light => f.write_str("Light"),
+        }
+    }
+}
+
 /// Contrast level classification based on WCAG contrast ratio.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Contrast {
@@ -91,6 +100,22 @@ pub enum Contrast {
     Normal,
     /// Low contrast (WCAG ratio < 4.5).
     Low,
+}
+
+impl core::fmt::Display for Contrast {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        match self {
+            Contrast::High => f.write_str("High"),
+            Contrast::Normal => f.write_str("Normal"),
+            Contrast::Low => f.write_str("Low"),
+        }
+    }
+}
+
+impl core::fmt::Display for Color {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "#{:02x}{:02x}{:02x}", self.r, self.g, self.b)
+    }
 }
 
 /// A complete editor/terminal color theme.
