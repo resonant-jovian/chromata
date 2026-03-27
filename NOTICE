@@ -1,0 +1,75 @@
+NOTICE
+
+Chromata -- Editor Color Themes for Rust
+Copyright (C) 2025 The Chromata Authors
+Licensed under GPL-3.0-only
+
+This project bundles color theme data derived from multiple upstream sources.
+Each collection retains its original license and attribution requirements.
+The upstream licenses listed below apply to the theme data only, not to
+the Chromata source code itself.
+
+=========================================================================
+
+1. Base16 / Base24 Schemes
+
+   Organization: tinted-theming
+   License:      MIT
+   Source:       https://github.com/tinted-theming/schemes
+   Themes:       305 base16 + 184 base24
+
+=========================================================================
+
+2. Vim Colorschemes
+
+   Authors:     Various (individual theme authors)
+   License:     Mixed (Vim license, MIT, public domain)
+   Sources:     https://github.com/flazz/vim-colorschemes
+                https://github.com/vim/colorschemes
+   Themes:      464
+
+=========================================================================
+
+3. Emacs Themes
+
+   Authors:     Various (individual theme authors)
+   License:     Mixed (GPL, MIT — mostly GPL per Emacs conventions)
+   Source:      https://github.com/emacs-themes/emacs-themes-site
+   Themes:      102
+
+=========================================================================
+
+4. Popular (Hand-curated)
+
+   The popular module contains hand-curated themes sourced from their
+   original projects. Individual attributions:
+
+   - Gruvbox          Pavel Pertsev          MIT
+   - Solarized        Ethan Schoonover       MIT
+   - Nord             Arctic Ice Studio       MIT
+   - Dracula          Dracula Theme           MIT
+   - Catppuccin       Catppuccin Org          MIT
+   - Monokai          Wimer Hazenberg        (de facto public domain)
+   - One Dark         Atom / GitHub           MIT
+   - Tokyo Night      Folke Lemaitre          Apache-2.0
+   - Rose Pine        Rose Pine               MIT
+   - Kanagawa         rebelot                 MIT
+   - Everforest       sainnhe                 MIT
+   - Nightfox         EdenEast                MIT
+   - Tokyodark        tiagovla                MIT
+   - Ayu              dempfi                  MIT
+   - Zenburn          jnurmine               Vim license
+   - Tomorrow         Chris Kempson           MIT
+   - Material         Mattia Astorino         MIT
+   - Palenight        Mattia Astorino         MIT
+   - Moonlight        atomiks                 MIT
+   - Andromeda        Eliver Lara             MIT
+   - Apprentice       romainl                 MIT/Vim
+   - Nightowl         Sarah Drasner           MIT
+   - Iceberg          cocopon                 MIT
+   - Horizon          jolaleye                MIT
+
+=========================================================================
+
+For full license texts of each upstream project, consult the respective
+source repositories listed above.
