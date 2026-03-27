@@ -151,17 +151,17 @@ fn parse_vim_colorscheme(content: &str) -> Option<VimThemeData> {
                         }
                     }
                     "ctermfg" => {
-                        if group.guifg.is_none() {
-                            if let Some(hex) = resolved {
-                                group.guifg = Some(hex);
-                            }
+                        if group.guifg.is_none()
+                            && let Some(hex) = resolved
+                        {
+                            group.guifg = Some(hex);
                         }
                     }
                     "ctermbg" => {
-                        if group.guibg.is_none() {
-                            if let Some(hex) = resolved {
-                                group.guibg = Some(hex);
-                            }
+                        if group.guibg.is_none()
+                            && let Some(hex) = resolved
+                        {
+                            group.guibg = Some(hex);
                         }
                     }
                     _ => {}
@@ -205,10 +205,10 @@ fn parse_vim_colorscheme(content: &str) -> Option<VimThemeData> {
 
     let get_fg = |names: &[&str]| -> Option<u32> {
         for name in names {
-            if let Some(g) = groups.get(*name) {
-                if let Some(c) = g.guifg {
-                    return Some(c);
-                }
+            if let Some(g) = groups.get(*name)
+                && let Some(c) = g.guifg
+            {
+                return Some(c);
             }
         }
         None
@@ -216,10 +216,10 @@ fn parse_vim_colorscheme(content: &str) -> Option<VimThemeData> {
 
     let get_bg_of = |names: &[&str]| -> Option<u32> {
         for name in names {
-            if let Some(g) = groups.get(*name) {
-                if let Some(c) = g.guibg {
-                    return Some(c);
-                }
+            if let Some(g) = groups.get(*name)
+                && let Some(c) = g.guibg
+            {
+                return Some(c);
             }
         }
         None
@@ -253,7 +253,7 @@ fn parse_vim_colorscheme(content: &str) -> Option<VimThemeData> {
 
     Some(VimThemeData {
         name: theme_name,
-        variant: variant_str,
+        _variant: variant_str,
         bg,
         fg,
         cursor: get_bg_of(&["Cursor"]).or_else(|| get_fg(&["Cursor"])),
@@ -288,16 +288,16 @@ fn resolve_color_value(value: &str, vars: &HashMap<String, u32>) -> Option<u32> 
     let value = value.trim_matches(|c: char| c == '\'' || c == '"');
     let lower = value.to_lowercase();
 
-    if lower == "none" || lower == "fg" || lower == "bg" || lower == "none" {
+    if lower == "none" || lower == "fg" || lower == "bg" {
         return None;
     }
 
     // #RRGGBB hex
     let stripped = value.strip_prefix('#').unwrap_or(value);
-    if stripped.len() == 6 {
-        if let Ok(hex) = u32::from_str_radix(stripped, 16) {
-            return Some(hex);
-        }
+    if stripped.len() == 6
+        && let Ok(hex) = u32::from_str_radix(stripped, 16)
+    {
+        return Some(hex);
     }
 
     // Variable reference
@@ -310,11 +310,11 @@ fn resolve_color_value(value: &str, vars: &HashMap<String, u32>) -> Option<u32> 
     }
 
     // cterm index (decimal number)
-    if let Ok(idx) = value.parse::<u16>() {
-        if idx <= 255 {
-            let (r, g, b) = xterm256_to_rgb(idx as u8);
-            return Some(rgb_to_hex(r, g, b));
-        }
+    if let Ok(idx) = value.parse::<u16>()
+        && idx <= 255
+    {
+        let (r, g, b) = xterm256_to_rgb(idx as u8);
+        return Some(rgb_to_hex(r, g, b));
     }
 
     None
@@ -329,10 +329,10 @@ fn resolve_link(
     if depth > 10 {
         return None;
     }
-    if let Some(group) = groups.get(target) {
-        if group.guifg.is_some() || group.guibg.is_some() {
-            return Some(group.clone());
-        }
+    if let Some(group) = groups.get(target)
+        && (group.guifg.is_some() || group.guibg.is_some())
+    {
+        return Some(group.clone());
     }
     // Follow link chain
     for (from, to) in links {
@@ -345,7 +345,7 @@ fn resolve_link(
 
 struct VimThemeData {
     name: Option<String>,
-    variant: Option<String>,
+    _variant: Option<String>,
     bg: u32,
     fg: u32,
     cursor: Option<u32>,

@@ -1,9 +1,16 @@
 [workspace]
 members = ["xtask"]
 
+[workspace.lints.clippy]
+unwrap_used = "deny"
+all = { level = "warn", priority = -1 }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
 [package]
 name = "chromata"
-version = "0.2.0"
+version = "1.0.0"
 edition = "2024"
 rust-version = "1.85"
 description = "1000+ editor color themes as compile-time Rust constants"
@@ -14,6 +21,9 @@ readme = "README.md"
 keywords = ["color", "theme", "colorscheme", "syntax", "palette"]
 categories = ["no-std", "value-formatting", "visualization"]
 exclude = ["data/", "xtask/"]
+
+[lints]
+workspace = true
 
 [features]
 default = ["popular"]
@@ -48,3 +58,5 @@ libm = "0.2.16"
 
 [dev-dependencies]
 proptest = "1"
+insta = "1"
+serde_json = "1"

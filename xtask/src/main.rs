@@ -1,3 +1,4 @@
+#![allow(clippy::unwrap_used)]
 use clap::{Parser, Subcommand};
 
 mod check;

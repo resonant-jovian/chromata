@@ -1,3 +1,4 @@
+#![allow(clippy::unwrap_used)]
 use chromata::{Color, Contrast, Variant};
 
 #[test]
@@ -367,6 +368,27 @@ fn filter_by_contrast_returns_correct_level() {
     }
 }
 
+// --- Serde tests ---
+
+#[cfg(feature = "serde-support")]
+#[test]
+fn serde_color_roundtrip() {
+    let c = Color::new(0x1d, 0x20, 0x21);
+    let json = serde_json::to_string(&c).unwrap();
+    let c2: Color = serde_json::from_str(&json).unwrap();
+    assert_eq!(c, c2);
+}
+
+#[cfg(feature = "serde-support")]
+#[test]
+fn serde_theme_serializes() {
+    let theme = &chromata::popular::gruvbox::DARK_HARD;
+    let json = serde_json::to_string_pretty(theme).unwrap();
+    assert!(json.contains("Gruvbox Dark Hard"));
+    assert!(json.contains("bg"));
+    assert!(json.contains("fg"));
+}
+
 // --- Display impl tests ---
 
 #[test]
@@ -386,4 +408,43 @@ fn contrast_display() {
     assert_eq!(format!("{}", Contrast::High), "High");
     assert_eq!(format!("{}", Contrast::Normal), "Normal");
     assert_eq!(format!("{}", Contrast::Low), "Low");
+}
+
+// --- Reference value tests (spot-check popular theme colors) ---
+
+#[test]
+fn gruvbox_dark_hard_reference_colors() {
+    let t = &chromata::popular::gruvbox::DARK_HARD;
+    assert_eq!(t.bg, Color::from_hex(0x1d2021));
+    assert_eq!(t.fg, Color::from_hex(0xd5c4a1));
+    assert_eq!(t.name, "Gruvbox Dark Hard");
+    assert_eq!(t.variant, Variant::Dark);
+}
+
+#[test]
+fn gruvbox_light_reference_colors() {
+    let t = &chromata::popular::gruvbox::LIGHT;
+    assert_eq!(t.bg, Color::from_hex(0xfbf1c7));
+    assert_eq!(t.fg, Color::from_hex(0x504945));
+    assert_eq!(t.variant, Variant::Light);
+}
+
+#[test]
+fn catppuccin_mocha_reference_colors() {
+    let theme = chromata::find_by_name("Catppuccin Mocha");
+    assert!(theme.is_some());
+    let t = theme.unwrap();
+    assert_eq!(t.bg, Color::from_hex(0x1e1e2e));
+    assert_eq!(t.fg, Color::from_hex(0xcdd6f4));
+    assert_eq!(t.variant, Variant::Dark);
+}
+
+#[test]
+fn nord_reference_colors() {
+    let theme = chromata::find_by_name("Nord");
+    assert!(theme.is_some());
+    let t = theme.unwrap();
+    assert_eq!(t.bg, Color::from_hex(0x2e3440));
+    assert_eq!(t.fg, Color::from_hex(0xd8dee9));
+    assert_eq!(t.variant, Variant::Dark);
 }

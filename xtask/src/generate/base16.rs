@@ -120,6 +120,11 @@ fn generate_theme_const(scheme: &Base16Scheme, variant: &str) -> Result<String> 
 
     let name = &scheme.name;
     let author = scheme.author.replace('"', "\\\"");
+    let author_doc = if author.is_empty() {
+        "/// Author:".to_string()
+    } else {
+        format!("/// Author: {author}")
+    };
     let escaped_name = name.replace('"', "\\\"");
 
     let base00 = scheme.get_hex_literal("base00")?;
@@ -148,7 +153,7 @@ use crate::{{Color, Contrast, Theme, Variant}};
 
 /// {name}
 ///
-/// Author: {author}
+{author_doc}
 /// Variant: {variant_enum}
 /// Contrast: {contrast_enum}
 /// Source: base16 (tinted-theming/schemes)

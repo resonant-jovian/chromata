@@ -8,6 +8,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  INSTA_UPDATE: no
 
 jobs:
   test:
@@ -51,6 +52,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - run: RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --all-features
+      - run: cargo test --doc --all-features
 
   no-std:
     name: no_std compatibility
@@ -60,6 +62,17 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo check --no-default-features
 
+  feature-isolation:
+    name: Feature isolation (${{ matrix.family }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        family: [popular, base16, base24, vim, emacs]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo check --no-default-features --features ${{ matrix.family }}
+
   freshness:
     name: Generated files check
     runs-on: ubuntu-latest
@@ -67,3 +80,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo xtask check
+
+  publish-dry-run:
+    name: Publish dry-run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo publish --dry-run

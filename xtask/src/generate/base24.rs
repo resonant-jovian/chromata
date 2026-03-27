@@ -12,7 +12,7 @@ use crate::codegen::{
 struct NormalizedBase24 {
     name: String,
     author: String,
-    variant: String,
+    _variant: String,
     palette: BTreeMap<String, String>,
 }
 
@@ -45,31 +45,31 @@ const BASE24_KEYS: &[&str] = &[
 
 fn normalize(content: &str, file_stem: &str) -> Result<Option<NormalizedBase24>> {
     // Try modern format first
-    if let Ok(modern) = serde_yaml::from_str::<ModernBase24>(content) {
-        if modern.palette.keys().any(|k| k.starts_with("base")) {
-            return Ok(Some(NormalizedBase24 {
-                name: modern.name,
-                author: modern.author,
-                variant: modern.variant.unwrap_or_else(|| "dark".into()),
-                palette: modern.palette,
-            }));
-        }
+    if let Ok(modern) = serde_yaml::from_str::<ModernBase24>(content)
+        && modern.palette.keys().any(|k| k.starts_with("base"))
+    {
+        return Ok(Some(NormalizedBase24 {
+            name: modern.name,
+            author: modern.author,
+            _variant: modern.variant.unwrap_or_else(|| "dark".into()),
+            palette: modern.palette,
+        }));
     }
 
     // Try legacy flat format
-    if let Ok(legacy) = serde_yaml::from_str::<LegacyBase24>(content) {
-        if legacy.colors.keys().any(|k| k.starts_with("base")) {
-            let name = legacy
-                .name
-                .or(legacy.scheme)
-                .unwrap_or_else(|| file_stem.replace('-', " ").replace('_', " "));
-            return Ok(Some(NormalizedBase24 {
-                name,
-                author: legacy.author,
-                variant: "dark".into(),
-                palette: legacy.colors,
-            }));
-        }
+    if let Ok(legacy) = serde_yaml::from_str::<LegacyBase24>(content)
+        && legacy.colors.keys().any(|k| k.starts_with("base"))
+    {
+        let name = legacy
+            .name
+            .or(legacy.scheme)
+            .unwrap_or_else(|| file_stem.replace(['-', '_'], " "));
+        return Ok(Some(NormalizedBase24 {
+            name,
+            author: legacy.author,
+            _variant: "dark".into(),
+            palette: legacy.colors,
+        }));
     }
 
     Ok(None)
@@ -138,9 +138,9 @@ pub fn generate() -> Result<()> {
         // Validate all 24 base keys are present
         let mut missing = Vec::new();
         for key in BASE24_KEYS {
-            if scheme.palette.get(*key).is_none()
-                && scheme.palette.get(&key.to_uppercase()).is_none()
-                && scheme.palette.get(&key.to_lowercase()).is_none()
+            if !scheme.palette.contains_key(*key)
+                && !scheme.palette.contains_key(&key.to_uppercase())
+                && !scheme.palette.contains_key(&key.to_lowercase())
             {
                 missing.push(*key);
             }
@@ -191,6 +191,11 @@ fn generate_theme_const(scheme: &NormalizedBase24) -> Result<String> {
 
     let name = &scheme.name;
     let author = scheme.author.replace('"', "\\\"");
+    let author_doc = if author.is_empty() {
+        "/// Author:".to_string()
+    } else {
+        format!("/// Author: {author}")
+    };
     let escaped_name = name.replace('"', "\\\"");
 
     let p = &scheme.palette;
@@ -230,7 +235,7 @@ use crate::{{Base16Palette, Base24Palette, Color, Contrast, Theme, Variant}};
 
 /// {name}
 ///
-/// Author: {author}
+{author_doc}
 /// Variant: {variant_enum}
 /// Contrast: {contrast_enum}
 /// Source: base24 (tinted-theming/schemes)

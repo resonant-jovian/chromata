@@ -122,20 +122,20 @@ fn extract_faces(tokens: &[Token]) -> Vec<FaceDef> {
     // Find custom-theme-set-faces or custom-set-faces
     let mut i = 0;
     while i < tokens.len() {
-        if let Token::Symbol(ref s) = tokens[i] {
-            if s == "custom-theme-set-faces" || s == "custom-set-faces" {
-                i += 1;
-                // Skip the theme name symbol that follows
-                while i < tokens.len() {
-                    match &tokens[i] {
-                        Token::Quote | Token::Symbol(_) => i += 1,
-                        _ => break,
-                    }
+        if let Token::Symbol(ref s) = tokens[i]
+            && (s == "custom-theme-set-faces" || s == "custom-set-faces")
+        {
+            i += 1;
+            // Skip the theme name symbol that follows
+            while i < tokens.len() {
+                match &tokens[i] {
+                    Token::Quote | Token::Symbol(_) => i += 1,
+                    _ => break,
                 }
-                // Now extract face definitions
-                extract_face_definitions(tokens, &mut i, &mut faces);
-                break;
             }
+            // Now extract face definitions
+            extract_face_definitions(tokens, &mut i, &mut faces);
+            break;
         }
         i += 1;
     }
@@ -251,8 +251,7 @@ fn skip_to_close(tokens: &[Token], i: &mut usize) {
 
 fn resolve_color(s: &str) -> Option<u32> {
     let s = s.trim();
-    if s.starts_with('#') {
-        let hex = &s[1..];
+    if let Some(hex) = s.strip_prefix('#') {
         if hex.len() == 6 {
             return u32::from_str_radix(hex, 16).ok();
         }
@@ -599,8 +598,7 @@ pub fn generate() -> Result<()> {
         }
 
         let theme_name = file_stem
-            .replace('-', " ")
-            .replace('_', " ")
+            .replace(['-', '_'], " ")
             .split_whitespace()
             .map(|w| {
                 let mut c = w.chars();

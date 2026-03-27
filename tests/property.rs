@@ -1,3 +1,4 @@
+#![allow(clippy::unwrap_used)]
 use chromata::Color;
 use proptest::prelude::*;
 
@@ -26,6 +27,6 @@ proptest! {
     fn luminance_in_bounds(r in 0u8..=255, g in 0u8..=255, b in 0u8..=255) {
         let c = Color::new(r, g, b);
         let lum = c.luminance();
-        prop_assert!(lum >= 0.0 && lum <= 1.0, "luminance out of bounds: {}", lum);
+        prop_assert!((0.0..=1.0).contains(&lum), "luminance out of bounds: {}", lum);
     }
 }
