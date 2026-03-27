@@ -23,7 +23,14 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.rust }}
-      - run: cargo test --all-features --verbose -- --test-threads=1
+      # Integration features (ratatui, egui, iced) require newer rustc than MSRV.
+      # Test all theme features on MSRV; test --all-features only on stable.
+      - name: Test (MSRV — theme features only)
+        if: matrix.rust != 'stable'
+        run: cargo test --features popular,base16,base24,vim,emacs,serde-support --verbose -- --test-threads=1
+      - name: Test (stable — all features)
+        if: matrix.rust == 'stable'
+        run: cargo test --all-features --verbose -- --test-threads=1
 
   fmt:
     name: Format check
