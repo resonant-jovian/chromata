@@ -10,6 +10,9 @@
 [![CI](https://github.com/resonant-jovian/chromata/actions/workflows/ci.yml/badge.svg)](https://github.com/resonant-jovian/chromata/actions/workflows/ci.yml)
 [![MSRV](https://img.shields.io/badge/MSRV-1.85-blue.svg)]()
 
+> [!IMPORTANT]
+> Pre-1.0 — the API may change between minor versions. Pin your dependency version.
+
 ---
 
 ### Highlights
@@ -44,14 +47,14 @@ Each theme is a struct with named fields for semantic color roles — background
 
 ```toml
 [dependencies]
-chromata = "1.0.0"
+chromata = "0.2.0"
 ```
 
 Or with framework integration:
 
 ```toml
 [dependencies]
-chromata = { version = "1.0.0", features = ["ratatui-integration"] }
+chromata = { version = "0.2.0", features = ["ratatui-integration"] }
 ```
 
 ### Quick start
