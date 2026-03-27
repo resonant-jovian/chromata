@@ -7,8 +7,7 @@
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Support on thanks.dev](https://img.shields.io/badge/Support-thanks.dev-green)](https://thanks.dev/u/gh/resonant-jovian)
 
-[![CI](https://github.com/resonant-jovian/chromata/actions/workflows/test.yml/badge.svg)](https://github.com/resonant-jovian/chromata/actions/workflows/test.yml)
-[![Clippy](https://github.com/resonant-jovian/chromata/actions/workflows/clippy.yml/badge.svg)](https://github.com/resonant-jovian/chromata/actions/workflows/clippy.yml)
+[![CI](https://github.com/resonant-jovian/chromata/actions/workflows/ci.yml/badge.svg)](https://github.com/resonant-jovian/chromata/actions/workflows/ci.yml)
 
 > [!IMPORTANT]
 > Pre-1.0 — the API may change between minor versions. Pin your dependency version.
@@ -54,7 +53,7 @@ Or with framework integration:
 
 ```toml
 [dependencies]
-chromata = { version = "0.1.0", features = ["ratatui-integration"] }
+chromata = { version = "0.2.0", features = ["ratatui-integration"] }
 ```
 
 ### Quick start
@@ -226,10 +225,9 @@ Themes are generated from upstream data files using `cargo xtask generate` (Stra
 
 ```
 data/base16/*.yaml ──┐
-data/base24/*.yaml ──┤
-data/vim/*.json ─────┤──▶ cargo xtask generate ──▶ src/{family}/*.rs
-data/emacs/*.json ───┤
-data/curated/*.toml ─┘
+data/base24/*.yaml ──┤──▶ cargo xtask generate ──▶ src/{family}/*.rs
+data/vim/*.vim ──────┤
+data/emacs/*.el ─────┘
 ```
 
 The xtask reads structured data (YAML for base16/base24, normalized JSON for vim/emacs) and emits `.rs` files containing `const Theme` definitions. This avoids build-time parsing for downstream consumers.
@@ -240,12 +238,12 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 
 | Feature | Themes | Description | Default |
 |---------|--------|-------------|---------|
-| `popular` | 48 | Curated best themes (gruvbox, catppuccin, nord, ...) | Yes |
+| `popular` | 49 | Curated best themes (gruvbox, catppuccin, nord, ...) | Yes |
 | `base16` | 305 | Base16 themes from tinted-theming/schemes | No |
 | `base24` | 184 | Base24 themes (extended base16 with 8 extra slots) | No |
 | `vim` | 464 | Vim colorschemes from vim-colorschemes repos | No |
 | `emacs` | 102 | Emacs themes from emacs-themes-site | No |
-| `all` | 1103 | Enable all theme families | No |
+| `all` | 1104 | Enable all theme families | No |
 | `ratatui-integration` | — | `From<Color>` for ratatui types | No |
 | `egui-integration` | — | `From<Color>` for egui types | No |
 | `crossterm-integration` | — | `From<Color>` for crossterm types | No |

@@ -12,12 +12,12 @@
 //!
 //! | Feature | Themes | Description |
 //! |---------|--------|-------------|
-//! | `popular` (default) | 48 | Curated best themes (gruvbox, catppuccin, nord...) |
+//! | `popular` (default) | 49 | Curated best themes (gruvbox, catppuccin, nord...) |
 //! | `base16` | 305 | Base16 themes from tinted-theming/schemes |
 //! | `base24` | 184 | Base24 themes from tinted-theming/schemes |
 //! | `vim` | 464 | Vim colorschemes from vim-colorschemes repos |
 //! | `emacs` | 102 | Emacs themes from emacs-themes-site |
-//! | `all` | 1103 | All collections combined |
+//! | `all` | 1104 | All collections combined |
 //! | `ratatui-integration` | — | `From<Color>` for ratatui types |
 //! | `egui-integration` | — | `From<Color>` for egui types |
 //! | `crossterm-integration` | — | `From<Color>` for crossterm types |

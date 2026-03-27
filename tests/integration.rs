@@ -261,6 +261,76 @@ fn vim_no_duplicate_names() {
     }
 }
 
+// --- base24 bg/fg test ---
+
+#[cfg(feature = "base24")]
+#[test]
+fn base24_all_have_bg_fg() {
+    for theme in chromata::base24::THEMES {
+        assert_ne!(
+            theme.bg, theme.fg,
+            "Base24 theme '{}' has same bg and fg",
+            theme.name
+        );
+    }
+}
+
+// --- per-collection contrast validation ---
+
+#[cfg(feature = "emacs")]
+#[test]
+fn emacs_contrast_matches_calculation() {
+    let mut failures = Vec::new();
+    for theme in chromata::emacs::THEMES {
+        let ratio = theme.bg.contrast_ratio(theme.fg);
+        let expected = if ratio >= 10.0 {
+            Contrast::High
+        } else if ratio >= 4.5 {
+            Contrast::Normal
+        } else {
+            Contrast::Low
+        };
+        if theme.contrast != expected {
+            failures.push(format!(
+                "  {}: has {:?} but ratio is {:.2} (expected {:?})",
+                theme.name, theme.contrast, ratio, expected
+            ));
+        }
+    }
+    assert!(
+        failures.is_empty(),
+        "Emacs contrast mismatches:\n{}",
+        failures.join("\n")
+    );
+}
+
+#[cfg(feature = "vim")]
+#[test]
+fn vim_contrast_matches_calculation() {
+    let mut failures = Vec::new();
+    for theme in chromata::vim::THEMES {
+        let ratio = theme.bg.contrast_ratio(theme.fg);
+        let expected = if ratio >= 10.0 {
+            Contrast::High
+        } else if ratio >= 4.5 {
+            Contrast::Normal
+        } else {
+            Contrast::Low
+        };
+        if theme.contrast != expected {
+            failures.push(format!(
+                "  {}: has {:?} but ratio is {:.2} (expected {:?})",
+                theme.name, theme.contrast, ratio, expected
+            ));
+        }
+    }
+    assert!(
+        failures.is_empty(),
+        "Vim contrast mismatches:\n{}",
+        failures.join("\n")
+    );
+}
+
 // --- Query API tests ---
 
 #[test]
