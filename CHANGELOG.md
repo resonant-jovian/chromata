@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Framework integration test suite (33 tests in `tests/framework_integrations.rs`)
 - Enriched inline docs with Enable/Example/Convenience sections for all 18 integrations
 
+### Removed
+
+- `IntoFrameworkColor` and `IntoFrameworkTheme` traits — replaced by direct `From<Color>` implementations
+
 ## [0.2.0] - 2025-05-01
 
 ### Added
@@ -35,3 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `no_std` compatibility with `extern crate alloc`
 - Query APIs: `collect_all_themes()`, `find_by_name()`, `filter_by_variant()`,
   `filter_by_contrast()`
+
+[0.3.0]: https://github.com/resonant-jovian/chromata/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/resonant-jovian/chromata/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/resonant-jovian/chromata/releases/tag/0.1.0

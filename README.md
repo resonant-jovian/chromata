@@ -65,7 +65,9 @@ use chromata::popular::gruvbox;
 fn main() {
     let theme = gruvbox::DARK_HARD;
     println!("Background: {}", theme.bg.to_css_hex()); // "#1d2021"
-    println!("Keyword:    {}", theme.keyword.unwrap().to_css_hex());
+    if let Some(kw) = theme.keyword {
+        println!("Keyword:    {}", kw.to_css_hex());
+    }
     println!("Is dark?    {}", theme.is_dark());
 }
 ```
@@ -205,7 +207,7 @@ pub struct Theme {
 }
 ```
 
-### Trait system
+### Framework conversions
 
 Framework integrations use `From<Color>` conversions gated behind optional features:
 
@@ -284,8 +286,11 @@ cargo doc --no-deps --open            # browse API docs
 cargo run --example list_all          # list all available themes
 cargo run --example preview_ansi      # preview theme in terminal with ANSI colors
 cargo run --example export_css        # generate CSS custom properties
+cargo run --example find_theme        # search themes by name, variant, contrast
 
 # Integration examples (require feature flags)
+cargo run --example ratatui_demo --features ratatui-integration
+cargo run --example egui_gallery --features egui-integration
 cargo run --example plotters_chart --features plotters-integration
 cargo run --example image_gradient --features image-integration
 cargo run --example colored_terminal --features colored-integration

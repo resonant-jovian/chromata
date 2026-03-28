@@ -1,7 +1,7 @@
 NOTICE
 
 Chromata -- Editor Color Themes for Rust
-Copyright (C) 2025 The Chromata Authors
+Copyright (C) 2025-2026 The Chromata Authors
 Licensed under GPL-3.0-only
 
 This project bundles color theme data derived from multiple upstream sources.
@@ -44,30 +44,30 @@ the Chromata source code itself.
    The popular module contains hand-curated themes sourced from their
    original projects. Individual attributions:
 
-   - Gruvbox          Pavel Pertsev          MIT
-   - Solarized        Ethan Schoonover       MIT
-   - Nord             Arctic Ice Studio       MIT
-   - Dracula          Dracula Theme           MIT
-   - Catppuccin       Catppuccin Org          MIT
-   - Monokai          Wimer Hazenberg        (de facto public domain)
-   - One Dark         Atom / GitHub           MIT
-   - Tokyo Night      Folke Lemaitre          Apache-2.0
-   - Rose Pine        Rose Pine               MIT
-   - Kanagawa         rebelot                 MIT
-   - Everforest       sainnhe                 MIT
-   - Nightfox         EdenEast                MIT
-   - Tokyodark        tiagovla                MIT
    - Ayu              dempfi                  MIT
-   - Zenburn          jnurmine               Vim license
-   - Tomorrow         Chris Kempson           MIT
-   - Material         Mattia Astorino         MIT
-   - Palenight        Mattia Astorino         MIT
-   - Moonlight        atomiks                 MIT
-   - Andromeda        Eliver Lara             MIT
-   - Apprentice       romainl                 MIT/Vim
-   - Nightowl         Sarah Drasner           MIT
-   - Iceberg          cocopon                 MIT
+   - Catppuccin       Catppuccin Org          MIT
+   - Dracula          Dracula Theme           MIT
+   - Everforest       sainnhe                 MIT
+   - Flexoki          Steph Ango              MIT
+   - GitHub           GitHub (Primer)         MIT
+   - Gruvbox          Pavel Pertsev           MIT
    - Horizon          jolaleye                MIT
+   - Kanagawa         rebelot                 MIT
+   - Material         Mattia Astorino         MIT
+   - Monokai          Wimer Hazenberg        (de facto public domain)
+   - Moonlight        atomiks                 MIT
+   - Nightfox         EdenEast                MIT
+   - Nord             Arctic Ice Studio       MIT
+   - One Dark         Atom / GitHub           MIT
+   - Poimandres       drcmda                  MIT
+   - Rose Pine        Rose Pine               MIT
+   - Snazzy           sindresorhus            MIT
+   - Solarized        Ethan Schoonover        MIT
+   - SynthWave '84    Robb Owen               MIT
+   - Tokyo Night      Folke Lemaitre          Apache-2.0
+   - Tomorrow         Chris Kempson           MIT
+   - Vesper           raunofreiberg           MIT
+   - Zenburn          jnurmine               Vim license
 
 =========================================================================
 

@@ -9,11 +9,11 @@ fn main() {
     let theme = &chromata::popular::gruvbox::DARK_HARD;
     let series_colors = theme.plotters_series_colors();
 
-    let path = "/tmp/chromata_chart.svg";
-    let root = SVGBackend::new(path, (640, 480)).into_drawing_area();
+    let path = std::env::temp_dir().join("chromata_chart.svg");
+    let root = SVGBackend::new(&path, (640, 480)).into_drawing_area();
 
-    let bg = RGBColor(theme.bg.r, theme.bg.g, theme.bg.b);
-    let fg = RGBColor(theme.fg.r, theme.fg.g, theme.fg.b);
+    let bg: RGBColor = theme.bg.into();
+    let fg: RGBColor = theme.fg.into();
 
     root.fill(&bg).expect("failed to fill background");
 
@@ -56,7 +56,7 @@ fn main() {
         .expect("failed to draw series");
 
     root.present().expect("failed to write SVG");
-    println!("Saved chart to {path}");
+    println!("Saved chart to {}", path.display());
 }
 
 #[cfg(not(feature = "plotters-integration"))]

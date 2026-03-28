@@ -4,7 +4,7 @@
 //!
 //! Chromata provides every popular editor and terminal color theme as
 //! compile-time `const` data. No file parsing, no runtime allocation,
-//! no dependencies. Add `chromata` to your `Cargo.toml`, write
+//! one dependency (`libm` for `no_std` math). Add `chromata` to your `Cargo.toml`, write
 //! `chromata::popular::gruvbox::DARK_HARD.bg`, and get a hex color
 //! at zero cost.
 //!
@@ -71,6 +71,7 @@
 #![no_std]
 #![forbid(unsafe_code)]
 #![deny(clippy::unwrap_used)]
+// Generated theme files contain bare URLs in author fields.
 #![allow(rustdoc::bare_urls)]
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
 extern crate alloc;

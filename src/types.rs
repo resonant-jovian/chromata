@@ -2,6 +2,15 @@ use alloc::string::String;
 use alloc::vec::Vec;
 use alloc::{format, vec};
 
+const fn hex_digit(b: u8) -> Option<u8> {
+    match b {
+        b'0'..=b'9' => Some(b - b'0'),
+        b'a'..=b'f' => Some(b - b'a' + 10),
+        b'A'..=b'F' => Some(b - b'A' + 10),
+        _ => None,
+    }
+}
+
 /// A color represented as RGB components.
 /// All values are compile-time constants with zero runtime cost.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -51,6 +60,52 @@ impl Color {
             r: ((hex >> 16) & 0xFF) as u8,
             g: ((hex >> 8) & 0xFF) as u8,
             b: (hex & 0xFF) as u8,
+        }
+    }
+
+    /// Construct a Color by parsing a CSS hex string like `"#1d2021"` or `"1d2021"`.
+    ///
+    /// Returns `None` if the string is not a valid 6-digit hex color
+    /// (with or without a leading `#`).
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use chromata::Color;
+    ///
+    /// let c = Color::from_css_hex("#1d2021").unwrap();
+    /// assert_eq!(c, Color::from_hex(0x1d2021));
+    ///
+    /// let c = Color::from_css_hex("1d2021").unwrap();
+    /// assert_eq!(c, Color::from_hex(0x1d2021));
+    ///
+    /// assert!(Color::from_css_hex("nope").is_none());
+    /// ```
+    pub const fn from_css_hex(s: &str) -> Option<Color> {
+        let bytes = s.as_bytes();
+        let hex = match bytes.len() {
+            7 => {
+                if bytes[0] != b'#' {
+                    return None;
+                }
+                let (_, rest) = bytes.split_at(1);
+                rest
+            }
+            6 => bytes,
+            _ => return None,
+        };
+
+        let (r_hi, r_lo) = (hex_digit(hex[0]), hex_digit(hex[1]));
+        let (g_hi, g_lo) = (hex_digit(hex[2]), hex_digit(hex[3]));
+        let (b_hi, b_lo) = (hex_digit(hex[4]), hex_digit(hex[5]));
+
+        match (r_hi, r_lo, g_hi, g_lo, b_hi, b_lo) {
+            (Some(rh), Some(rl), Some(gh), Some(gl), Some(bh), Some(bl)) => Some(Color {
+                r: rh << 4 | rl,
+                g: gh << 4 | gl,
+                b: bh << 4 | bl,
+            }),
+            _ => None,
         }
     }
 
@@ -250,9 +305,11 @@ impl core::fmt::Display for Color {
 
 /// A complete editor/terminal color theme.
 ///
-/// All optional fields are `Option<Color>` because not every source theme
-/// defines every semantic role. The `bg`, `fg`, and at least some syntax
-/// colors will always be `Some` for any theme that passed validation.
+/// Fields `bg` and `fg` are always present. Other color fields are
+/// `Option<Color>` because not every source theme defines every semantic role.
+///
+/// With `serde-support`, themes can be serialized (e.g., to JSON) but not
+/// deserialized, because `name` and `author` are `&'static str` references.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde-support", derive(serde::Serialize))]
 pub struct Theme {
@@ -344,6 +401,18 @@ impl Theme {
     /// ```
     pub const fn is_dark(&self) -> bool {
         matches!(self.variant, Variant::Dark)
+    }
+
+    /// Is this a light theme?
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let theme = &chromata::popular::gruvbox::LIGHT;
+    /// assert!(theme.is_light());
+    /// ```
+    pub const fn is_light(&self) -> bool {
+        matches!(self.variant, Variant::Light)
     }
 
     /// Return the first available accent color in priority order.

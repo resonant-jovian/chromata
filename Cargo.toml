@@ -39,7 +39,7 @@ vim = []
 emacs = []
 
 # Bring everything
-all = ["base16", "base24", "vim", "emacs"]
+all = ["popular", "base16", "base24", "vim", "emacs"]
 
 # Framework integration (optional dependencies)
 bevy-color-integration = ["dep:bevy_color"]
