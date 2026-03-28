@@ -413,6 +413,7 @@ impl Theme {
         push_opt!(string);
         push_opt!(function);
         push_opt!(variable);
+        push_opt!(r#type);
         push_opt!(constant);
         push_opt!(operator);
         push_opt!(tag);

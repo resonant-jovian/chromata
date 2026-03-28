@@ -145,7 +145,7 @@ fn owo_colors_color_conversion() {
     assert_eq!(p.2, 32);
 }
 
-#[cfg(feature = "termion-integration")]
+#[cfg(all(unix, feature = "termion-integration"))]
 #[test]
 fn termion_color_conversion() {
     let c = chromata::Color::new(128, 64, 32);

@@ -72,7 +72,7 @@ mod slint;
 #[cfg(feature = "syntect-integration")]
 mod syntect;
 
-#[cfg(feature = "termion-integration")]
+#[cfg(all(unix, feature = "termion-integration"))]
 mod termion;
 
 #[cfg(feature = "tiny-skia-integration")]

@@ -51,12 +51,16 @@ require_cmd() {
 
 # ── Examples ─────────────────────────────────────────────────────────────────
 
-ALL_EXAMPLES=(list_all preview_ansi export_css find_theme ratatui_demo egui_gallery)
+ALL_EXAMPLES=(list_all preview_ansi export_css find_theme ratatui_demo egui_gallery plotters_chart image_gradient colored_terminal comfy_table_demo)
 
 # Features required by specific examples
 declare -A EXAMPLE_FEATURES=(
     [ratatui_demo]="ratatui-integration"
     [egui_gallery]="egui-integration"
+    [plotters_chart]="plotters-integration"
+    [image_gradient]="image-integration"
+    [colored_terminal]="colored-integration"
+    [comfy_table_demo]="comfy-table-integration"
 )
 
 cmd_examples() {
@@ -497,10 +501,10 @@ cmd_info() {
     echo "  emacs      102 emacs themes"
     echo "  all        all theme families combined"
     echo ""
-    echo "  ratatui-integration    From<Color> for ratatui types"
-    echo "  egui-integration       From<Color> for egui types"
-    echo "  crossterm-integration  From<Color> for crossterm types"
-    echo "  iced-integration       From<Color> for iced types"
+    echo "  18 framework integrations (From<Color> conversions):"
+    echo "    bevy-color, colored, comfy-table, crossterm, cursive,"
+    echo "    egui, iced, image, macroquad, owo-colors, palette,"
+    echo "    plotters, ratatui, slint, syntect, termion, tiny-skia, wgpu"
     echo "  serde-support          Serialize/deserialize themes"
 
     hdr "examples"

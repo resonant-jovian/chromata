@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Convenience methods on `Theme`: `plotters_series_colors()`, `colorize()`,
   `style_comfy_cell()`, `apply_to_cursive_palette()`, `to_syntect_theme_settings()`
 - 4 new examples: `plotters_chart`, `image_gradient`, `colored_terminal`, `comfy_table_demo`
-- Framework integration test suite (19 tests in `tests/framework_integrations.rs`)
+- Framework integration test suite (33 tests in `tests/framework_integrations.rs`)
 - Enriched inline docs with Enable/Example/Convenience sections for all 18 integrations
 
 ## [0.2.0] - 2025-05-01

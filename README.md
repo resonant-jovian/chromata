@@ -277,7 +277,7 @@ cargo build --all-features            # build everything
 cargo test                            # run tests
 cargo xtask fetch                     # fetch upstream base16 YAML schemes
 cargo xtask generate                  # generate themes from data/ YAML files
-cargo clippy --all-features           # lint
+cargo clippy --all-targets --all-features  # lint
 cargo doc --no-deps --open            # browse API docs
 ```
 

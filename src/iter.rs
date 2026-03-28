@@ -5,7 +5,7 @@ use alloc::vec::Vec;
 ///
 /// Calls `f` once for each theme across all enabled collections.
 /// Useful when you want to search or aggregate without building a Vec.
-#[allow(unused_variables)]
+#[allow(unused_variables, unused_mut)]
 fn for_each_theme(mut f: impl FnMut(&'static Theme)) {
     #[cfg(feature = "popular")]
     for theme in crate::popular::THEMES {
