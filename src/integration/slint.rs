@@ -1,6 +1,22 @@
 //! Slint UI framework integration.
 //!
 //! Provides [`From<Color>`](crate::Color) for [`slint::Color`].
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["slint-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: slint::Color = theme.bg.into();
+//! ```
 
 use crate::Color;
 

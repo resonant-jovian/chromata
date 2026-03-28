@@ -2,6 +2,29 @@
 //!
 //! Provides [`From<Color>`](crate::Color) for [`cursive_core::theme::Color`] and a
 //! convenience method on [`Theme`](crate::Theme).
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["cursive-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: cursive_core::theme::Color = theme.bg.into();
+//! ```
+//!
+//! # Convenience
+//!
+//! ```rust,ignore
+//! theme.apply_to_cursive_palette(&mut palette);
+//! // Sets Background, View, Primary, Highlight, TitlePrimary
+//! ```
 
 use crate::{Color, Theme};
 

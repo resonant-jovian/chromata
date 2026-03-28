@@ -2,6 +2,30 @@
 //!
 //! Provides [`From<Color>`](crate::Color) for [`comfy_table::Color`] and a
 //! convenience method on [`Theme`](crate::Theme).
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["comfy-table-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: comfy_table::Color = theme.bg.into();
+//! ```
+//!
+//! # Convenience
+//!
+//! ```rust,ignore
+//! use comfy_table::Cell;
+//! let cell = theme.style_comfy_cell(Cell::new("text"));
+//! // Cell with theme fg and bg applied
+//! ```
 
 use crate::{Color, Theme};
 

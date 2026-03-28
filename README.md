@@ -47,14 +47,14 @@ Each theme is a struct with named fields for semantic color roles — background
 
 ```toml
 [dependencies]
-chromata = "0.2.0"
+chromata = "0.3.0"
 ```
 
 Or with framework integration:
 
 ```toml
 [dependencies]
-chromata = { version = "0.2.0", features = ["ratatui-integration"] }
+chromata = { version = "0.3.0", features = ["ratatui-integration"] }
 ```
 
 ### Quick start
@@ -103,9 +103,11 @@ println!("Found {} dark themes", dark_themes.len());
 ### Use cases
 
 - **TUI applications** — ratatui, cursive, crossterm-based apps
-- **GUI applications** — egui, iced, bevy, druid
-- **Terminal emulators** — generate palette configurations
-- **Syntax highlighting** — feed semantic colors into tree-sitter or similar
+- **GUI applications** — egui, iced, slint, bevy, macroquad
+- **Graphics and rendering** — plotters charts, image processing, wgpu, tiny-skia
+- **Terminal coloring** — colored, owo-colors, termion
+- **Syntax highlighting** — syntect, tree-sitter, or similar
+- **Color science** — palette crate for color space conversions
 - **Theme preview tools** — compare themes side-by-side
 - **CSS generation** — export custom properties for web frontends
 
@@ -123,7 +125,7 @@ graph TD
     SRC --> LIB["lib.rs<br>feature-gated modules"]
     LIB --> TYPES["types.rs<br>Color, Theme, Variant"]
     LIB --> TRAITS["traits.rs<br>IntoFrameworkColor"]
-    LIB --> INT["integration/<br>ratatui, egui, crossterm, iced"]
+    LIB --> INT["integration/<br>18 framework integrations"]
 ```
 
 ### Module tree
@@ -142,16 +144,16 @@ src/
 │   └── mod.rs
 ├── base24/           # Feature: "base24" — ~184 extended base16 schemes
 │   └── mod.rs
-├── vim/              # Feature: "vim" — ~600 vim colorschemes
+├── vim/              # Feature: "vim" — ~464 vim colorschemes
 │   └── mod.rs
-├── emacs/            # Feature: "emacs" — ~200 emacs themes
+├── emacs/            # Feature: "emacs" — ~102 emacs themes
 │   └── mod.rs
-└── integration/      # Optional framework conversions
+└── integration/      # Optional framework conversions (18 crates)
     ├── mod.rs
-    ├── ratatui.rs
-    ├── egui.rs
-    ├── crossterm.rs
-    └── iced.rs
+    ├── ratatui.rs, egui.rs, crossterm.rs, iced.rs
+    ├── plotters.rs, image.rs, palette.rs, syntect.rs
+    ├── bevy_color.rs, macroquad.rs, wgpu.rs, tiny_skia.rs, slint.rs
+    └── colored.rs, owo_colors.rs, termion.rs, cursive.rs, comfy_table.rs
 ```
 
 ### The Theme struct

@@ -2,6 +2,29 @@
 //!
 //! Provides [`From<Color>`](crate::Color) for [`syntect::highlighting::Color`]
 //! and a convenience method on [`Theme`](crate::Theme).
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["syntect-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: syntect::highlighting::Color = theme.fg.into();
+//! ```
+//!
+//! # Convenience
+//!
+//! ```rust,ignore
+//! let settings = theme.to_syntect_theme_settings();
+//! // settings.foreground, settings.background, settings.caret, etc.
+//! ```
 
 use crate::{Color, Theme};
 

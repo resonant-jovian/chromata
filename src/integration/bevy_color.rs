@@ -1,6 +1,22 @@
 //! Bevy game engine color integration.
 //!
 //! Provides [`From<Color>`](crate::Color) for [`bevy_color::Srgba`].
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["bevy-color-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: bevy_color::Srgba = theme.bg.into();
+//! ```
 
 use crate::Color;
 

@@ -2,6 +2,22 @@
 //!
 //! Provides [`From<Color>`](crate::Color) for
 //! [`tiny_skia::PremultipliedColorU8`].
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["tiny-skia-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: tiny_skia::PremultipliedColorU8 = theme.bg.into();
+//! ```
 
 use crate::Color;
 

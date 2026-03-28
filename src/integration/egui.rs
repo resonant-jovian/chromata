@@ -2,6 +2,30 @@
 //!
 //! Provides [`From<Color>`](crate::Color) for [`egui::Color32`] and a
 //! convenience method on [`Theme`](crate::Theme).
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["egui-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let bg: egui::Color32 = theme.bg.into();
+//! let fg: egui::Color32 = theme.fg.into();
+//! ```
+//!
+//! # Convenience
+//!
+//! ```rust,ignore
+//! theme.apply_to_visuals(&mut visuals);
+//! // visuals.dark_mode, bg_fill, fg_stroke set from theme
+//! ```
 
 use crate::{Color, Theme};
 

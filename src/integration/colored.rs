@@ -2,6 +2,29 @@
 //!
 //! Provides [`From<Color>`](crate::Color) for [`colored::Color`] and a
 //! convenience method on [`Theme`](crate::Theme).
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["colored-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: colored::Color = theme.fg.into();
+//! ```
+//!
+//! # Convenience
+//!
+//! ```rust,ignore
+//! let styled = theme.colorize("hello world");
+//! // ColoredString with theme fg and bg applied
+//! ```
 
 use crate::{Color, Theme};
 

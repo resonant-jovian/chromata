@@ -1,6 +1,50 @@
 #![allow(clippy::unwrap_used)]
 
-// --- Color conversion tests ---
+// --- Color conversion tests (original 4 integrations) ---
+
+#[cfg(feature = "ratatui-integration")]
+#[test]
+fn ratatui_color_conversion() {
+    let c = chromata::Color::new(128, 64, 32);
+    let p: ratatui::style::Color = c.into();
+    assert_eq!(p, ratatui::style::Color::Rgb(128, 64, 32));
+}
+
+#[cfg(feature = "egui-integration")]
+#[test]
+fn egui_color_conversion() {
+    let c = chromata::Color::new(128, 64, 32);
+    let p: egui::Color32 = c.into();
+    assert_eq!(p, egui::Color32::from_rgb(128, 64, 32));
+}
+
+#[cfg(feature = "crossterm-integration")]
+#[test]
+fn crossterm_color_conversion() {
+    let c = chromata::Color::new(128, 64, 32);
+    let p: crossterm::style::Color = c.into();
+    assert_eq!(
+        p,
+        crossterm::style::Color::Rgb {
+            r: 128,
+            g: 64,
+            b: 32
+        }
+    );
+}
+
+#[cfg(feature = "iced-integration")]
+#[test]
+fn iced_color_conversion() {
+    let c = chromata::Color::new(128, 64, 32);
+    let p: iced_core::Color = c.into();
+    assert!((p.r - 128.0 / 255.0).abs() < 0.01);
+    assert!((p.g - 64.0 / 255.0).abs() < 0.01);
+    assert!((p.b - 32.0 / 255.0).abs() < 0.01);
+    assert!((p.a - 1.0).abs() < 0.01);
+}
+
+// --- Color conversion tests (14 new integrations) ---
 
 #[cfg(feature = "plotters-integration")]
 #[test]
@@ -198,4 +242,102 @@ fn cursive_palette() {
 fn comfy_table_style() {
     let cell = comfy_table::Cell::new("test");
     let _styled = chromata::popular::gruvbox::DARK_HARD.style_comfy_cell(cell);
+}
+
+#[cfg(feature = "ratatui-integration")]
+#[test]
+fn ratatui_style() {
+    let style = chromata::popular::gruvbox::DARK_HARD.to_ratatui_style();
+    // Verify style has fg and bg set (non-default)
+    assert_ne!(style, ratatui::style::Style::default());
+}
+
+#[cfg(feature = "egui-integration")]
+#[test]
+fn egui_apply_visuals() {
+    let mut visuals = egui::Visuals::default();
+    chromata::popular::gruvbox::DARK_HARD.apply_to_visuals(&mut visuals);
+    assert!(visuals.dark_mode);
+}
+
+// --- Boundary value tests ---
+
+#[cfg(feature = "bevy-color-integration")]
+#[test]
+fn bevy_color_boundary_black() {
+    let c = chromata::Color::new(0, 0, 0);
+    let p: bevy_color::Srgba = c.into();
+    assert_eq!(p.red, 0.0);
+    assert_eq!(p.green, 0.0);
+    assert_eq!(p.blue, 0.0);
+}
+
+#[cfg(feature = "bevy-color-integration")]
+#[test]
+fn bevy_color_boundary_white() {
+    let c = chromata::Color::new(255, 255, 255);
+    let p: bevy_color::Srgba = c.into();
+    assert_eq!(p.red, 1.0);
+    assert_eq!(p.green, 1.0);
+    assert_eq!(p.blue, 1.0);
+}
+
+#[cfg(feature = "wgpu-integration")]
+#[test]
+fn wgpu_boundary_black() {
+    let c = chromata::Color::new(0, 0, 0);
+    let p: wgpu::Color = c.into();
+    assert_eq!(p.r, 0.0);
+    assert_eq!(p.g, 0.0);
+    assert_eq!(p.b, 0.0);
+}
+
+#[cfg(feature = "wgpu-integration")]
+#[test]
+fn wgpu_boundary_white() {
+    let c = chromata::Color::new(255, 255, 255);
+    let p: wgpu::Color = c.into();
+    assert_eq!(p.r, 1.0);
+    assert_eq!(p.g, 1.0);
+    assert_eq!(p.b, 1.0);
+}
+
+#[cfg(feature = "iced-integration")]
+#[test]
+fn iced_boundary_black() {
+    let c = chromata::Color::new(0, 0, 0);
+    let p: iced_core::Color = c.into();
+    assert_eq!(p.r, 0.0);
+    assert_eq!(p.g, 0.0);
+    assert_eq!(p.b, 0.0);
+}
+
+#[cfg(feature = "iced-integration")]
+#[test]
+fn iced_boundary_white() {
+    let c = chromata::Color::new(255, 255, 255);
+    let p: iced_core::Color = c.into();
+    assert_eq!(p.r, 1.0);
+    assert_eq!(p.g, 1.0);
+    assert_eq!(p.b, 1.0);
+}
+
+#[cfg(feature = "macroquad-integration")]
+#[test]
+fn macroquad_boundary_black() {
+    let c = chromata::Color::new(0, 0, 0);
+    let p: macroquad::color::Color = c.into();
+    assert_eq!(p.r, 0.0);
+    assert_eq!(p.g, 0.0);
+    assert_eq!(p.b, 0.0);
+}
+
+#[cfg(feature = "macroquad-integration")]
+#[test]
+fn macroquad_boundary_white() {
+    let c = chromata::Color::new(255, 255, 255);
+    let p: macroquad::color::Color = c.into();
+    assert_eq!(p.r, 1.0);
+    assert_eq!(p.g, 1.0);
+    assert_eq!(p.b, 1.0);
 }

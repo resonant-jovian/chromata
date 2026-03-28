@@ -2,6 +2,29 @@
 //!
 //! Provides [`From<Color>`](crate::Color) for [`plotters::style::RGBColor`] and a
 //! convenience method on [`Theme`](crate::Theme).
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["plotters-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let bg: plotters::style::RGBColor = theme.bg.into();
+//! ```
+//!
+//! # Convenience
+//!
+//! ```rust,ignore
+//! let series_colors = theme.plotters_series_colors();
+//! // Vec of accent RGBColors for chart series
+//! ```
 
 use alloc::vec::Vec;
 

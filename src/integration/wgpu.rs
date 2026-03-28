@@ -1,6 +1,22 @@
 //! wgpu graphics API integration.
 //!
 //! Provides [`From<Color>`](crate::Color) for [`wgpu::Color`].
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["wgpu-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let color: wgpu::Color = theme.bg.into();
+//! ```
 
 use crate::Color;
 
