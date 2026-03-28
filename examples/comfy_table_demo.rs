@@ -8,7 +8,10 @@ fn main() {
 
     let theme = &chromata::popular::nord::THEME;
 
-    println!("Theme: {} ({}, {} contrast)\n", theme.name, theme.variant, theme.contrast);
+    println!(
+        "Theme: {} ({}, {} contrast)\n",
+        theme.name, theme.variant, theme.contrast
+    );
 
     let mut table = Table::new();
 

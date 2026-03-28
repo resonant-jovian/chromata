@@ -17,7 +17,9 @@ fn main() {
 
     root.fill(&bg).expect("failed to fill background");
 
-    let color_names = ["red", "orange", "yellow", "green", "cyan", "blue", "purple", "magenta"];
+    let color_names = [
+        "red", "orange", "yellow", "green", "cyan", "blue", "purple", "magenta",
+    ];
     let n = series_colors.len();
     if n == 0 {
         eprintln!("Theme has no accent colors defined.");
@@ -39,9 +41,7 @@ fn main() {
         .configure_mesh()
         .disable_mesh()
         .x_labels(n)
-        .x_label_formatter(&|i| {
-            color_names.get(*i).unwrap_or(&"?").to_string()
-        })
+        .x_label_formatter(&|i| color_names.get(*i).unwrap_or(&"?").to_string())
         .label_style(("sans-serif", 14).into_font().color(&fg))
         .draw()
         .expect("failed to draw mesh");
