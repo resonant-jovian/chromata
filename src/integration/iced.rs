@@ -1,6 +1,23 @@
 //! Iced framework integration.
 //!
 //! Provides [`From<Color>`](crate::Color) for [`iced_core::Color`].
+//!
+//! # Enable
+//!
+//! ```toml
+//! [dependencies]
+//! chromata = { version = "0.3.0", features = ["iced-integration"] }
+//! ```
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! use chromata::popular::gruvbox;
+//!
+//! let theme = gruvbox::DARK_HARD;
+//! let bg: iced_core::Color = theme.bg.into();
+//! let fg: iced_core::Color = theme.fg.into();
+//! ```
 
 use crate::Color;
 

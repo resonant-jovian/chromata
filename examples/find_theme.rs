@@ -1,6 +1,6 @@
 //! Demonstrate the query APIs: find_by_name, filter_by_variant, filter_by_contrast.
 //!
-//! Run with: `cargo run --example find_theme --all-features`
+//! Run with: `cargo run --example find_theme`
 
 use chromata::{Contrast, Variant, filter_by_contrast, filter_by_variant, find_by_name};
 

@@ -11,7 +11,7 @@ cargo check --no-default-features     # verify no_std compatibility
 cargo test                            # integration tests (default features)
 cargo test --all-features             # all tests including base16 feature-gated
 cargo test <name>                     # run a single test by name
-cargo clippy --all-features           # lint
+cargo clippy --all-targets --all-features  # lint (lib + tests + examples)
 cargo doc --no-deps                   # generate docs
 ```
 
@@ -25,6 +25,19 @@ cargo xtask ci                                        # fetch → generate → c
 ```
 
 After modifying xtask or adding data, run fetch + generate then verify with `cargo build --all-features`.
+
+**dev.sh** (recommended for development):
+```bash
+./dev.sh ci                           # full local CI: lint → test → check → freshness → examples
+./dev.sh lint --all                   # fmt + clippy (lib + xtask) + doc build
+./dev.sh lint --fix --all             # auto-fix lint issues
+./dev.sh test --all                   # test with --all-features
+./dev.sh examples --all               # run all examples
+./dev.sh check                        # feature isolation (each feature compiles alone)
+./dev.sh doctor                       # check prerequisites
+./dev.sh snapshots review             # review pending insta snapshots
+./dev.sh xtask check                  # verify generated files are fresh
+```
 
 ## Architecture
 
@@ -42,8 +55,8 @@ After modifying xtask or adding data, run fetch + generate then verify with `car
 ### Feature gates
 
 Theme modules: `popular` (default), `base16`, `base24`, `vim`, `emacs`, `all`.
-Framework integrations: `ratatui-integration`, `egui-integration`, `crossterm-integration`, `iced-integration`.
-Each integration module in `src/integration/` provides `From<Color>` for the framework's color type.
+Framework integrations: `bevy-color-integration`, `colored-integration`, `comfy-table-integration`, `crossterm-integration`, `cursive-integration`, `egui-integration`, `iced-integration`, `image-integration`, `macroquad-integration`, `owo-colors-integration`, `palette-integration`, `plotters-integration`, `ratatui-integration`, `slint-integration`, `syntect-integration`, `termion-integration`, `tiny-skia-integration`, `wgpu-integration`.
+Each integration module in `src/integration/` provides `From<Color>` for the framework's color type. Some also provide convenience methods on `Theme` (e.g., `to_syntect_theme_settings()`, `apply_to_cursive_palette()`, `plotters_series_colors()`, `colorize()`, `style_comfy_cell()`).
 
 ### Data pipeline
 
@@ -52,6 +65,7 @@ Each integration module in `src/integration/` provides `From<Color>` for the fra
 ## Conventions
 
 - Edition 2024, GPL-3.0 license
+- `#![forbid(unsafe_code)]`, `#![deny(clippy::unwrap_used)]` — use `.expect()` in library code
 - All public items must have `///` doc comments; modules must have `//!` docs
 - Popular theme contrast values must match WCAG calculation (validated by `contrast_field_matches_calculation` test)
 - Theme doc comments include `/// Contrast: {High|Normal|Low}` matching the actual enum value

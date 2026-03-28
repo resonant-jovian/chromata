@@ -21,7 +21,7 @@
 - **Zero runtime cost** — every theme is a `const` struct, no parsing, no allocation
 - **25+ semantic color roles** — bg, fg, keyword, string, function, error, and more
 - **Feature-gated** — compile only the theme families you need (~20KB for `popular`)
-- **Framework integrations** — ratatui, egui, crossterm, iced via optional features
+- **18 framework integrations** — ratatui, egui, plotters, image, bevy, wgpu, and more via optional features
 - **`no_std` compatible** — works in embedded and WASM targets
 - **WCAG contrast utilities** — luminance and contrast ratio calculations built in
 
@@ -47,14 +47,14 @@ Each theme is a struct with named fields for semantic color roles — background
 
 ```toml
 [dependencies]
-chromata = "0.2.0"
+chromata = "0.3.0"
 ```
 
 Or with framework integration:
 
 ```toml
 [dependencies]
-chromata = { version = "0.2.0", features = ["ratatui-integration"] }
+chromata = { version = "0.3.0", features = ["ratatui-integration"] }
 ```
 
 ### Quick start
@@ -65,7 +65,9 @@ use chromata::popular::gruvbox;
 fn main() {
     let theme = gruvbox::DARK_HARD;
     println!("Background: {}", theme.bg.to_css_hex()); // "#1d2021"
-    println!("Keyword:    {}", theme.keyword.unwrap().to_css_hex());
+    if let Some(kw) = theme.keyword {
+        println!("Keyword:    {}", kw.to_css_hex());
+    }
     println!("Is dark?    {}", theme.is_dark());
 }
 ```
@@ -103,9 +105,11 @@ println!("Found {} dark themes", dark_themes.len());
 ### Use cases
 
 - **TUI applications** — ratatui, cursive, crossterm-based apps
-- **GUI applications** — egui, iced, bevy, druid
-- **Terminal emulators** — generate palette configurations
-- **Syntax highlighting** — feed semantic colors into tree-sitter or similar
+- **GUI applications** — egui, iced, slint, bevy, macroquad
+- **Graphics and rendering** — plotters charts, image processing, wgpu, tiny-skia
+- **Terminal coloring** — colored, owo-colors, termion
+- **Syntax highlighting** — syntect, tree-sitter, or similar
+- **Color science** — palette crate for color space conversions
 - **Theme preview tools** — compare themes side-by-side
 - **CSS generation** — export custom properties for web frontends
 
@@ -122,8 +126,7 @@ graph TD
     GEN --> SRC["src/base16/*.rs<br>src/base24/*.rs<br>..."]
     SRC --> LIB["lib.rs<br>feature-gated modules"]
     LIB --> TYPES["types.rs<br>Color, Theme, Variant"]
-    LIB --> TRAITS["traits.rs<br>IntoFrameworkColor"]
-    LIB --> INT["integration/<br>ratatui, egui, crossterm, iced"]
+    LIB --> INT["integration/<br>18 framework integrations"]
 ```
 
 ### Module tree
@@ -132,7 +135,6 @@ graph TD
 src/
 ├── lib.rs            # Re-exports, feature gates, #![no_std]
 ├── types.rs          # Color, Theme, Variant, Contrast, Base16Palette, Base24Palette
-├── traits.rs         # Framework integration traits
 ├── iter.rs           # collect_all_themes()
 ├── popular/          # Feature: "popular" (default) — curated 49 best themes
 │   ├── mod.rs
@@ -142,16 +144,16 @@ src/
 │   └── mod.rs
 ├── base24/           # Feature: "base24" — ~184 extended base16 schemes
 │   └── mod.rs
-├── vim/              # Feature: "vim" — ~600 vim colorschemes
+├── vim/              # Feature: "vim" — ~464 vim colorschemes
 │   └── mod.rs
-├── emacs/            # Feature: "emacs" — ~200 emacs themes
+├── emacs/            # Feature: "emacs" — ~102 emacs themes
 │   └── mod.rs
-└── integration/      # Optional framework conversions
+└── integration/      # Optional framework conversions (18 crates)
     ├── mod.rs
-    ├── ratatui.rs
-    ├── egui.rs
-    ├── crossterm.rs
-    └── iced.rs
+    ├── ratatui.rs, egui.rs, crossterm.rs, iced.rs
+    ├── plotters.rs, image.rs, palette.rs, syntect.rs
+    ├── bevy_color.rs, macroquad.rs, wgpu.rs, tiny_skia.rs, slint.rs
+    └── colored.rs, owo_colors.rs, termion.rs, cursive.rs, comfy_table.rs
 ```
 
 ### The Theme struct
@@ -205,7 +207,7 @@ pub struct Theme {
 }
 ```
 
-### Trait system
+### Framework conversions
 
 Framework integrations use `From<Color>` conversions gated behind optional features:
 
@@ -218,7 +220,7 @@ let style = ratatui::style::Style::default()
     .bg(gruvbox::DARK_HARD.bg.into());
 ```
 
-The generic traits `IntoFrameworkColor<T>` and `IntoFrameworkTheme<T>` allow framework-agnostic code when needed.
+Each integration implements `From<Color>` for the framework's color type, so you can use `.into()` directly.
 
 ### Code generation pipeline
 
@@ -245,10 +247,24 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 | `vim` | 464 | Vim colorschemes from vim-colorschemes repos | No |
 | `emacs` | 102 | Emacs themes from emacs-themes-site | No |
 | `all` | 1104 | Enable all theme families | No |
-| `ratatui-integration` | — | `From<Color>` for ratatui types | No |
-| `egui-integration` | — | `From<Color>` for egui types | No |
+| `bevy-color-integration` | — | `From<Color>` for bevy_color types | No |
+| `colored-integration` | — | `From<Color>` for colored types | No |
+| `comfy-table-integration` | — | `From<Color>` for comfy-table types | No |
 | `crossterm-integration` | — | `From<Color>` for crossterm types | No |
+| `cursive-integration` | — | `From<Color>` for cursive types | No |
+| `egui-integration` | — | `From<Color>` for egui types | No |
 | `iced-integration` | — | `From<Color>` for iced types | No |
+| `image-integration` | — | `From<Color>` for image types | No |
+| `macroquad-integration` | — | `From<Color>` for macroquad types | No |
+| `owo-colors-integration` | — | `From<Color>` for owo-colors types | No |
+| `palette-integration` | — | `From<Color>` for palette types | No |
+| `plotters-integration` | — | `From<Color>` for plotters types | No |
+| `ratatui-integration` | — | `From<Color>` for ratatui types | No |
+| `slint-integration` | — | `From<Color>` for slint types | No |
+| `syntect-integration` | — | `From<Color>` for syntect types | No |
+| `termion-integration` | — | `From<Color>` for termion types | No |
+| `tiny-skia-integration` | — | `From<Color>` for tiny-skia types | No |
+| `wgpu-integration` | — | `From<Color>` for wgpu types | No |
 | `serde-support` | — | Serialize/deserialize themes and colors | No |
 
 ---
@@ -261,7 +277,7 @@ cargo build --all-features            # build everything
 cargo test                            # run tests
 cargo xtask fetch                     # fetch upstream base16 YAML schemes
 cargo xtask generate                  # generate themes from data/ YAML files
-cargo clippy --all-features           # lint
+cargo clippy --all-targets --all-features  # lint
 cargo doc --no-deps --open            # browse API docs
 ```
 
@@ -270,6 +286,15 @@ cargo doc --no-deps --open            # browse API docs
 cargo run --example list_all          # list all available themes
 cargo run --example preview_ansi      # preview theme in terminal with ANSI colors
 cargo run --example export_css        # generate CSS custom properties
+cargo run --example find_theme        # search themes by name, variant, contrast
+
+# Integration examples (require feature flags)
+cargo run --example ratatui_demo --features ratatui-integration
+cargo run --example egui_gallery --features egui-integration
+cargo run --example plotters_chart --features plotters-integration
+cargo run --example image_gradient --features image-integration
+cargo run --example colored_terminal --features colored-integration
+cargo run --example comfy_table_demo --features comfy-table-integration
 ```
 
 ---

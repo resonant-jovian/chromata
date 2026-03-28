@@ -82,8 +82,8 @@ fn contrast_ratio_is_symmetric() {
     assert!(ratio_ab > 20.0);
 }
 
-// --- New v0.1.0 tests ---
-
+// Thresholds intentionally overlap in the 0.15–0.4 range because some
+// themes have mid-range backgrounds that could reasonably be either variant.
 #[test]
 fn variant_matches_bg_luminance() {
     for theme in chromata::collect_all_themes() {
@@ -214,6 +214,20 @@ fn emacs_has_expected_count() {
         "Expected at least 80 emacs themes, got {}",
         chromata::emacs::THEMES.len()
     );
+}
+
+#[cfg(feature = "emacs")]
+#[test]
+fn no_duplicate_theme_names_in_emacs() {
+    let mut names: Vec<&str> = chromata::emacs::THEMES.iter().map(|t| t.name).collect();
+    names.sort();
+    for window in names.windows(2) {
+        assert_ne!(
+            window[0], window[1],
+            "Duplicate theme name in emacs: '{}'",
+            window[0]
+        );
+    }
 }
 
 #[cfg(feature = "emacs")]
