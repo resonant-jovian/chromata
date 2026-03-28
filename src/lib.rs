@@ -18,10 +18,24 @@
 //! | `vim` | 464 | Vim colorschemes from vim-colorschemes repos |
 //! | `emacs` | 102 | Emacs themes from emacs-themes-site |
 //! | `all` | 1104 | All collections combined |
-//! | `ratatui-integration` | — | `From<Color>` for ratatui types |
-//! | `egui-integration` | — | `From<Color>` for egui types |
+//! | `bevy-color-integration` | — | `From<Color>` for bevy_color types |
+//! | `colored-integration` | — | `From<Color>` for colored types |
+//! | `comfy-table-integration` | — | `From<Color>` for comfy-table types |
 //! | `crossterm-integration` | — | `From<Color>` for crossterm types |
+//! | `cursive-integration` | — | `From<Color>` for cursive types |
+//! | `egui-integration` | — | `From<Color>` for egui types |
 //! | `iced-integration` | — | `From<Color>` for iced types |
+//! | `image-integration` | — | `From<Color>` for image types |
+//! | `macroquad-integration` | — | `From<Color>` for macroquad types |
+//! | `owo-colors-integration` | — | `From<Color>` for owo-colors types |
+//! | `palette-integration` | — | `From<Color>` for palette types |
+//! | `plotters-integration` | — | `From<Color>` for plotters types |
+//! | `ratatui-integration` | — | `From<Color>` for ratatui types |
+//! | `slint-integration` | — | `From<Color>` for slint types |
+//! | `syntect-integration` | — | `From<Color>` for syntect types |
+//! | `termion-integration` | — | `From<Color>` for termion types |
+//! | `tiny-skia-integration` | — | `From<Color>` for tiny-skia types |
+//! | `wgpu-integration` | — | `From<Color>` for wgpu types |
 //! | `serde-support` | — | Serialize/deserialize themes |
 //!
 //! ## Quick Start
@@ -77,9 +91,23 @@ pub mod emacs;
 pub mod popular;
 
 #[cfg(any(
-    feature = "ratatui-integration",
-    feature = "egui-integration",
+    feature = "bevy-color-integration",
+    feature = "colored-integration",
+    feature = "comfy-table-integration",
     feature = "crossterm-integration",
+    feature = "cursive-integration",
+    feature = "egui-integration",
     feature = "iced-integration",
+    feature = "image-integration",
+    feature = "macroquad-integration",
+    feature = "owo-colors-integration",
+    feature = "palette-integration",
+    feature = "plotters-integration",
+    feature = "ratatui-integration",
+    feature = "slint-integration",
+    feature = "syntect-integration",
+    feature = "termion-integration",
+    feature = "tiny-skia-integration",
+    feature = "wgpu-integration",
 ))]
 mod integration;

@@ -42,8 +42,8 @@ After modifying xtask or adding data, run fetch + generate then verify with `car
 ### Feature gates
 
 Theme modules: `popular` (default), `base16`, `base24`, `vim`, `emacs`, `all`.
-Framework integrations: `ratatui-integration`, `egui-integration`, `crossterm-integration`, `iced-integration`.
-Each integration module in `src/integration/` provides `From<Color>` for the framework's color type.
+Framework integrations: `bevy-color-integration`, `colored-integration`, `comfy-table-integration`, `crossterm-integration`, `cursive-integration`, `egui-integration`, `iced-integration`, `image-integration`, `macroquad-integration`, `owo-colors-integration`, `palette-integration`, `plotters-integration`, `ratatui-integration`, `slint-integration`, `syntect-integration`, `termion-integration`, `tiny-skia-integration`, `wgpu-integration`.
+Each integration module in `src/integration/` provides `From<Color>` for the framework's color type. Some also provide convenience methods on `Theme` (e.g., `to_syntect_theme_settings()`, `apply_to_cursive_palette()`, `plotters_series_colors()`, `colorize()`, `style_comfy_cell()`).
 
 ### Data pipeline
 

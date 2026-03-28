@@ -21,7 +21,7 @@
 - **Zero runtime cost** — every theme is a `const` struct, no parsing, no allocation
 - **25+ semantic color roles** — bg, fg, keyword, string, function, error, and more
 - **Feature-gated** — compile only the theme families you need (~20KB for `popular`)
-- **Framework integrations** — ratatui, egui, crossterm, iced via optional features
+- **18 framework integrations** — ratatui, egui, plotters, image, bevy, wgpu, and more via optional features
 - **`no_std` compatible** — works in embedded and WASM targets
 - **WCAG contrast utilities** — luminance and contrast ratio calculations built in
 
@@ -245,10 +245,24 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 | `vim` | 464 | Vim colorschemes from vim-colorschemes repos | No |
 | `emacs` | 102 | Emacs themes from emacs-themes-site | No |
 | `all` | 1104 | Enable all theme families | No |
-| `ratatui-integration` | — | `From<Color>` for ratatui types | No |
-| `egui-integration` | — | `From<Color>` for egui types | No |
+| `bevy-color-integration` | — | `From<Color>` for bevy_color types | No |
+| `colored-integration` | — | `From<Color>` for colored types | No |
+| `comfy-table-integration` | — | `From<Color>` for comfy-table types | No |
 | `crossterm-integration` | — | `From<Color>` for crossterm types | No |
+| `cursive-integration` | — | `From<Color>` for cursive types | No |
+| `egui-integration` | — | `From<Color>` for egui types | No |
 | `iced-integration` | — | `From<Color>` for iced types | No |
+| `image-integration` | — | `From<Color>` for image types | No |
+| `macroquad-integration` | — | `From<Color>` for macroquad types | No |
+| `owo-colors-integration` | — | `From<Color>` for owo-colors types | No |
+| `palette-integration` | — | `From<Color>` for palette types | No |
+| `plotters-integration` | — | `From<Color>` for plotters types | No |
+| `ratatui-integration` | — | `From<Color>` for ratatui types | No |
+| `slint-integration` | — | `From<Color>` for slint types | No |
+| `syntect-integration` | — | `From<Color>` for syntect types | No |
+| `termion-integration` | — | `From<Color>` for termion types | No |
+| `tiny-skia-integration` | — | `From<Color>` for tiny-skia types | No |
+| `wgpu-integration` | — | `From<Color>` for wgpu types | No |
 | `serde-support` | — | Serialize/deserialize themes and colors | No |
 
 ---
@@ -270,6 +284,12 @@ cargo doc --no-deps --open            # browse API docs
 cargo run --example list_all          # list all available themes
 cargo run --example preview_ansi      # preview theme in terminal with ANSI colors
 cargo run --example export_css        # generate CSS custom properties
+
+# Integration examples (require feature flags)
+cargo run --example plotters_chart --features plotters-integration
+cargo run --example image_gradient --features image-integration
+cargo run --example colored_terminal --features colored-integration
+cargo run --example comfy_table_demo --features comfy-table-integration
 ```
 
 ---
