@@ -124,7 +124,6 @@ graph TD
     GEN --> SRC["src/base16/*.rs<br>src/base24/*.rs<br>..."]
     SRC --> LIB["lib.rs<br>feature-gated modules"]
     LIB --> TYPES["types.rs<br>Color, Theme, Variant"]
-    LIB --> TRAITS["traits.rs<br>IntoFrameworkColor"]
     LIB --> INT["integration/<br>18 framework integrations"]
 ```
 
@@ -134,7 +133,6 @@ graph TD
 src/
 ├── lib.rs            # Re-exports, feature gates, #![no_std]
 ├── types.rs          # Color, Theme, Variant, Contrast, Base16Palette, Base24Palette
-├── traits.rs         # Framework integration traits
 ├── iter.rs           # collect_all_themes()
 ├── popular/          # Feature: "popular" (default) — curated 49 best themes
 │   ├── mod.rs
@@ -220,7 +218,7 @@ let style = ratatui::style::Style::default()
     .bg(gruvbox::DARK_HARD.bg.into());
 ```
 
-The generic traits `IntoFrameworkColor<T>` and `IntoFrameworkTheme<T>` allow framework-agnostic code when needed.
+Each integration implements `From<Color>` for the framework's color type, so you can use `.into()` directly.
 
 ### Code generation pipeline
 

@@ -38,6 +38,15 @@
 //! | `wgpu-integration` | — | `From<Color>` for wgpu types |
 //! | `serde-support` | — | Serialize/deserialize themes |
 //!
+//! ## Core Types
+//!
+//! - [`Color`] — RGB color with hex conversion, WCAG luminance, contrast ratio, lerp
+//! - [`Theme`] — 29 color fields + metadata (name, author, variant, contrast)
+//! - [`Variant`] — `Dark` or `Light`
+//! - [`Contrast`] — `High`, `Normal`, or `Low` (WCAG-based)
+//! - [`Base16Palette`] — The 16 base16 palette slots (available on base16 themes)
+//! - [`Base24Palette`] — Extended 24-slot palette (available on base24 themes)
+//!
 //! ## Quick Start
 //!
 //! ```rust
@@ -63,16 +72,15 @@
 #![forbid(unsafe_code)]
 #![deny(clippy::unwrap_used)]
 #![allow(rustdoc::bare_urls)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 extern crate alloc;
 
 mod iter;
-mod traits;
 mod types;
 
 pub mod prelude;
 
 pub use iter::*;
-pub use traits::*;
 pub use types::*;
 
 #[cfg(feature = "base16")]
