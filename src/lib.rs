@@ -73,7 +73,7 @@
 #![deny(clippy::unwrap_used)]
 // Generated theme files contain bare URLs in author fields.
 #![allow(rustdoc::bare_urls)]
-#![cfg_attr(docsrs, feature(doc_auto_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 extern crate alloc;
 
 mod iter;
