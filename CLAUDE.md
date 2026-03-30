@@ -43,7 +43,7 @@ After modifying xtask or adding data, run fetch + generate then verify with `car
 
 **`no_std` library** using `#![no_std]` + `extern crate alloc`. Uses `libm::pow` for WCAG luminance math instead of `std::f64::powf`. Methods returning `String` or `Vec` use `alloc`.
 
-**Core types** (`src/types.rs`): `Color` (RGB u8), `Theme` (29 color fields + 4 metadata fields), `Variant` (Dark/Light), `Contrast` (High/Normal/Low based on WCAG ratio thresholds: >=10.0, >=4.5, <4.5).
+**Core types** (`src/types.rs`): `Color` (RGB u8), `Theme` (`#[non_exhaustive]`, 29 color fields + 4 metadata fields using `Cow<'static, str>` for name/author), `ThemeBuilder` (runtime construction with auto-detected variant/contrast), `Variant` (Dark/Light), `Contrast` (High/Normal/Low based on WCAG ratio thresholds: >=10.0, >=4.5, <4.5). Parse error types: `ParseColorError`, `ParseVariantError`, `ParseContrastError`.
 
 **Theme discovery** (`src/iter.rs`): `collect_all_themes()` aggregates themes from all enabled feature modules. For zero-allocation access, use module-level `THEMES` slices directly (e.g., `popular::THEMES`).
 
@@ -69,4 +69,7 @@ Each integration module in `src/integration/` provides `From<Color>` for the fra
 - All public items must have `///` doc comments; modules must have `//!` docs
 - Popular theme contrast values must match WCAG calculation (validated by `contrast_field_matches_calculation` test)
 - Theme doc comments include `/// Contrast: {High|Normal|Low}` matching the actual enum value
+- `Theme` is `#[non_exhaustive]` — external crates must use `Theme::builder()` to construct themes
+- `Theme` uses `Cow<'static, str>` for `name`/`author` — const themes use `Cow::Borrowed`, deserialized themes use `Cow::Owned`
+- Future fields added to `Theme` must be `Option<T>` to maintain serde backward compatibility
 - CI runs tests with `--test-threads=1` (sequential)

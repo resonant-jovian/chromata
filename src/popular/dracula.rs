@@ -4,6 +4,7 @@
 //! <https://github.com/dracula/dracula-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Dracula — dark theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: <https://draculatheme.com/>
 pub const THEME: Theme = Theme {
-    name: "Dracula",
-    author: "Zeno Rocha",
+    name: Cow::Borrowed("Dracula"),
+    author: Cow::Borrowed("Zeno Rocha"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x282a36),

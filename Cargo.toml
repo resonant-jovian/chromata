@@ -10,11 +10,12 @@ unsafe_code = "forbid"
 
 [package]
 name = "chromata"
-version = "0.3.1"
+version = "1.0.0"
 edition = "2024"
 rust-version = "1.85"
 description = "1000+ editor color themes as compile-time Rust constants"
 license = "GPL-3.0-only"
+authors = ["Albin Sjögren <albin@sjoegren.se>"]
 repository = "https://github.com/resonant-jovian/chromata"
 documentation = "https://docs.rs/chromata"
 readme = "README.md"

@@ -4,6 +4,7 @@
 //! <https://github.com/ayu-theme/ayu-colors>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Ayu Dark — the dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: ayu-colors
 pub const DARK: Theme = Theme {
-    name: "Ayu Dark",
-    author: "Ike Ku",
+    name: Cow::Borrowed("Ayu Dark"),
+    author: Cow::Borrowed("Ike Ku"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x0a0e14),
@@ -54,8 +55,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: Normal
 /// Source: ayu-colors
 pub const MIRAGE: Theme = Theme {
-    name: "Ayu Mirage",
-    author: "Ike Ku",
+    name: Cow::Borrowed("Ayu Mirage"),
+    author: Cow::Borrowed("Ike Ku"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x1f2430),
@@ -96,8 +97,8 @@ pub const MIRAGE: Theme = Theme {
 /// Contrast: Normal
 /// Source: ayu-colors
 pub const LIGHT: Theme = Theme {
-    name: "Ayu Light",
-    author: "Ike Ku",
+    name: Cow::Borrowed("Ayu Light"),
+    author: Cow::Borrowed("Ike Ku"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xfafafa),

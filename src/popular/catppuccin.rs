@@ -4,6 +4,7 @@
 //! <https://github.com/catppuccin/catppuccin>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Catppuccin Latte — light variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: <https://catppuccin.com/>
 pub const LATTE: Theme = Theme {
-    name: "Catppuccin Latte",
-    author: "catppuccin org",
+    name: Cow::Borrowed("Catppuccin Latte"),
+    author: Cow::Borrowed("catppuccin org"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xeff1f5),
@@ -54,8 +55,8 @@ pub const LATTE: Theme = Theme {
 /// Contrast: Normal
 /// Source: <https://catppuccin.com/>
 pub const FRAPPE: Theme = Theme {
-    name: "Catppuccin Frappe",
-    author: "catppuccin org",
+    name: Cow::Borrowed("Catppuccin Frappe"),
+    author: Cow::Borrowed("catppuccin org"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x303446),
@@ -96,8 +97,8 @@ pub const FRAPPE: Theme = Theme {
 /// Contrast: Normal
 /// Source: <https://catppuccin.com/>
 pub const MACCHIATO: Theme = Theme {
-    name: "Catppuccin Macchiato",
-    author: "catppuccin org",
+    name: Cow::Borrowed("Catppuccin Macchiato"),
+    author: Cow::Borrowed("catppuccin org"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x24273a),
@@ -138,8 +139,8 @@ pub const MACCHIATO: Theme = Theme {
 /// Contrast: High
 /// Source: <https://catppuccin.com/>
 pub const MOCHA: Theme = Theme {
-    name: "Catppuccin Mocha",
-    author: "catppuccin org",
+    name: Cow::Borrowed("Catppuccin Mocha"),
+    author: Cow::Borrowed("catppuccin org"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x1e1e2e),

@@ -4,6 +4,7 @@
 //! <https://github.com/rebelot/kanagawa.nvim>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Kanagawa Wave — the original dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: rebelot/kanagawa.nvim
 pub const WAVE: Theme = Theme {
-    name: "Kanagawa Wave",
-    author: "rebelot",
+    name: Cow::Borrowed("Kanagawa Wave"),
+    author: Cow::Borrowed("rebelot"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x1f1f28),
@@ -54,8 +55,8 @@ pub const WAVE: Theme = Theme {
 /// Contrast: High
 /// Source: rebelot/kanagawa.nvim
 pub const DRAGON: Theme = Theme {
-    name: "Kanagawa Dragon",
-    author: "rebelot",
+    name: Cow::Borrowed("Kanagawa Dragon"),
+    author: Cow::Borrowed("rebelot"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x181616),

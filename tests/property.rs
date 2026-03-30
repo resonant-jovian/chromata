@@ -62,4 +62,20 @@ proptest! {
         prop_assert!((0.0..=1.0).contains(&gf));
         prop_assert!((0.0..=1.0).contains(&bf));
     }
+
+    #[test]
+    fn css_hex_roundtrip(r in 0u8..=255, g in 0u8..=255, b in 0u8..=255) {
+        let c = Color::new(r, g, b);
+        let css = c.to_css_hex();
+        let c2 = Color::from_css_hex(&css).unwrap();
+        prop_assert_eq!(c, c2);
+    }
+
+    #[test]
+    fn from_u32_roundtrip(r in 0u8..=255, g in 0u8..=255, b in 0u8..=255) {
+        let c = Color::new(r, g, b);
+        let hex = c.to_hex();
+        let c2: Color = hex.into();
+        prop_assert_eq!(c, c2);
+    }
 }

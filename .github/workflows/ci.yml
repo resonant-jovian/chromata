@@ -69,6 +69,17 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo check --no-default-features
 
+  wasm:
+    name: WASM compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: cargo check --target wasm32-unknown-unknown --no-default-features
+      - run: cargo check --target wasm32-unknown-unknown --features popular
+
   feature-isolation:
     name: Feature isolation (${{ matrix.family }})
     runs-on: ubuntu-latest

@@ -4,6 +4,7 @@
 //! <https://monokai.pro/>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Monokai Classic — the original Monokai theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: <https://monokai.pro/>
 pub const THEME: Theme = Theme {
-    name: "Monokai Classic",
-    author: "Wimer Hazenberg",
+    name: Cow::Borrowed("Monokai Classic"),
+    author: Cow::Borrowed("Wimer Hazenberg"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x272822),
@@ -54,8 +55,8 @@ pub const THEME: Theme = Theme {
 /// Contrast: High
 /// Source: <https://monokai.pro/>
 pub const PRO: Theme = Theme {
-    name: "Monokai Pro",
-    author: "Wimer Hazenberg",
+    name: Cow::Borrowed("Monokai Pro"),
+    author: Cow::Borrowed("Wimer Hazenberg"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x2d2a2e),

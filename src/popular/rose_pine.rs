@@ -4,6 +4,7 @@
 //! <https://github.com/rose-pine/rose-pine-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Rosé Pine — the original dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: rose-pine-theme
 pub const THEME: Theme = Theme {
-    name: "Rosé Pine",
-    author: "Rosé Pine",
+    name: Cow::Borrowed("Rosé Pine"),
+    author: Cow::Borrowed("Rosé Pine"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x191724),
@@ -54,8 +55,8 @@ pub const THEME: Theme = Theme {
 /// Contrast: High
 /// Source: rose-pine-theme
 pub const MOON: Theme = Theme {
-    name: "Rosé Pine Moon",
-    author: "Rosé Pine",
+    name: Cow::Borrowed("Rosé Pine Moon"),
+    author: Cow::Borrowed("Rosé Pine"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x232136),
@@ -96,8 +97,8 @@ pub const MOON: Theme = Theme {
 /// Contrast: Normal
 /// Source: rose-pine-theme
 pub const DAWN: Theme = Theme {
-    name: "Rosé Pine Dawn",
-    author: "Rosé Pine",
+    name: Cow::Borrowed("Rosé Pine Dawn"),
+    author: Cow::Borrowed("Rosé Pine"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xfaf4ed),

@@ -4,6 +4,7 @@
 //! <https://github.com/robb0wen/synthwave-vscode>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// SynthWave '84 — neon dark theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: synthwave-vscode
 pub const THEME: Theme = Theme {
-    name: "SynthWave '84",
-    author: "Robb Owen",
+    name: Cow::Borrowed("SynthWave '84"),
+    author: Cow::Borrowed("Robb Owen"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x262335),

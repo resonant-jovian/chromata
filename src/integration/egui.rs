@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["egui-integration"] }
+//! chromata = { version = "1", features = ["egui-integration"] }
 //! ```
 //!
 //! # Example

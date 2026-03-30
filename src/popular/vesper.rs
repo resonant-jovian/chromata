@@ -4,6 +4,7 @@
 //! <https://github.com/raunofreiberg/vesper>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Vesper — minimal dark theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: vesper
 pub const THEME: Theme = Theme {
-    name: "Vesper",
-    author: "raunofreiberg",
+    name: Cow::Borrowed("Vesper"),
+    author: Cow::Borrowed("raunofreiberg"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x101010),

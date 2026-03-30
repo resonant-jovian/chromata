@@ -6,7 +6,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["slint-integration"] }
+//! chromata = { version = "1", features = ["slint-integration"] }
 //! ```
 //!
 //! # Example

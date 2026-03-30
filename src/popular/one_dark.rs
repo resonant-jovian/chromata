@@ -4,6 +4,7 @@
 //! <https://github.com/atom/atom/tree/master/packages/one-dark-syntax>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// One Dark — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: <https://github.com/atom/atom/tree/master/packages/one-dark-syntax>
 pub const THEME: Theme = Theme {
-    name: "One Dark",
-    author: "Atom (GitHub)",
+    name: Cow::Borrowed("One Dark"),
+    author: Cow::Borrowed("Atom (GitHub)"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x282c34),
@@ -54,8 +55,8 @@ pub const THEME: Theme = Theme {
 /// Contrast: High
 /// Source: <https://github.com/atom/atom/tree/master/packages/one-light-syntax>
 pub const LIGHT: Theme = Theme {
-    name: "One Light",
-    author: "Atom (GitHub)",
+    name: Cow::Borrowed("One Light"),
+    author: Cow::Borrowed("Atom (GitHub)"),
     variant: Variant::Light,
     contrast: Contrast::High,
     bg: Color::from_hex(0xfafafa),

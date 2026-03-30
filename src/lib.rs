@@ -36,16 +36,17 @@
 //! | `termion-integration` | — | `From<Color>` for termion types |
 //! | `tiny-skia-integration` | — | `From<Color>` for tiny-skia types |
 //! | `wgpu-integration` | — | `From<Color>` for wgpu types |
-//! | `serde-support` | — | Serialize/deserialize themes |
+//! | `serde-support` | — | Serialize + Deserialize for themes |
 //!
 //! ## Core Types
 //!
 //! - [`Color`] — RGB color with hex conversion, WCAG luminance, contrast ratio, lerp
 //! - [`Theme`] — 29 color fields + metadata (name, author, variant, contrast)
+//! - [`ThemeBuilder`] — Fluent builder for constructing themes at runtime
 //! - [`Variant`] — `Dark` or `Light`
 //! - [`Contrast`] — `High`, `Normal`, or `Low` (WCAG-based)
-//! - [`Base16Palette`] — The 16 base16 palette slots (available on base16 themes)
-//! - [`Base24Palette`] — Extended 24-slot palette (available on base24 themes)
+//! - [`Base16Palette`] — The 16 base16 palette slots (used within [`Base24Palette`])
+//! - [`Base24Palette`] — Extended 24-slot palette (exported by base24 themes as `PALETTE`)
 //!
 //! ## Quick Start
 //!

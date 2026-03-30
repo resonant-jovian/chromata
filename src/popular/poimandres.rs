@@ -4,6 +4,7 @@
 //! <https://github.com/drcmda/poimandres-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Poimandres — minimal dark theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: poimandres-theme
 pub const THEME: Theme = Theme {
-    name: "Poimandres",
-    author: "drcmda",
+    name: Cow::Borrowed("Poimandres"),
+    author: Cow::Borrowed("drcmda"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x1b1e28),

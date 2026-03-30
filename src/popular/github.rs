@@ -4,6 +4,7 @@
 //! <https://github.com/primer/github-vscode-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// GitHub Dark — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: github-vscode-theme
 pub const DARK: Theme = Theme {
-    name: "GitHub Dark",
-    author: "GitHub (Primer)",
+    name: Cow::Borrowed("GitHub Dark"),
+    author: Cow::Borrowed("GitHub (Primer)"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x0d1117),
@@ -54,8 +55,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: High
 /// Source: github-vscode-theme
 pub const LIGHT: Theme = Theme {
-    name: "GitHub Light",
-    author: "GitHub (Primer)",
+    name: Cow::Borrowed("GitHub Light"),
+    author: Cow::Borrowed("GitHub (Primer)"),
     variant: Variant::Light,
     contrast: Contrast::High,
     bg: Color::from_hex(0xffffff),

@@ -4,6 +4,7 @@
 //! <https://github.com/enkia/tokyo-night-vscode-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Tokyo Night Dark — the original dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: tokyo-night-vscode-theme
 pub const DARK: Theme = Theme {
-    name: "Tokyo Night Dark",
-    author: "Enkia",
+    name: Cow::Borrowed("Tokyo Night Dark"),
+    author: Cow::Borrowed("Enkia"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x1a1b26),
@@ -54,8 +55,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: Normal
 /// Source: tokyo-night-vscode-theme
 pub const STORM: Theme = Theme {
-    name: "Tokyo Night Storm",
-    author: "Enkia",
+    name: Cow::Borrowed("Tokyo Night Storm"),
+    author: Cow::Borrowed("Enkia"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x24283b),
@@ -96,8 +97,8 @@ pub const STORM: Theme = Theme {
 /// Contrast: Normal
 /// Source: tokyo-night-vscode-theme
 pub const LIGHT: Theme = Theme {
-    name: "Tokyo Night Light",
-    author: "Enkia",
+    name: Cow::Borrowed("Tokyo Night Light"),
+    author: Cow::Borrowed("Enkia"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xd5d6db),

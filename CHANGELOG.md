@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.0] - 2026-03-30
+
+### Breaking Changes
+
+- **Theme `name`/`author` fields changed from `&'static str` to `Cow<'static, str>`** —
+  enables serde deserialization. Compile-time themes use `Cow::Borrowed` (zero-cost).
+- **Theme no longer implements `Copy`** — use `Clone` or references instead.
+  Theme is a large struct; implicit copies were arguably misleading.
+- **Theme is now `#[non_exhaustive]`** — external crates must use `Theme::builder()`
+  to construct themes. This allows adding new fields in future minor versions.
+- **serde-support now derives both `Serialize` and `Deserialize` on `Theme`** —
+  previously serialize-only.
+
+### Added
+
+- `Theme::builder()` / `ThemeBuilder` for constructing themes at runtime with
+  auto-detected variant (from bg luminance) and contrast (from bg/fg WCAG ratio)
+- `Contrast::from_ratio(f64)` to classify WCAG contrast ratios
+- `FromStr` for `Variant` ("Dark"/"Light") and `Contrast` ("High"/"Normal"/"Low"),
+  case-insensitive
+- `Default` for `Variant` (Dark) and `Contrast` (Normal)
+- `From<u32>` and `From<(u8, u8, u8)>` for `Color`
+- `FromStr` for `Color` (parses CSS hex strings)
+- 3-digit CSS hex support in `Color::from_css_hex()` (e.g., `#FFF` expands to `#FFFFFF`)
+- WASM compatibility check in CI
+
+## [0.3.1] - 2026-03-28
+
+### Fixed
+
+- Preamble check logic for generated files
+- Test and code quality improvements
+
 ## [0.3.0] - 2026-03-28
 
 ### Added
@@ -40,6 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Query APIs: `collect_all_themes()`, `find_by_name()`, `filter_by_variant()`,
   `filter_by_contrast()`
 
+[1.0.0]: https://github.com/resonant-jovian/chromata/compare/0.3.1...1.0.0
+[0.3.1]: https://github.com/resonant-jovian/chromata/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/resonant-jovian/chromata/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/resonant-jovian/chromata/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/resonant-jovian/chromata/releases/tag/0.1.0
