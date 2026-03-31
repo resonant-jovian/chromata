@@ -63,6 +63,16 @@ tiny-skia-integration = ["dep:tiny-skia"]
 wgpu-integration = ["dep:wgpu"]
 serde-support = ["dep:serde"]
 
+# All cross-platform integrations (excludes termion which is unix-only)
+all-integrations = [
+    "bevy-color-integration", "colored-integration", "comfy-table-integration",
+    "crossterm-integration", "cursive-integration", "egui-integration",
+    "iced-integration", "image-integration", "macroquad-integration",
+    "owo-colors-integration", "palette-integration", "plotters-integration",
+    "ratatui-integration", "slint-integration", "syntect-integration",
+    "tiny-skia-integration", "wgpu-integration", "serde-support",
+]
+
 [dependencies]
 bevy_color = { version = "0.16", optional = true }
 colored = { version = "3", optional = true }
@@ -91,6 +101,11 @@ termion = { version = "4", optional = true }
 proptest = "1"
 insta = "1"
 serde_json = "1"
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "chromata_bench"
+harness = false
 
 [package.metadata.docs.rs]
 all-features = true

@@ -28,6 +28,9 @@ jobs:
       - name: Test (MSRV — theme features only)
         if: matrix.rust != 'stable'
         run: cargo test --features popular,base16,base24,vim,emacs,serde-support --verbose -- --test-threads=1
+      - name: Install system dependencies (Ubuntu)
+        if: runner.os == 'Linux' && matrix.rust == 'stable'
+        run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
       - name: Test (stable — all features)
         if: matrix.rust == 'stable'
         run: cargo test --all-features --verbose -- --test-threads=1
@@ -50,7 +53,22 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
+      - run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
       - run: cargo clippy --all-targets --all-features -- -D warnings
+
+  deny:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+
+  semver-checks:
+    name: Semver check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: obi1kenobi/cargo-semver-checks-action@v2
 
   docs:
     name: Doc build
@@ -58,6 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
       - run: RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --all-features
       - run: cargo test --doc --all-features
 

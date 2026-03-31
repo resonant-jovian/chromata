@@ -72,6 +72,8 @@
 #![no_std]
 #![forbid(unsafe_code)]
 #![deny(clippy::unwrap_used)]
+#![warn(missing_docs)]
+#![warn(unreachable_pub)]
 // Generated theme files contain bare URLs in author fields.
 #![allow(rustdoc::bare_urls)]
 #![cfg_attr(docsrs, feature(doc_cfg))]

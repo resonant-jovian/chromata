@@ -23,7 +23,7 @@
 //! # Convenience
 //!
 //! ```rust,ignore
-//! theme.apply_to_visuals(&mut visuals);
+//! theme.apply_to_egui_visuals(&mut visuals);
 //! // visuals.dark_mode, bg_fill, fg_stroke set from theme
 //! ```
 
@@ -38,7 +38,7 @@ impl From<Color> for ::egui::Color32 {
 
 impl Theme {
     /// Apply this theme's colors to egui Visuals.
-    pub fn apply_to_visuals(&self, visuals: &mut ::egui::Visuals) {
+    pub fn apply_to_egui_visuals(&self, visuals: &mut ::egui::Visuals) {
         visuals.dark_mode = self.is_dark();
         visuals.widgets.noninteractive.bg_fill = self.bg.into();
         visuals.widgets.noninteractive.fg_stroke.color = self.fg.into();

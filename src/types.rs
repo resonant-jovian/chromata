@@ -59,7 +59,10 @@ const fn hex_digit(b: u8) -> Option<u8> {
 
 /// A color represented as RGB components.
 /// All values are compile-time constants with zero runtime cost.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+///
+/// Ordering is lexicographic by `(r, g, b)`.
+#[must_use]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[cfg_attr(
     feature = "serde-support",
     derive(serde::Serialize, serde::Deserialize)
@@ -133,6 +136,7 @@ impl Color {
     ///
     /// assert!(Color::from_css_hex("nope").is_none());
     /// ```
+    #[must_use]
     pub const fn from_css_hex(s: &str) -> Option<Color> {
         let bytes = s.as_bytes();
 
@@ -190,6 +194,7 @@ impl Color {
     /// let c = Color::new(0x1d, 0x20, 0x21);
     /// assert_eq!(c.to_hex(), 0x1d2021);
     /// ```
+    #[must_use]
     pub const fn to_hex(self) -> u32 {
         ((self.r as u32) << 16) | ((self.g as u32) << 8) | (self.b as u32)
     }
@@ -204,6 +209,7 @@ impl Color {
     /// let c = Color::from_hex(0x1d2021);
     /// assert_eq!(c.to_css_hex(), "#1d2021");
     /// ```
+    #[must_use]
     pub fn to_css_hex(self) -> String {
         format!("#{:02x}{:02x}{:02x}", self.r, self.g, self.b)
     }
@@ -219,12 +225,34 @@ impl Color {
     /// let (r, g, b) = white.to_f32();
     /// assert!((r - 1.0).abs() < f32::EPSILON);
     /// ```
+    #[must_use]
     pub const fn to_f32(self) -> (f32, f32, f32) {
         (
             self.r as f32 / 255.0,
             self.g as f32 / 255.0,
             self.b as f32 / 255.0,
         )
+    }
+
+    /// Construct a Color from normalized `[0.0, 1.0]` RGB components.
+    ///
+    /// Values are clamped to `[0.0, 1.0]` and rounded to the nearest `u8`.
+    /// `NaN` is treated as `0.0`.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use chromata::Color;
+    ///
+    /// let c = Color::from_f32(1.0, 0.5, 0.0);
+    /// assert_eq!(c, Color::new(255, 128, 0));
+    /// ```
+    pub fn from_f32(r: f32, g: f32, b: f32) -> Self {
+        Self {
+            r: (r.clamp(0.0, 1.0) * 255.0 + 0.5) as u8,
+            g: (g.clamp(0.0, 1.0) * 255.0 + 0.5) as u8,
+            b: (b.clamp(0.0, 1.0) * 255.0 + 0.5) as u8,
+        }
     }
 
     /// Relative luminance per WCAG 2.0.
@@ -241,6 +269,7 @@ impl Color {
     /// assert!((black.luminance()).abs() < 0.001);
     /// assert!((white.luminance() - 1.0).abs() < 0.001);
     /// ```
+    #[must_use]
     pub fn luminance(self) -> f64 {
         let r = srgb_to_linear(self.r as f64 / 255.0);
         let g = srgb_to_linear(self.g as f64 / 255.0);
@@ -262,6 +291,7 @@ impl Color {
     /// let ratio = black.contrast_ratio(white);
     /// assert!(ratio > 20.0); // ~21:1 for black/white
     /// ```
+    #[must_use]
     pub fn contrast_ratio(self, other: Color) -> f64 {
         let l1 = self.luminance();
         let l2 = other.luminance();
@@ -410,6 +440,7 @@ impl Contrast {
     /// assert_eq!(Contrast::from_ratio(7.0), Contrast::Normal);
     /// assert_eq!(Contrast::from_ratio(2.0), Contrast::Low);
     /// ```
+    #[must_use]
     pub const fn from_ratio(ratio: f64) -> Self {
         if ratio >= 10.0 {
             Contrast::High
@@ -516,6 +547,53 @@ impl From<Color> for u32 {
 impl From<Color> for (u8, u8, u8) {
     fn from(c: Color) -> Self {
         (c.r, c.g, c.b)
+    }
+}
+
+/// Construct a Color from an `[r, g, b]` array.
+///
+/// # Examples
+///
+/// ```
+/// use chromata::Color;
+///
+/// let c: Color = [29, 32, 33].into();
+/// assert_eq!(c, Color::new(29, 32, 33));
+/// ```
+impl From<[u8; 3]> for Color {
+    fn from([r, g, b]: [u8; 3]) -> Self {
+        Self::new(r, g, b)
+    }
+}
+
+/// Extract the `[r, g, b]` components from a Color.
+///
+/// # Examples
+///
+/// ```
+/// use chromata::Color;
+///
+/// let arr: [u8; 3] = Color::new(29, 32, 33).into();
+/// assert_eq!(arr, [29, 32, 33]);
+/// ```
+impl From<Color> for [u8; 3] {
+    fn from(c: Color) -> Self {
+        [c.r, c.g, c.b]
+    }
+}
+
+/// Default Color is black (0, 0, 0).
+///
+/// # Examples
+///
+/// ```
+/// use chromata::Color;
+///
+/// assert_eq!(Color::default(), Color::new(0, 0, 0));
+/// ```
+impl Default for Color {
+    fn default() -> Self {
+        Self::new(0, 0, 0)
     }
 }
 
@@ -642,6 +720,7 @@ impl Theme {
     /// let theme = &chromata::popular::gruvbox::DARK_HARD;
     /// assert!(theme.is_dark());
     /// ```
+    #[must_use]
     pub const fn is_dark(&self) -> bool {
         matches!(self.variant, Variant::Dark)
     }
@@ -654,6 +733,7 @@ impl Theme {
     /// let theme = &chromata::popular::gruvbox::LIGHT;
     /// assert!(theme.is_light());
     /// ```
+    #[must_use]
     pub const fn is_light(&self) -> bool {
         matches!(self.variant, Variant::Light)
     }
@@ -730,6 +810,7 @@ impl Theme {
     /// assert_eq!(colors[0].0, "bg");
     /// assert_eq!(colors[1].0, "fg");
     /// ```
+    #[must_use]
     pub fn colors(&self) -> Vec<(&'static str, Color)> {
         let mut out = vec![("bg", self.bg), ("fg", self.fg)];
         macro_rules! push_opt {
@@ -788,6 +869,7 @@ impl Theme {
 ///     .build();
 /// assert!(theme.is_dark());
 /// ```
+#[must_use = "builders do nothing until .build() is called"]
 #[derive(Debug, Clone)]
 pub struct ThemeBuilder {
     name: Cow<'static, str>,
@@ -1049,6 +1131,7 @@ impl ThemeBuilder {
     /// If `variant` was not set, it is auto-detected from the background
     /// luminance (dark if luminance <= 0.5). If `contrast` was not set,
     /// it is auto-calculated from the bg/fg WCAG contrast ratio.
+    #[must_use]
     pub fn build(self) -> Theme {
         let variant = self.variant.unwrap_or_else(|| {
             if self.bg.luminance() > 0.5 {

@@ -51,7 +51,7 @@ require_cmd() {
 
 # ── Examples ─────────────────────────────────────────────────────────────────
 
-ALL_EXAMPLES=(list_all preview_ansi export_css find_theme ratatui_demo egui_gallery plotters_chart image_gradient colored_terminal comfy_table_demo)
+ALL_EXAMPLES=(list_all preview_ansi export_css find_theme ratatui_demo egui_gallery plotters_chart image_gradient colored_terminal comfy_table_demo crossterm_demo cursive_demo owo_colors_demo syntect_demo palette_demo bevy_color_demo wgpu_demo slint_demo iced_demo macroquad_demo tiny_skia_demo termion_demo)
 
 # Features required by specific examples
 declare -A EXAMPLE_FEATURES=(
@@ -61,6 +61,18 @@ declare -A EXAMPLE_FEATURES=(
     [image_gradient]="image-integration"
     [colored_terminal]="colored-integration"
     [comfy_table_demo]="comfy-table-integration"
+    [crossterm_demo]="crossterm-integration"
+    [cursive_demo]="cursive-integration"
+    [owo_colors_demo]="owo-colors-integration"
+    [syntect_demo]="syntect-integration"
+    [palette_demo]="palette-integration"
+    [bevy_color_demo]="bevy-color-integration"
+    [wgpu_demo]="wgpu-integration"
+    [slint_demo]="slint-integration"
+    [iced_demo]="iced-integration"
+    [macroquad_demo]="macroquad-integration"
+    [tiny_skia_demo]="tiny-skia-integration"
+    [termion_demo]="termion-integration"
 )
 
 cmd_examples() {
@@ -404,20 +416,28 @@ cmd_snapshots() {
 cmd_ci() {
     hdr "full CI (local)"
 
-    log "step 1/5: lint"
+    log "step 1/6: lint"
     cmd_lint --all
 
-    log "step 2/5: tests"
+    log "step 2/6: tests"
     cmd_test --all
 
-    log "step 3/5: feature isolation"
+    log "step 3/6: feature isolation"
     cmd_check
 
-    log "step 4/5: freshness"
+    log "step 4/6: freshness"
     cargo xtask check
     ok "generated files up to date"
 
-    log "step 5/5: examples"
+    log "step 5/6: dependency audit"
+    if has_cmd cargo-deny; then
+        cargo deny check
+        ok "cargo deny passed"
+    else
+        warn "cargo-deny not installed, skipping (install: cargo install cargo-deny)"
+    fi
+
+    log "step 6/6: examples"
     cmd_examples --all
 
     echo ""
@@ -432,6 +452,7 @@ TOOL_REGISTRY=(
     "clippy:cargo-clippy:rustup component add clippy:required"
     "rustfmt:rustfmt:rustup component add rustfmt:required"
     "cargo-insta:cargo-insta:cargo install cargo-insta:recommended"
+    "cargo-deny:cargo-deny:cargo install cargo-deny:recommended"
     "cargo-semver-checks:cargo-semver-checks:cargo install cargo-semver-checks:optional"
 )
 

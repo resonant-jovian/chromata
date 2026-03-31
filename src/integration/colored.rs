@@ -22,7 +22,7 @@
 //! # Convenience
 //!
 //! ```rust,ignore
-//! let styled = theme.colorize("hello world");
+//! let styled = theme.to_colored_string("hello world");
 //! // ColoredString with theme fg and bg applied
 //! ```
 
@@ -41,7 +41,8 @@ impl From<Color> for ::colored::Color {
 
 impl Theme {
     /// Apply this theme's foreground and background to a string.
-    pub fn colorize(&self, text: &str) -> ::colored::ColoredString {
+    #[must_use]
+    pub fn to_colored_string(&self, text: &str) -> ::colored::ColoredString {
         use ::colored::Colorize;
         text.truecolor(self.fg.r, self.fg.g, self.fg.b)
             .on_truecolor(self.bg.r, self.bg.g, self.bg.b)

@@ -19,9 +19,6 @@
 
 **1000+ editor color themes as compile-time Rust constants.**
 
-> [!IMPORTANT]
-> Pre-1.0 — the API may change between minor versions. Pin your dependency version.
-
 ---
 
 ### Highlights
@@ -56,14 +53,14 @@ Each theme is a struct with named fields for semantic color roles — background
 
 ```toml
 [dependencies]
-chromata = "0.3.0"
+chromata = "1.0.0"
 ```
 
 Or with framework integration:
 
 ```toml
 [dependencies]
-chromata = { version = "0.3.0", features = ["ratatui-integration"] }
+chromata = { version = "1.0.0", features = ["ratatui-integration"] }
 ```
 
 ### Quick start
@@ -172,8 +169,8 @@ Every theme is a `const Theme` with metadata, UI colors, syntax colors, diagnost
 ```rust
 pub struct Theme {
     // Metadata
-    pub name: &'static str,
-    pub author: &'static str,
+    pub name: Cow<'static, str>,
+    pub author: Cow<'static, str>,
     pub variant: Variant,        // Dark | Light
     pub contrast: Contrast,      // High | Normal | Low
 
@@ -274,6 +271,7 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 | `termion-integration` | — | `From<Color>` for termion types | No |
 | `tiny-skia-integration` | — | `From<Color>` for tiny-skia types | No |
 | `wgpu-integration` | — | `From<Color>` for wgpu types | No |
+| `all-integrations` | — | All cross-platform integrations (excludes termion) | No |
 | `serde-support` | — | Serialize/deserialize themes and colors | No |
 
 ---
@@ -304,6 +302,12 @@ cargo run --example plotters_chart --features plotters-integration
 cargo run --example image_gradient --features image-integration
 cargo run --example colored_terminal --features colored-integration
 cargo run --example comfy_table_demo --features comfy-table-integration
+cargo run --example crossterm_demo --features crossterm-integration
+cargo run --example syntect_demo --features syntect-integration
+cargo run --example cursive_demo --features cursive-integration
+cargo run --example owo_colors_demo --features owo-colors-integration
+cargo run --example palette_demo --features palette-integration
+cargo run --example bevy_color_demo --features bevy-color-integration
 ```
 
 ---

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.0.0] - 2026-03-30
+## [1.0.0] - 2026-03-31
 
 ### Breaking Changes
 
@@ -17,6 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   to construct themes. This allows adding new fields in future minor versions.
 - **serde-support now derives both `Serialize` and `Deserialize` on `Theme`** —
   previously serialize-only.
+- **Integration convenience methods renamed** for consistent naming convention
+  (`to_*` for conversions, `apply_to_*` for mutations):
+  - `colorize()` → `to_colored_string()`
+  - `style_comfy_cell()` → `to_comfy_table_cell()`
+  - `plotters_series_colors()` → `to_plotters_series_colors()`
+  - `to_syntect_theme_settings()` → `to_syntect_settings()`
+  - `apply_to_visuals()` → `apply_to_egui_visuals()`
 
 ### Added
 
@@ -29,7 +36,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `From<u32>` and `From<(u8, u8, u8)>` for `Color`
 - `FromStr` for `Color` (parses CSS hex strings)
 - 3-digit CSS hex support in `Color::from_css_hex()` (e.g., `#FFF` expands to `#FFFFFF`)
+- `PartialOrd` and `Ord` derives on `Color` (lexicographic by r, g, b)
+- `Default` for `Color` (black)
+- `Color::from_f32(r, g, b)` to construct from normalized `[0.0, 1.0]` components
+- `From<[u8; 3]>` and `From<Color> for [u8; 3]` array conversions
+- `#[must_use]` annotations on all value-returning methods and builder types
+- Criterion benchmarks for color conversions, WCAG calculations, and theme operations
+- 12 new integration examples (one per framework)
 - WASM compatibility check in CI
+- `cargo-semver-checks` CI job for semver compliance
+- `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue/PR templates
+- `cargo-deny` for dependency auditing (licenses, advisories, sources)
 
 ## [0.3.1] - 2026-03-28
 

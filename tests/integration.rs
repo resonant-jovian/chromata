@@ -810,3 +810,64 @@ fn colors_count_matches_defined_fields() {
     // Gruvbox Dark Hard has all fields defined (bg + fg + 27 optional = 29)
     assert_eq!(colors.len(), 29);
 }
+
+// --- Additional edge-case tests ---
+
+#[test]
+fn contrast_ratio_identical_colors() {
+    let c = Color::new(128, 128, 128);
+    let ratio = c.contrast_ratio(c);
+    assert!((ratio - 1.0).abs() < f64::EPSILON);
+}
+
+#[test]
+fn contrast_ratio_black_white() {
+    let black = Color::new(0, 0, 0);
+    let white = Color::new(255, 255, 255);
+    let ratio = black.contrast_ratio(white);
+    assert!(ratio > 20.9 && ratio < 21.1);
+}
+
+#[test]
+fn find_by_name_empty_string() {
+    assert!(chromata::find_by_name("").is_none());
+}
+
+#[test]
+fn filter_by_variant_both_nonempty() {
+    let dark = chromata::filter_by_variant(Variant::Dark);
+    let light = chromata::filter_by_variant(Variant::Light);
+    assert!(!dark.is_empty(), "should have dark themes");
+    assert!(!light.is_empty(), "should have light themes");
+}
+
+#[test]
+fn builder_minimal_fields() {
+    let bg = Color::new(30, 30, 30);
+    let fg = Color::new(220, 220, 220);
+    let theme = ThemeBuilder::new("Minimal", "Author", bg, fg).build();
+    assert_eq!(theme.name, "Minimal");
+    assert_eq!(theme.bg, bg);
+    assert_eq!(theme.fg, fg);
+    assert!(theme.is_dark());
+    assert!(theme.keyword.is_none());
+    assert!(theme.red.is_none());
+}
+
+#[test]
+fn color_from_css_hex_empty() {
+    assert!(Color::from_css_hex("").is_none());
+}
+
+#[test]
+fn color_from_css_hex_hash_only() {
+    assert!(Color::from_css_hex("#").is_none());
+}
+
+#[test]
+fn lerp_at_endpoints() {
+    let a = Color::new(100, 50, 200);
+    let b = Color::new(200, 150, 50);
+    assert_eq!(a.lerp(b, 0.0), a);
+    assert_eq!(a.lerp(b, 1.0), b);
+}

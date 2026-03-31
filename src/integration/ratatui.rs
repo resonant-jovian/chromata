@@ -39,6 +39,7 @@ impl From<Color> for RatColor {
 
 impl Theme {
     /// Convert to a ratatui Style for the default text.
+    #[must_use]
     pub fn to_ratatui_style(&self) -> ::ratatui::style::Style {
         ::ratatui::style::Style::default()
             .fg(self.fg.into())

@@ -22,7 +22,7 @@
 //! # Convenience
 //!
 //! ```rust,ignore
-//! let series_colors = theme.plotters_series_colors();
+//! let series_colors = theme.to_plotters_series_colors();
 //! // Vec of accent RGBColors for chart series
 //! ```
 
@@ -42,7 +42,8 @@ impl Theme {
     ///
     /// Collects defined accent colors (red, orange, yellow, green, cyan,
     /// blue, purple, magenta) in palette order, skipping any that are `None`.
-    pub fn plotters_series_colors(&self) -> Vec<::plotters::style::RGBColor> {
+    #[must_use]
+    pub fn to_plotters_series_colors(&self) -> Vec<::plotters::style::RGBColor> {
         let accents = [
             self.red,
             self.orange,

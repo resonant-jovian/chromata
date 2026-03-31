@@ -13,6 +13,8 @@ cargo test --all-features             # all tests including base16 feature-gated
 cargo test <name>                     # run a single test by name
 cargo clippy --all-targets --all-features  # lint (lib + tests + examples)
 cargo doc --no-deps                   # generate docs
+cargo deny check                      # dependency audit (licenses, advisories)
+cargo bench                           # criterion benchmarks
 ```
 
 **Xtask pipeline** (code generation):
@@ -28,11 +30,11 @@ After modifying xtask or adding data, run fetch + generate then verify with `car
 
 **dev.sh** (recommended for development):
 ```bash
-./dev.sh ci                           # full local CI: lint → test → check → freshness → examples
+./dev.sh ci                           # full local CI: lint → test → check → freshness → deny → examples
 ./dev.sh lint --all                   # fmt + clippy (lib + xtask) + doc build
 ./dev.sh lint --fix --all             # auto-fix lint issues
 ./dev.sh test --all                   # test with --all-features
-./dev.sh examples --all               # run all examples
+./dev.sh examples --all               # run all 22 examples
 ./dev.sh check                        # feature isolation (each feature compiles alone)
 ./dev.sh doctor                       # check prerequisites
 ./dev.sh snapshots review             # review pending insta snapshots
@@ -43,7 +45,7 @@ After modifying xtask or adding data, run fetch + generate then verify with `car
 
 **`no_std` library** using `#![no_std]` + `extern crate alloc`. Uses `libm::pow` for WCAG luminance math instead of `std::f64::powf`. Methods returning `String` or `Vec` use `alloc`.
 
-**Core types** (`src/types.rs`): `Color` (RGB u8), `Theme` (`#[non_exhaustive]`, 29 color fields + 4 metadata fields using `Cow<'static, str>` for name/author), `ThemeBuilder` (runtime construction with auto-detected variant/contrast), `Variant` (Dark/Light), `Contrast` (High/Normal/Low based on WCAG ratio thresholds: >=10.0, >=4.5, <4.5). Parse error types: `ParseColorError`, `ParseVariantError`, `ParseContrastError`.
+**Core types** (`src/types.rs`): `Color` (RGB u8, derives `PartialOrd`/`Ord`, `Default` → black), `Theme` (`#[non_exhaustive]`, 29 color fields + 4 metadata fields using `Cow<'static, str>` for name/author), `ThemeBuilder` (runtime construction with auto-detected variant/contrast), `Variant` (Dark/Light), `Contrast` (High/Normal/Low based on WCAG ratio thresholds: >=10.0, >=4.5, <4.5). Parse error types: `ParseColorError`, `ParseVariantError`, `ParseContrastError`.
 
 **Theme discovery** (`src/iter.rs`): `collect_all_themes()` aggregates themes from all enabled feature modules. For zero-allocation access, use module-level `THEMES` slices directly (e.g., `popular::THEMES`).
 
@@ -55,8 +57,11 @@ After modifying xtask or adding data, run fetch + generate then verify with `car
 ### Feature gates
 
 Theme modules: `popular` (default), `base16`, `base24`, `vim`, `emacs`, `all`.
-Framework integrations: `bevy-color-integration`, `colored-integration`, `comfy-table-integration`, `crossterm-integration`, `cursive-integration`, `egui-integration`, `iced-integration`, `image-integration`, `macroquad-integration`, `owo-colors-integration`, `palette-integration`, `plotters-integration`, `ratatui-integration`, `slint-integration`, `syntect-integration`, `termion-integration`, `tiny-skia-integration`, `wgpu-integration`.
-Each integration module in `src/integration/` provides `From<Color>` for the framework's color type. Some also provide convenience methods on `Theme` (e.g., `to_syntect_theme_settings()`, `apply_to_cursive_palette()`, `plotters_series_colors()`, `colorize()`, `style_comfy_cell()`).
+Framework integrations: `bevy-color-integration`, `colored-integration`, `comfy-table-integration`, `crossterm-integration`, `cursive-integration`, `egui-integration`, `iced-integration`, `image-integration`, `macroquad-integration`, `owo-colors-integration`, `palette-integration`, `plotters-integration`, `ratatui-integration`, `slint-integration`, `syntect-integration`, `termion-integration` (unix-only), `tiny-skia-integration`, `wgpu-integration`.
+Meta-feature `all-integrations` enables all cross-platform integrations (excludes termion).
+Each integration module in `src/integration/` provides `From<Color>` for the framework's color type. Some also provide convenience methods on `Theme`:
+- `to_ratatui_style()`, `to_syntect_settings()`, `to_colored_string()`, `to_comfy_table_cell()`, `to_plotters_series_colors()` — return new values
+- `apply_to_egui_visuals()`, `apply_to_cursive_palette()` — mutate a target in-place
 
 ### Data pipeline
 
@@ -66,7 +71,9 @@ Each integration module in `src/integration/` provides `From<Color>` for the fra
 
 - Edition 2024, GPL-3.0 license
 - `#![forbid(unsafe_code)]`, `#![deny(clippy::unwrap_used)]` — use `.expect()` in library code
+- `#![warn(missing_docs)]`, `#![warn(unreachable_pub)]` — enforced in lib.rs
 - All public items must have `///` doc comments; modules must have `//!` docs
+- Value-returning methods should have `#[must_use]`; structs like `Color` and `ThemeBuilder` are `#[must_use]`
 - Popular theme contrast values must match WCAG calculation (validated by `contrast_field_matches_calculation` test)
 - Theme doc comments include `/// Contrast: {High|Normal|Low}` matching the actual enum value
 - `Theme` is `#[non_exhaustive]` — external crates must use `Theme::builder()` to construct themes
