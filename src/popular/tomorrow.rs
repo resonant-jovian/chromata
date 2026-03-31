@@ -4,6 +4,7 @@
 //! <https://github.com/chriskempson/tomorrow-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Tomorrow Night — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: tomorrow-theme
 pub const NIGHT: Theme = Theme {
-    name: "Tomorrow Night",
-    author: "Chris Kempson",
+    name: Cow::Borrowed("Tomorrow Night"),
+    author: Cow::Borrowed("Chris Kempson"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x1d1f21),
@@ -54,8 +55,8 @@ pub const NIGHT: Theme = Theme {
 /// Contrast: Normal
 /// Source: tomorrow-theme
 pub const NIGHT_EIGHTIES: Theme = Theme {
-    name: "Tomorrow Night Eighties",
-    author: "Chris Kempson",
+    name: Cow::Borrowed("Tomorrow Night Eighties"),
+    author: Cow::Borrowed("Chris Kempson"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x2d2d2d),
@@ -96,8 +97,8 @@ pub const NIGHT_EIGHTIES: Theme = Theme {
 /// Contrast: Normal
 /// Source: tomorrow-theme
 pub const LIGHT: Theme = Theme {
-    name: "Tomorrow Light",
-    author: "Chris Kempson",
+    name: Cow::Borrowed("Tomorrow Light"),
+    author: Cow::Borrowed("Chris Kempson"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xffffff),

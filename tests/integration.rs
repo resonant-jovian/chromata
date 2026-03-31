@@ -1,5 +1,5 @@
 #![allow(clippy::unwrap_used)]
-use chromata::{Color, Contrast, Variant};
+use chromata::{Color, Contrast, ThemeBuilder, Variant};
 
 #[test]
 fn color_roundtrip() {
@@ -107,7 +107,10 @@ fn variant_matches_bg_luminance() {
 
 #[test]
 fn no_duplicate_theme_names_in_popular() {
-    let mut names: Vec<&str> = chromata::popular::THEMES.iter().map(|t| t.name).collect();
+    let mut names: Vec<&str> = chromata::popular::THEMES
+        .iter()
+        .map(|t| t.name.as_ref())
+        .collect();
     names.sort();
     for window in names.windows(2) {
         assert_ne!(
@@ -121,7 +124,10 @@ fn no_duplicate_theme_names_in_popular() {
 #[cfg(feature = "base16")]
 #[test]
 fn no_duplicate_theme_names_in_base16() {
-    let mut names: Vec<&str> = chromata::base16::THEMES.iter().map(|t| t.name).collect();
+    let mut names: Vec<&str> = chromata::base16::THEMES
+        .iter()
+        .map(|t| t.name.as_ref())
+        .collect();
     names.sort();
     for window in names.windows(2) {
         assert_ne!(
@@ -193,7 +199,10 @@ fn base24_has_expected_count() {
 #[cfg(feature = "base24")]
 #[test]
 fn no_duplicate_theme_names_in_base24() {
-    let mut names: Vec<&str> = chromata::base24::THEMES.iter().map(|t| t.name).collect();
+    let mut names: Vec<&str> = chromata::base24::THEMES
+        .iter()
+        .map(|t| t.name.as_ref())
+        .collect();
     names.sort();
     for window in names.windows(2) {
         assert_ne!(
@@ -219,7 +228,10 @@ fn emacs_has_expected_count() {
 #[cfg(feature = "emacs")]
 #[test]
 fn no_duplicate_theme_names_in_emacs() {
-    let mut names: Vec<&str> = chromata::emacs::THEMES.iter().map(|t| t.name).collect();
+    let mut names: Vec<&str> = chromata::emacs::THEMES
+        .iter()
+        .map(|t| t.name.as_ref())
+        .collect();
     names.sort();
     for window in names.windows(2) {
         assert_ne!(
@@ -269,7 +281,10 @@ fn vim_all_have_bg_fg() {
 #[cfg(feature = "vim")]
 #[test]
 fn vim_no_duplicate_names() {
-    let mut names: Vec<&str> = chromata::vim::THEMES.iter().map(|t| t.name).collect();
+    let mut names: Vec<&str> = chromata::vim::THEMES
+        .iter()
+        .map(|t| t.name.as_ref())
+        .collect();
     names.sort();
     for window in names.windows(2) {
         assert_ne!(window[0], window[1], "Duplicate vim theme: '{}'", window[0]);
@@ -461,4 +476,398 @@ fn nord_reference_colors() {
     assert_eq!(t.bg, Color::from_hex(0x2e3440));
     assert_eq!(t.fg, Color::from_hex(0xd8dee9));
     assert_eq!(t.variant, Variant::Dark);
+}
+
+// --- From/Into impls for Color ---
+
+#[test]
+fn color_from_u32() {
+    let c: Color = 0x1d2021u32.into();
+    assert_eq!(c, Color::from_hex(0x1d2021));
+}
+
+#[test]
+fn color_from_tuple() {
+    let c: Color = (0x1d, 0x20, 0x21).into();
+    assert_eq!(c, Color::new(0x1d, 0x20, 0x21));
+}
+
+#[test]
+fn color_from_str() {
+    let c: Color = "#1d2021".parse().unwrap();
+    assert_eq!(c, Color::from_hex(0x1d2021));
+
+    let c: Color = "1d2021".parse().unwrap();
+    assert_eq!(c, Color::from_hex(0x1d2021));
+
+    assert!("nope".parse::<Color>().is_err());
+}
+
+// --- 3-digit CSS hex ---
+
+#[test]
+fn color_css_hex_3digit() {
+    let c = Color::from_css_hex("#FFF").unwrap();
+    assert_eq!(c, Color::new(255, 255, 255));
+
+    let c = Color::from_css_hex("000").unwrap();
+    assert_eq!(c, Color::new(0, 0, 0));
+
+    let c = Color::from_css_hex("#ABC").unwrap();
+    assert_eq!(c, Color::new(0xAA, 0xBB, 0xCC));
+}
+
+#[test]
+fn color_css_hex_mixed_case() {
+    let c = Color::from_css_hex("#A1b2C3").unwrap();
+    assert_eq!(c, Color::new(0xA1, 0xB2, 0xC3));
+}
+
+// --- FromStr for Variant ---
+
+#[test]
+fn variant_from_str() {
+    assert_eq!("Dark".parse::<Variant>().unwrap(), Variant::Dark);
+    assert_eq!("dark".parse::<Variant>().unwrap(), Variant::Dark);
+    assert_eq!("DARK".parse::<Variant>().unwrap(), Variant::Dark);
+    assert_eq!("Light".parse::<Variant>().unwrap(), Variant::Light);
+    assert_eq!("light".parse::<Variant>().unwrap(), Variant::Light);
+    assert!("invalid".parse::<Variant>().is_err());
+}
+
+// --- FromStr for Contrast ---
+
+#[test]
+fn contrast_from_str() {
+    assert_eq!("High".parse::<Contrast>().unwrap(), Contrast::High);
+    assert_eq!("high".parse::<Contrast>().unwrap(), Contrast::High);
+    assert_eq!("Normal".parse::<Contrast>().unwrap(), Contrast::Normal);
+    assert_eq!("Low".parse::<Contrast>().unwrap(), Contrast::Low);
+    assert!("invalid".parse::<Contrast>().is_err());
+}
+
+// --- Default impls ---
+
+#[test]
+fn variant_default_is_dark() {
+    assert_eq!(Variant::default(), Variant::Dark);
+}
+
+#[test]
+fn contrast_default_is_normal() {
+    assert_eq!(Contrast::default(), Contrast::Normal);
+}
+
+// --- Contrast::from_ratio ---
+
+#[test]
+fn contrast_from_ratio_boundaries() {
+    assert_eq!(Contrast::from_ratio(10.0), Contrast::High);
+    assert_eq!(Contrast::from_ratio(10.1), Contrast::High);
+    assert_eq!(Contrast::from_ratio(9.99), Contrast::Normal);
+    assert_eq!(Contrast::from_ratio(4.5), Contrast::Normal);
+    assert_eq!(Contrast::from_ratio(4.49), Contrast::Low);
+    assert_eq!(Contrast::from_ratio(1.0), Contrast::Low);
+    assert_eq!(Contrast::from_ratio(21.0), Contrast::High);
+}
+
+// --- ThemeBuilder ---
+
+#[test]
+fn theme_builder_basic() {
+    let theme = ThemeBuilder::new(
+        "Test Theme",
+        "Test Author",
+        Color::new(0, 0, 0),
+        Color::new(255, 255, 255),
+    )
+    .build();
+    assert_eq!(theme.name, "Test Theme");
+    assert_eq!(theme.author, "Test Author");
+    assert_eq!(theme.bg, Color::new(0, 0, 0));
+    assert_eq!(theme.fg, Color::new(255, 255, 255));
+}
+
+#[test]
+fn theme_builder_auto_variant() {
+    let dark = ThemeBuilder::new("D", "", Color::new(0, 0, 0), Color::new(255, 255, 255)).build();
+    assert_eq!(dark.variant, Variant::Dark);
+
+    let light = ThemeBuilder::new("L", "", Color::new(255, 255, 255), Color::new(0, 0, 0)).build();
+    assert_eq!(light.variant, Variant::Light);
+}
+
+#[test]
+fn theme_builder_auto_contrast() {
+    let theme = ThemeBuilder::new("T", "", Color::new(0, 0, 0), Color::new(255, 255, 255)).build();
+    assert_eq!(theme.contrast, Contrast::High);
+}
+
+#[test]
+fn theme_builder_with_string_name() {
+    let name = String::from("Dynamic Theme");
+    let theme = ThemeBuilder::new(
+        name,
+        String::from("Author"),
+        Color::new(0, 0, 0),
+        Color::new(200, 200, 200),
+    )
+    .build();
+    assert_eq!(theme.name, "Dynamic Theme");
+}
+
+#[test]
+fn theme_builder_via_theme() {
+    let theme = chromata::Theme::builder(
+        "My Theme",
+        "Me",
+        Color::new(0, 0, 0),
+        Color::new(255, 255, 255),
+    )
+    .keyword(Color::from_hex(0xff79c6))
+    .build();
+    assert_eq!(theme.keyword, Some(Color::from_hex(0xff79c6)));
+}
+
+// --- Lerp edge cases ---
+
+#[test]
+fn lerp_intermediate_values() {
+    let black = Color::new(0, 0, 0);
+    let white = Color::new(255, 255, 255);
+
+    let quarter = black.lerp(white, 0.25);
+    assert_eq!(quarter, Color::new(63, 63, 63));
+
+    let half = black.lerp(white, 0.5);
+    assert_eq!(half, Color::new(127, 127, 127));
+
+    let three_quarter = black.lerp(white, 0.75);
+    assert_eq!(three_quarter, Color::new(191, 191, 191));
+}
+
+#[test]
+fn lerp_clamps_out_of_bounds() {
+    let a = Color::new(100, 100, 100);
+    let b = Color::new(200, 200, 200);
+    assert_eq!(a.lerp(b, -1.0), a);
+    assert_eq!(a.lerp(b, 2.0), b);
+}
+
+// --- Serde roundtrip (Theme deserialize) ---
+
+#[cfg(feature = "serde-support")]
+#[test]
+fn serde_theme_roundtrip() {
+    let theme = &chromata::popular::gruvbox::DARK_HARD;
+    let json = serde_json::to_string(theme).unwrap();
+    let deserialized: chromata::Theme = serde_json::from_str(&json).unwrap();
+    assert_eq!(deserialized.name, theme.name);
+    assert_eq!(deserialized.bg, theme.bg);
+    assert_eq!(deserialized.fg, theme.fg);
+    assert_eq!(deserialized.variant, theme.variant);
+    assert_eq!(deserialized.contrast, theme.contrast);
+    assert_eq!(deserialized.keyword, theme.keyword);
+}
+
+#[cfg(feature = "serde-support")]
+#[test]
+fn serde_deserialize_minimal_json() {
+    let json = r#"{
+        "name": "Minimal",
+        "author": "Test",
+        "variant": "Dark",
+        "contrast": "Normal",
+        "bg": {"r": 0, "g": 0, "b": 0},
+        "fg": {"r": 255, "g": 255, "b": 255}
+    }"#;
+    let theme: chromata::Theme = serde_json::from_str(json).unwrap();
+    assert_eq!(theme.name, "Minimal");
+    assert_eq!(theme.bg, Color::new(0, 0, 0));
+    assert!(theme.keyword.is_none());
+    assert!(theme.cursor.is_none());
+    assert!(theme.red.is_none());
+}
+
+// --- Invalid hex lengths ---
+
+#[test]
+fn color_css_hex_rejects_invalid_lengths() {
+    // 4-digit (#RGBA) not supported
+    assert!(Color::from_css_hex("#ABCD").is_none());
+    // 8-digit (#RRGGBBAA) not supported
+    assert!(Color::from_css_hex("#AABBCCDD").is_none());
+    // 1-digit
+    assert!(Color::from_css_hex("#A").is_none());
+    // 2-digit
+    assert!(Color::from_css_hex("#AB").is_none());
+    // 5-digit
+    assert!(Color::from_css_hex("#ABCDE").is_none());
+    // empty
+    assert!(Color::from_css_hex("").is_none());
+    assert!(Color::from_css_hex("#").is_none());
+}
+
+// --- Builder override tests ---
+
+#[test]
+fn theme_builder_override_variant() {
+    // Dark bg but explicitly set to Light
+    let theme = ThemeBuilder::new("T", "", Color::new(0, 0, 0), Color::new(255, 255, 255))
+        .variant(Variant::Light)
+        .build();
+    assert_eq!(theme.variant, Variant::Light);
+}
+
+#[test]
+fn theme_builder_override_contrast() {
+    // High contrast bg/fg but explicitly set to Low
+    let theme = ThemeBuilder::new("T", "", Color::new(0, 0, 0), Color::new(255, 255, 255))
+        .contrast(Contrast::Low)
+        .build();
+    assert_eq!(theme.contrast, Contrast::Low);
+}
+
+// --- Error type tests ---
+
+#[test]
+fn parse_errors_have_display() {
+    use std::string::ToString;
+    let e: chromata::ParseColorError = "#xyz".parse::<Color>().unwrap_err();
+    assert!(!e.to_string().is_empty());
+
+    let e: chromata::ParseVariantError = "nope".parse::<Variant>().unwrap_err();
+    assert!(!e.to_string().is_empty());
+
+    let e: chromata::ParseContrastError = "nope".parse::<Contrast>().unwrap_err();
+    assert!(!e.to_string().is_empty());
+}
+
+#[test]
+fn parse_errors_are_std_error() {
+    fn assert_error<E: std::error::Error>() {}
+    assert_error::<chromata::ParseColorError>();
+    assert_error::<chromata::ParseVariantError>();
+    assert_error::<chromata::ParseContrastError>();
+}
+
+// --- Reverse From conversions ---
+
+#[test]
+fn color_into_u32() {
+    let c = Color::from_hex(0x1d2021);
+    let v: u32 = c.into();
+    assert_eq!(v, 0x1d2021);
+}
+
+#[test]
+fn color_into_tuple() {
+    let c = Color::new(29, 32, 33);
+    let (r, g, b): (u8, u8, u8) = c.into();
+    assert_eq!((r, g, b), (29, 32, 33));
+}
+
+// --- 3-digit hex with invalid chars ---
+
+#[test]
+fn color_css_hex_3digit_invalid_chars() {
+    assert!(Color::from_css_hex("#XYZ").is_none());
+    assert!(Color::from_css_hex("GHI").is_none());
+}
+
+// --- Serde forward-compatibility ---
+
+#[cfg(feature = "serde-support")]
+#[test]
+fn serde_ignores_unknown_fields() {
+    let json = r#"{
+        "name": "Test", "author": "A", "variant": "Dark", "contrast": "Normal",
+        "bg": {"r": 0, "g": 0, "b": 0}, "fg": {"r": 255, "g": 255, "b": 255},
+        "future_field": "some_value", "border": {"r": 128, "g": 128, "b": 128}
+    }"#;
+    let theme: chromata::Theme = serde_json::from_str(json).unwrap();
+    assert_eq!(theme.name, "Test");
+    assert_eq!(theme.bg, Color::new(0, 0, 0));
+}
+
+// --- accent() fallback to fg ---
+
+#[test]
+fn accent_fallback_to_fg() {
+    let theme = ThemeBuilder::new("T", "", Color::new(0, 0, 0), Color::new(200, 200, 200)).build();
+    // No accent colors set, so accent() should return fg
+    assert_eq!(theme.accent(), Color::new(200, 200, 200));
+}
+
+// --- colors() count ---
+
+#[test]
+fn colors_count_matches_defined_fields() {
+    let theme = &chromata::popular::gruvbox::DARK_HARD;
+    let colors = theme.colors();
+    // bg + fg are always present, plus all Some(...) optional fields
+    assert!(colors.len() >= 2);
+    // Gruvbox Dark Hard has all fields defined (bg + fg + 27 optional = 29)
+    assert_eq!(colors.len(), 29);
+}
+
+// --- Additional edge-case tests ---
+
+#[test]
+fn contrast_ratio_identical_colors() {
+    let c = Color::new(128, 128, 128);
+    let ratio = c.contrast_ratio(c);
+    assert!((ratio - 1.0).abs() < f64::EPSILON);
+}
+
+#[test]
+fn contrast_ratio_black_white() {
+    let black = Color::new(0, 0, 0);
+    let white = Color::new(255, 255, 255);
+    let ratio = black.contrast_ratio(white);
+    assert!(ratio > 20.9 && ratio < 21.1);
+}
+
+#[test]
+fn find_by_name_empty_string() {
+    assert!(chromata::find_by_name("").is_none());
+}
+
+#[test]
+fn filter_by_variant_both_nonempty() {
+    let dark = chromata::filter_by_variant(Variant::Dark);
+    let light = chromata::filter_by_variant(Variant::Light);
+    assert!(!dark.is_empty(), "should have dark themes");
+    assert!(!light.is_empty(), "should have light themes");
+}
+
+#[test]
+fn builder_minimal_fields() {
+    let bg = Color::new(30, 30, 30);
+    let fg = Color::new(220, 220, 220);
+    let theme = ThemeBuilder::new("Minimal", "Author", bg, fg).build();
+    assert_eq!(theme.name, "Minimal");
+    assert_eq!(theme.bg, bg);
+    assert_eq!(theme.fg, fg);
+    assert!(theme.is_dark());
+    assert!(theme.keyword.is_none());
+    assert!(theme.red.is_none());
+}
+
+#[test]
+fn color_from_css_hex_empty() {
+    assert!(Color::from_css_hex("").is_none());
+}
+
+#[test]
+fn color_from_css_hex_hash_only() {
+    assert!(Color::from_css_hex("#").is_none());
+}
+
+#[test]
+fn lerp_at_endpoints() {
+    let a = Color::new(100, 50, 200);
+    let b = Color::new(200, 150, 50);
+    assert_eq!(a.lerp(b, 0.0), a);
+    assert_eq!(a.lerp(b, 1.0), b);
 }

@@ -4,6 +4,7 @@
 //! <https://github.com/jolaleye/horizon-theme-vscode>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Horizon Dark — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: horizon-theme-vscode
 pub const DARK: Theme = Theme {
-    name: "Horizon Dark",
-    author: "Jonathan Olaleye",
+    name: Cow::Borrowed("Horizon Dark"),
+    author: Cow::Borrowed("Jonathan Olaleye"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x1c1e26),
@@ -54,8 +55,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: Normal
 /// Source: horizon-theme-vscode
 pub const LIGHT: Theme = Theme {
-    name: "Horizon Light",
-    author: "Jonathan Olaleye",
+    name: Cow::Borrowed("Horizon Light"),
+    author: Cow::Borrowed("Jonathan Olaleye"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xfdf0ed),

@@ -17,9 +17,9 @@ fn main() {
 
     // Style header cells with the theme's bg/fg
     let header = vec![
-        theme.style_comfy_cell(Cell::new("Role")),
-        theme.style_comfy_cell(Cell::new("Hex")),
-        theme.style_comfy_cell(Cell::new("RGB")),
+        theme.to_comfy_table_cell(Cell::new("Role")),
+        theme.to_comfy_table_cell(Cell::new("Hex")),
+        theme.to_comfy_table_cell(Cell::new("RGB")),
     ];
     table.set_header(header);
 

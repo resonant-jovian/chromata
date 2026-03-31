@@ -6,7 +6,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["wgpu-integration"] }
+//! chromata = { version = "1", features = ["wgpu-integration"] }
 //! ```
 //!
 //! # Example

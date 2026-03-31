@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["tiny-skia-integration"] }
+//! chromata = { version = "1", features = ["tiny-skia-integration"] }
 //! ```
 //!
 //! # Example

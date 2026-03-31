@@ -4,6 +4,7 @@
 //! <https://github.com/altercation/solarized>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Solarized Dark — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: <https://ethanschoonover.com/solarized/>
 pub const DARK: Theme = Theme {
-    name: "Solarized Dark",
-    author: "Ethan Schoonover",
+    name: Cow::Borrowed("Solarized Dark"),
+    author: Cow::Borrowed("Ethan Schoonover"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x002b36),
@@ -54,8 +55,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: Low
 /// Source: <https://ethanschoonover.com/solarized/>
 pub const LIGHT: Theme = Theme {
-    name: "Solarized Light",
-    author: "Ethan Schoonover",
+    name: Cow::Borrowed("Solarized Light"),
+    author: Cow::Borrowed("Ethan Schoonover"),
     variant: Variant::Light,
     contrast: Contrast::Low,
     bg: Color::from_hex(0xfdf6e3),

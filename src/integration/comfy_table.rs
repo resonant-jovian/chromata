@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["comfy-table-integration"] }
+//! chromata = { version = "1", features = ["comfy-table-integration"] }
 //! ```
 //!
 //! # Example
@@ -23,7 +23,7 @@
 //!
 //! ```rust,ignore
 //! use comfy_table::Cell;
-//! let cell = theme.style_comfy_cell(Cell::new("text"));
+//! let cell = theme.to_comfy_table_cell(Cell::new("text"));
 //! // Cell with theme fg and bg applied
 //! ```
 
@@ -42,7 +42,8 @@ impl From<Color> for ::comfy_table::Color {
 
 impl Theme {
     /// Apply this theme's foreground and background to a table cell.
-    pub fn style_comfy_cell(&self, cell: ::comfy_table::Cell) -> ::comfy_table::Cell {
+    #[must_use]
+    pub fn to_comfy_table_cell(&self, cell: ::comfy_table::Cell) -> ::comfy_table::Cell {
         cell.fg(self.fg.into()).bg(self.bg.into())
     }
 }

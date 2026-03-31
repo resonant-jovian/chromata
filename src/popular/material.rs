@@ -4,6 +4,7 @@
 //! <https://github.com/material-theme/vsc-material-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Material Theme — the default dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: vsc-material-theme
 pub const THEME: Theme = Theme {
-    name: "Material Theme",
-    author: "Mattia Astorino",
+    name: Cow::Borrowed("Material Theme"),
+    author: Cow::Borrowed("Mattia Astorino"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x263238),
@@ -54,8 +55,8 @@ pub const THEME: Theme = Theme {
 /// Contrast: High
 /// Source: vsc-material-theme
 pub const DARKER: Theme = Theme {
-    name: "Material Darker",
-    author: "Mattia Astorino",
+    name: Cow::Borrowed("Material Darker"),
+    author: Cow::Borrowed("Mattia Astorino"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x212121),
@@ -96,8 +97,8 @@ pub const DARKER: Theme = Theme {
 /// Contrast: Normal
 /// Source: vsc-material-theme
 pub const PALENIGHT: Theme = Theme {
-    name: "Material Palenight",
-    author: "Mattia Astorino",
+    name: Cow::Borrowed("Material Palenight"),
+    author: Cow::Borrowed("Mattia Astorino"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x292d3e),
@@ -138,8 +139,8 @@ pub const PALENIGHT: Theme = Theme {
 /// Contrast: Normal
 /// Source: vsc-material-theme
 pub const LIGHTER: Theme = Theme {
-    name: "Material Lighter",
-    author: "Mattia Astorino",
+    name: Cow::Borrowed("Material Lighter"),
+    author: Cow::Borrowed("Mattia Astorino"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xfafafa),

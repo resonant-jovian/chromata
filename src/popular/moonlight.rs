@@ -4,6 +4,7 @@
 //! <https://github.com/atomiks/moonlight-vscode-theme>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Moonlight — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: moonlight-vscode-theme
 pub const THEME: Theme = Theme {
-    name: "Moonlight",
-    author: "atomiks",
+    name: Cow::Borrowed("Moonlight"),
+    author: Cow::Borrowed("atomiks"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x222436),

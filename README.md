@@ -1,17 +1,23 @@
-# chromata
+<div align="center">
+
+<h1>chromata</h1>
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-resonant--jovian-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/resonant-jovian)
+[![Support on thanks.dev](https://img.shields.io/badge/thanks.dev-Support-green?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyMWMtNS41IDAtMTAtMy41LTEwLTkgMC00IDItNy41IDYtMTAgMS41IDIuNSAzIDQuNSA0IDQuNSAxLTEuNSAyLjUtMy41IDQtNC41IDQuNSAyLjUgNiA2IDYgMTAgMCA1LjUtNC41IDktMTAgOXoiLz48L3N2Zz4=)](https://thanks.dev/u/gh/resonant-jovian)
+
+[![Crates.io](https://img.shields.io/crates/v/chromata?style=for-the-badge&logo=rust&logoColor=white&label=crates.io)](https://crates.io/crates/chromata)
+[![docs.rs](https://img.shields.io/docsrs/chromata?style=for-the-badge&logo=docsdotrs&logoColor=white&label=docs.rs)](https://docs.rs/chromata)
+[![Downloads](https://img.shields.io/crates/d/chromata?style=for-the-badge&logo=rust&logoColor=white&color=e6761b)](https://crates.io/crates/chromata)
+
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-3366cc?style=for-the-badge&logo=gnu&logoColor=white)](https://www.gnu.org/licenses/gpl-3.0)
+[![MSRV](https://img.shields.io/badge/MSRV-1.85-3366cc?style=for-the-badge&logo=rust&logoColor=white)](https://releases.rs/docs/1.85.0/)
+[![Edition](https://img.shields.io/badge/Edition-2024-3366cc?style=for-the-badge&logo=rust&logoColor=white)](https://doc.rust-lang.org/edition-guide/)
+
+[![CI](https://img.shields.io/github/actions/workflow/status/resonant-jovian/chromata/ci.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=ci)](https://github.com/resonant-jovian/chromata/actions/workflows/ci.yml)
+
+</div>
 
 **1000+ editor color themes as compile-time Rust constants.**
-
-[![Crates.io](https://img.shields.io/crates/v/chromata.svg)](https://crates.io/crates/chromata)
-[![docs.rs](https://docs.rs/chromata/badge.svg)](https://docs.rs/chromata)
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Support on thanks.dev](https://img.shields.io/badge/Support-thanks.dev-green)](https://thanks.dev/u/gh/resonant-jovian)
-
-[![CI](https://github.com/resonant-jovian/chromata/actions/workflows/ci.yml/badge.svg)](https://github.com/resonant-jovian/chromata/actions/workflows/ci.yml)
-[![MSRV](https://img.shields.io/badge/MSRV-1.85-blue.svg)]()
-
-> [!IMPORTANT]
-> Pre-1.0 — the API may change between minor versions. Pin your dependency version.
 
 ---
 
@@ -47,14 +53,14 @@ Each theme is a struct with named fields for semantic color roles — background
 
 ```toml
 [dependencies]
-chromata = "0.3.0"
+chromata = "1.0.0"
 ```
 
 Or with framework integration:
 
 ```toml
 [dependencies]
-chromata = { version = "0.3.0", features = ["ratatui-integration"] }
+chromata = { version = "1.0.0", features = ["ratatui-integration"] }
 ```
 
 ### Quick start
@@ -163,8 +169,8 @@ Every theme is a `const Theme` with metadata, UI colors, syntax colors, diagnost
 ```rust
 pub struct Theme {
     // Metadata
-    pub name: &'static str,
-    pub author: &'static str,
+    pub name: Cow<'static, str>,
+    pub author: Cow<'static, str>,
     pub variant: Variant,        // Dark | Light
     pub contrast: Contrast,      // High | Normal | Low
 
@@ -265,6 +271,7 @@ The xtask reads structured data (YAML for base16/base24, normalized JSON for vim
 | `termion-integration` | — | `From<Color>` for termion types | No |
 | `tiny-skia-integration` | — | `From<Color>` for tiny-skia types | No |
 | `wgpu-integration` | — | `From<Color>` for wgpu types | No |
+| `all-integrations` | — | All cross-platform integrations (excludes termion) | No |
 | `serde-support` | — | Serialize/deserialize themes and colors | No |
 
 ---
@@ -295,6 +302,12 @@ cargo run --example plotters_chart --features plotters-integration
 cargo run --example image_gradient --features image-integration
 cargo run --example colored_terminal --features colored-integration
 cargo run --example comfy_table_demo --features comfy-table-integration
+cargo run --example crossterm_demo --features crossterm-integration
+cargo run --example syntect_demo --features syntect-integration
+cargo run --example cursive_demo --features cursive-integration
+cargo run --example owo_colors_demo --features owo-colors-integration
+cargo run --example palette_demo --features palette-integration
+cargo run --example bevy_color_demo --features bevy-color-integration
 ```
 
 ---

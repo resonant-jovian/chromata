@@ -4,6 +4,7 @@
 //! <https://github.com/EdenEast/nightfox.nvim>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Nightfox — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: nightfox.nvim
 pub const NIGHTFOX: Theme = Theme {
-    name: "Nightfox",
-    author: "EdenEast",
+    name: Cow::Borrowed("Nightfox"),
+    author: Cow::Borrowed("EdenEast"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x192330),
@@ -54,8 +55,8 @@ pub const NIGHTFOX: Theme = Theme {
 /// Contrast: Normal
 /// Source: nightfox.nvim
 pub const DAWNFOX: Theme = Theme {
-    name: "Dawnfox",
-    author: "EdenEast",
+    name: Cow::Borrowed("Dawnfox"),
+    author: Cow::Borrowed("EdenEast"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xfaf4ed),

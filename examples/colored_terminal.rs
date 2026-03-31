@@ -11,7 +11,7 @@ fn main() {
     println!("Theme: {} ({})\n", theme.name, theme.variant);
 
     // Show a block with the theme's bg/fg applied
-    println!("{}", theme.colorize("  background / foreground  "));
+    println!("{}", theme.to_colored_string("  background / foreground  "));
     println!();
 
     // Simulate a small code snippet with syntax-colored parts

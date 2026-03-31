@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["ratatui-integration"] }
+//! chromata = { version = "1", features = ["ratatui-integration"] }
 //! ```
 //!
 //! # Example
@@ -39,6 +39,7 @@ impl From<Color> for RatColor {
 
 impl Theme {
     /// Convert to a ratatui Style for the default text.
+    #[must_use]
     pub fn to_ratatui_style(&self) -> ::ratatui::style::Style {
         ::ratatui::style::Style::default()
             .fg(self.fg.into())

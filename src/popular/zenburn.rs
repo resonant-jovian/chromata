@@ -4,6 +4,7 @@
 //! <https://kippura.org/zenburnpage/>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Zenburn — low-contrast dark theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: zenburn
 pub const THEME: Theme = Theme {
-    name: "Zenburn",
-    author: "Jani Nurminen",
+    name: Cow::Borrowed("Zenburn"),
+    author: Cow::Borrowed("Jani Nurminen"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x3f3f3f),

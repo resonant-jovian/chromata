@@ -4,6 +4,7 @@
 //! <https://github.com/kepano/flexoki>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Flexoki Dark — dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: flexoki
 pub const DARK: Theme = Theme {
-    name: "Flexoki Dark",
-    author: "Steph Ango",
+    name: Cow::Borrowed("Flexoki Dark"),
+    author: Cow::Borrowed("Steph Ango"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x100f0f),
@@ -54,8 +55,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: High
 /// Source: flexoki
 pub const LIGHT: Theme = Theme {
-    name: "Flexoki Light",
-    author: "Steph Ango",
+    name: Cow::Borrowed("Flexoki Light"),
+    author: Cow::Borrowed("Steph Ango"),
     variant: Variant::Light,
     contrast: Contrast::High,
     bg: Color::from_hex(0xfffcf0),

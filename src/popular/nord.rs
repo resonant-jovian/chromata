@@ -4,6 +4,7 @@
 //! <https://github.com/nordtheme/nord>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Nord — arctic dark theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: <https://www.nordtheme.com/>
 pub const THEME: Theme = Theme {
-    name: "Nord",
-    author: "Arctic Ice Studio",
+    name: Cow::Borrowed("Nord"),
+    author: Cow::Borrowed("Arctic Ice Studio"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x2e3440),

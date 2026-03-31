@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 env:
   CARGO_TERM_COLOR: always
   INSTA_UPDATE: no
@@ -28,6 +31,9 @@ jobs:
       - name: Test (MSRV — theme features only)
         if: matrix.rust != 'stable'
         run: cargo test --features popular,base16,base24,vim,emacs,serde-support --verbose -- --test-threads=1
+      - name: Install system dependencies (Ubuntu)
+        if: runner.os == 'Linux' && matrix.rust == 'stable'
+        run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
       - name: Test (stable — all features)
         if: matrix.rust == 'stable'
         run: cargo test --all-features --verbose -- --test-threads=1
@@ -50,7 +56,23 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
+      - run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
       - run: cargo clippy --all-targets --all-features -- -D warnings
+
+  deny:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+
+  semver-checks:
+    name: Semver check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
+      - uses: obi1kenobi/cargo-semver-checks-action@v2
 
   docs:
     name: Doc build
@@ -58,6 +80,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
       - run: RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --all-features
       - run: cargo test --doc --all-features
 
@@ -68,6 +91,17 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo check --no-default-features
+
+  wasm:
+    name: WASM compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: cargo check --target wasm32-unknown-unknown --no-default-features
+      - run: cargo check --target wasm32-unknown-unknown --features popular
 
   feature-isolation:
     name: Feature isolation (${{ matrix.family }})

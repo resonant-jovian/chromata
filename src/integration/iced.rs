@@ -6,7 +6,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["iced-integration"] }
+//! chromata = { version = "1", features = ["iced-integration"] }
 //! ```
 //!
 //! # Example

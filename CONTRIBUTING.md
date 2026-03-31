@@ -4,6 +4,11 @@ Thank you for your interest in contributing to Chromata. This document covers
 the essentials for reporting bugs, submitting changes, and meeting code quality
 requirements.
 
+## Code of Conduct
+
+This project adheres to the [Rust Code of Conduct](https://www.rust-lang.org/policies/code-of-conduct).
+Please report any concerns to [albin@sjoegren.se](mailto:albin@sjoegren.se).
+
 ## Reporting Bugs
 
 Open an issue at <https://github.com/resonant-jovian/chromata/issues> with:
@@ -68,6 +73,18 @@ cargo xtask fetch all && cargo xtask generate all
 
 Hand-curated themes in `src/popular/` are manually maintained and can be
 edited directly.
+
+## Versioning
+
+Chromata follows [Semantic Versioning](https://semver.org/). After 1.0.0:
+
+- **Patch** releases (1.0.x) contain bug fixes only.
+- **Minor** releases (1.x.0) may add new themes, fields, or integrations.
+  New `Option<T>` fields on `Theme` are non-breaking thanks to `#[non_exhaustive]`.
+- **Major** releases (x.0.0) may change or remove existing API.
+
+MSRV (minimum supported Rust version) is **1.85**. MSRV bumps are considered
+a minor version change, not a patch.
 
 ## License
 

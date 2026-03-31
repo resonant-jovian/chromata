@@ -212,22 +212,22 @@ fn slint_color_conversion() {
 #[cfg(feature = "plotters-integration")]
 #[test]
 fn plotters_series_colors() {
-    let colors = chromata::popular::gruvbox::DARK_HARD.plotters_series_colors();
+    let colors = chromata::popular::gruvbox::DARK_HARD.to_plotters_series_colors();
     assert!(!colors.is_empty());
 }
 
 #[cfg(feature = "syntect-integration")]
 #[test]
 fn syntect_theme_settings() {
-    let settings = chromata::popular::gruvbox::DARK_HARD.to_syntect_theme_settings();
+    let settings = chromata::popular::gruvbox::DARK_HARD.to_syntect_settings();
     assert!(settings.foreground.is_some());
     assert!(settings.background.is_some());
 }
 
 #[cfg(feature = "colored-integration")]
 #[test]
-fn colored_colorize() {
-    let _styled = chromata::popular::gruvbox::DARK_HARD.colorize("test");
+fn colored_to_colored_string() {
+    let _styled = chromata::popular::gruvbox::DARK_HARD.to_colored_string("test");
 }
 
 #[cfg(feature = "cursive-integration")]
@@ -241,7 +241,7 @@ fn cursive_palette() {
 #[test]
 fn comfy_table_style() {
     let cell = comfy_table::Cell::new("test");
-    let _styled = chromata::popular::gruvbox::DARK_HARD.style_comfy_cell(cell);
+    let _styled = chromata::popular::gruvbox::DARK_HARD.to_comfy_table_cell(cell);
 }
 
 #[cfg(feature = "ratatui-integration")]
@@ -256,7 +256,7 @@ fn ratatui_style() {
 #[test]
 fn egui_apply_visuals() {
     let mut visuals = egui::Visuals::default();
-    chromata::popular::gruvbox::DARK_HARD.apply_to_visuals(&mut visuals);
+    chromata::popular::gruvbox::DARK_HARD.apply_to_egui_visuals(&mut visuals);
     assert!(visuals.dark_mode);
 }
 

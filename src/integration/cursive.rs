@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["cursive-integration"] }
+//! chromata = { version = "1", features = ["cursive-integration"] }
 //! ```
 //!
 //! # Example

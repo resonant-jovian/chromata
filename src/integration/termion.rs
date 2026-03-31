@@ -6,7 +6,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["termion-integration"] }
+//! chromata = { version = "1", features = ["termion-integration"] }
 //! ```
 //!
 //! # Example

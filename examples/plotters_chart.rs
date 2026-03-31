@@ -7,7 +7,7 @@ fn main() {
     use plotters::prelude::*;
 
     let theme = &chromata::popular::gruvbox::DARK_HARD;
-    let series_colors = theme.plotters_series_colors();
+    let series_colors = theme.to_plotters_series_colors();
 
     let path = std::env::temp_dir().join("chromata_chart.svg");
     let root = SVGBackend::new(&path, (640, 480)).into_drawing_area();

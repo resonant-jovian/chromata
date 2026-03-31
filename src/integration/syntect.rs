@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! chromata = { version = "0.3.0", features = ["syntect-integration"] }
+//! chromata = { version = "1", features = ["syntect-integration"] }
 //! ```
 //!
 //! # Example
@@ -22,7 +22,7 @@
 //! # Convenience
 //!
 //! ```rust,ignore
-//! let settings = theme.to_syntect_theme_settings();
+//! let settings = theme.to_syntect_settings();
 //! // settings.foreground, settings.background, settings.caret, etc.
 //! ```
 
@@ -42,7 +42,8 @@ impl From<Color> for ::syntect::highlighting::Color {
 
 impl Theme {
     /// Convert to syntect ThemeSettings with mapped UI colors.
-    pub fn to_syntect_theme_settings(&self) -> ::syntect::highlighting::ThemeSettings {
+    #[must_use]
+    pub fn to_syntect_settings(&self) -> ::syntect::highlighting::ThemeSettings {
         ::syntect::highlighting::ThemeSettings {
             foreground: Some(self.fg.into()),
             background: Some(self.bg.into()),

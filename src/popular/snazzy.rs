@@ -4,6 +4,7 @@
 //! <https://github.com/sindresorhus/hyper-snazzy>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Snazzy — vibrant dark theme.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: High
 /// Source: hyper-snazzy
 pub const THEME: Theme = Theme {
-    name: "Snazzy",
-    author: "sindresorhus",
+    name: Cow::Borrowed("Snazzy"),
+    author: Cow::Borrowed("sindresorhus"),
     variant: Variant::Dark,
     contrast: Contrast::High,
     bg: Color::from_hex(0x282a36),

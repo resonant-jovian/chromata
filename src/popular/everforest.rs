@@ -4,6 +4,7 @@
 //! <https://github.com/sainnhe/everforest>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Everforest Dark — the dark variant.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: sainnhe/everforest
 pub const DARK: Theme = Theme {
-    name: "Everforest Dark",
-    author: "sainnhe",
+    name: Cow::Borrowed("Everforest Dark"),
+    author: Cow::Borrowed("sainnhe"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x2d353b),
@@ -54,8 +55,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: Normal
 /// Source: sainnhe/everforest
 pub const LIGHT: Theme = Theme {
-    name: "Everforest Light",
-    author: "sainnhe",
+    name: Cow::Borrowed("Everforest Light"),
+    author: Cow::Borrowed("sainnhe"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xfdf6e3),

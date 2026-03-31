@@ -4,6 +4,7 @@
 //! <https://github.com/morhetz/gruvbox>
 
 use crate::{Color, Contrast, Theme, Variant};
+use alloc::borrow::Cow;
 
 /// Gruvbox Dark Hard — dark variant with darker background.
 ///
@@ -12,8 +13,8 @@ use crate::{Color, Contrast, Theme, Variant};
 /// Contrast: Normal
 /// Source: base16 (tinted-theming/schemes)
 pub const DARK_HARD: Theme = Theme {
-    name: "Gruvbox Dark Hard",
-    author: "Dawid Kurek (dawikur@gmail.com)",
+    name: Cow::Borrowed("Gruvbox Dark Hard"),
+    author: Cow::Borrowed("Dawid Kurek (dawikur@gmail.com)"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x1d2021),
@@ -54,8 +55,8 @@ pub const DARK_HARD: Theme = Theme {
 /// Contrast: Normal
 /// Source: base16 (tinted-theming/schemes)
 pub const DARK: Theme = Theme {
-    name: "Gruvbox Dark",
-    author: "Dawid Kurek (dawikur@gmail.com)",
+    name: Cow::Borrowed("Gruvbox Dark"),
+    author: Cow::Borrowed("Dawid Kurek (dawikur@gmail.com)"),
     variant: Variant::Dark,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0x282828),
@@ -96,8 +97,8 @@ pub const DARK: Theme = Theme {
 /// Contrast: Normal
 /// Source: base16 (tinted-theming/schemes)
 pub const LIGHT: Theme = Theme {
-    name: "Gruvbox Light",
-    author: "Dawid Kurek (dawikur@gmail.com)",
+    name: Cow::Borrowed("Gruvbox Light"),
+    author: Cow::Borrowed("Dawid Kurek (dawikur@gmail.com)"),
     variant: Variant::Light,
     contrast: Contrast::Normal,
     bg: Color::from_hex(0xfbf1c7),
