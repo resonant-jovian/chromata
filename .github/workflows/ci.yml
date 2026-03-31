@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 env:
   CARGO_TERM_COLOR: always
   INSTA_UPDATE: no
@@ -68,6 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y libfontconfig1-dev
       - uses: obi1kenobi/cargo-semver-checks-action@v2
 
   docs:
